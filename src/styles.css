@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
+
+:root {
+    --primary-color: #4043e0;
+    --secondary-color: #;
+    --main-font: 'Oswald';
+    --second-font: 'Lato';
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #E8EDFE;
+}
