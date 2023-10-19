@@ -116,6 +116,7 @@
   cursor: pointer;
 } */
 
-.container__img {
-  background-image: url('../../../../assets/img/background.jpg');
+.container__img img {
+  width: 85%;
+  /* background-image: url('../../../../assets/img/background.jpg'); */
 }
