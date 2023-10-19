@@ -23,5 +23,127 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #E8EDFE;
+  background-color: #BDD0FC;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.container__img {
+  margin: 1.5rem;
+  width: 40%;
+  background-color: white;
+  border-radius: 1rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 85%;
+}
+
+.container__form {
+  width: 50%;
+  height: max-content;
+  flex: auto;
+  text-align: center;
+  margin: auto;
+  padding: 2rem 0;
+  background-color: #BDD0FC;
+}
+
+.container__form div {
+  width: 55%;
+  margin: auto;
+  font-family: var(--main-font);
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.container__form div h1 {
+  margin: 0;
+  font-size: 4rem;
+  letter-spacing: 2px;
+  color: #0A015E;
+}
+
+.container__form div p {
+  font-size: 1.6rem;
+  font-family: 'Lato';
+  text-align: center;
+  color: #0A015E;
+}
+
+.container__form div form {
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+::placeholder {
+  color: #7d98f6;
+}
+
+.container__form div form input[type="text"],
+.container__form div form input[type="email"],
+.container__form div form input[type="password"],
+.container__form div form input[type="submit"] {
+  width: 100%;
+  height: 6rem;
+  font-family: 'Lato';
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--primary-color);
+  border-radius: 5px;
+  border: none;
+  padding: 1rem 2rem;
+}
+
+.container__form div form input[type="email"]:focus,
+.container__form div form input[type="password"]:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+.container__form div form input[type="submit"] {
+  margin-bottom: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  transition: all 500ms;
+}
+
+.container__form div form input[type="submit"]:hover {
+  background-color: #272ab3;
+  cursor: pointer;
+}
+
+.container__form div span {
+  width: 100%;
+  font-family: 'Lato';
+  font-weight: normal;
+  text-align: end;
+  margin: 0;
+  margin-bottom: 1rem;
+  transition: all 500ms;
+  color: #0A015E;
+}
+
+.container__form div span a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.container__form div span a:hover {
+  text-decoration: underline;
+  color: #272AB3;
+  cursor: pointer;
 }

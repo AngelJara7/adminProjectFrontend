@@ -1,7 +1,7 @@
-body {
+/* body {
   margin: 0;
   padding: 0;
-  background-color: #E8EDFE;
+  background-color: #BDD0FC;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
   text-align: center;
   margin: auto;
   padding: 2rem 0;
-  background-color: #E8EDFE;
+  background-color: #BDD0FC;
 }
 
 .container__form div {
@@ -98,6 +98,7 @@ body {
   font-family: 'Lato';
   font-weight: normal;
   text-align: end;
+  letter-spacing: .5px;
   margin: 0;
   margin-bottom: 1rem;
   transition: all 500ms;
@@ -113,15 +114,8 @@ body {
   text-decoration: underline;
   color: #272AB3;
   cursor: pointer;
-}
+} */
 
 .container__img {
-  margin: 1.5rem;
-  width: 40%;
-  background-color: white;
-  border-radius: 1rem;
   background-image: url('../../../../assets/img/background.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 85%;
 }
