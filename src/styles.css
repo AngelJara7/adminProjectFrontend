@@ -24,7 +24,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #BDD0FC;
-  height: -webkit-fill-available;
+  height: max-content;
 }
 
 .container {
@@ -33,8 +33,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  position: relative;
 }
 
 /* .container__img {
@@ -44,7 +42,7 @@ body {
 .container__img {
   margin: 1.5rem;
   width: 40%;
-  height: 95%;
+  /* height: 95%; */
   background-color: white;
   border-radius: 1rem;
   display: flex;
@@ -54,7 +52,7 @@ body {
 
 .container__form {
   width: 50%;
-  height: max-content;
+  /* height: max-content; */
   flex: auto;
   text-align: center;
   margin: auto;
@@ -63,7 +61,7 @@ body {
 }
 
 .container__form div {
-  width: 55%;
+  width: 50%;
   margin: auto;
   font-family: var(--main-font);
   font-size: 1.5rem;
@@ -132,6 +130,11 @@ body {
 .container__form div form input[type="submit"]:hover {
   background-color: #0A015E;
   cursor: pointer;
+}
+
+.container__form div form input[type="submit"]:disabled {
+  background-color: #E8EDFE;
+  cursor: initial;
 }
 
 .container__form div span {
