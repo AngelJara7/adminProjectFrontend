@@ -11,21 +11,37 @@
 
           <form autocomplete="off"
                 [formGroup]="loginForm"
-                (ngSubmit)="login()">
+                (ngSubmit)="login()"
+                class="form">
 
-            <input type="email"
-                    placeholder="Email"
-                    formControlName="email">
+                <div class="form__field" [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email') }">
+                  <input type="email"
+                          placeholder="Email"
+                          formControlName="email">
 
-            <input type="password"
-                  placeholder="Contraseña"
-                  formControlName="password">
+                  <span *ngIf="isValidField('email')">
+                    {{ getFieldError('email') }}
+                  </span>
+                </div>
+
+                <div class="form__field" [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password') }">
+                  <input type="password"
+                        placeholder="Contraseña"
+                        formControlName="password">
+
+                  <span *ngIf="isValidField('password')">
+                    {{ getFieldError('password') }}
+                    {{ errorField }}
+                  </span>
+                </div>
 
             <span><a href="#">Olvidaste tu contraseña?</a></span>
 
-            <input type="submit"
-                  value="Iniciar sesión"
-                  [disabled]="loginForm.invalid">
+            <div class="form__field">
+              <input type="submit"
+                    value="Iniciar sesión"
+                    [disabled]="loginForm.invalid">
+            </div>
 
           </form>
 

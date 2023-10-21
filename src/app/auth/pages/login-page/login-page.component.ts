@@ -16,8 +16,31 @@ export class LoginPageComponent {
 
   public loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.minLength(6)]]
   });
+  public errorField: boolean = false;
+
+  isValidField(field: string) {
+    return this.loginForm.controls[field].errors && this.loginForm.controls[field].touched;
+    // return this.validatorsService.isValidField(this.myForm, field);
+  }
+
+  getFieldError(field: string): string | null {
+    if(!this.loginForm.controls[field]) return null;
+
+    const errors = this.loginForm.controls[field].errors || {};
+
+    for (const key of Object.keys(errors)) {
+      switch(key) {
+        case 'required':
+          return 'Este campo es requerido';
+
+        case 'minlength':
+          return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
+      }
+    }
+    return null;
+  }
 
   login() {
     const { email, password } = this.loginForm.value;

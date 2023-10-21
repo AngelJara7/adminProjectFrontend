@@ -23,7 +23,9 @@ export class AuthService {
           console.log(user, token);
           return true;
         }),
-        catchError(err => throwError(() => err.error.message))
+        catchError(err => throwError(() => {
+          console.log(err.error.message);
+        }))
       )
   }
 
