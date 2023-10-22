@@ -15,8 +15,8 @@ export class LoginPageComponent {
   private router = inject(Router);
 
   public loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    email: ['angeljara7@correo.com', [Validators.required, Validators.email]],
+    password: ['angeljara07', [Validators.required, Validators.minLength(8)]]
   });
   public errorField: boolean = false;
 
@@ -51,7 +51,7 @@ export class LoginPageComponent {
       .subscribe({
         next: () => this.router.navigateByUrl('/dashboard'),
         error: ((message) => {
-          console.log(message);
+          console.log('error', {message});
         })
       });
   }

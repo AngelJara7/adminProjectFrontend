@@ -19,12 +19,13 @@ export class AuthService {
 
     return this.http.post<LoginResponse>(url, body)
       .pipe(
-        map(({ user, token }) => {
-          console.log(user, token);
+        map(({ token, ...user }) => {
+          console.log('user', user);
+          console.log(token);
           return true;
         }),
         catchError(err => throwError(() => {
-          console.log(err.error.message);
+          console.log('error', {err});
         }))
       )
   }
