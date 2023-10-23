@@ -3,7 +3,12 @@
 
   <div class="container__form">
 
-      <div>
+    <div class="alert">
+      <span class="alert__logo"><img src="../../../../assets/img/cerrar.png" alt=""></span>
+      <span class="alert__message">{{ message }}</span>
+    </div>
+
+      <div class="form">
 
           <h1>Bienvenido</h1>
 
@@ -11,8 +16,7 @@
 
           <form autocomplete="off"
                 [formGroup]="loginForm"
-                (ngSubmit)="login()"
-                class="form">
+                (ngSubmit)="login()">
 
                 <div class="form__field" [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email') }">
                   <input type="email"
