@@ -63,13 +63,18 @@ body {
 .alert {
   position: relative;
   overflow: hidden;
-  padding: 1rem 2rem;
+  padding: 1rem;
   width: 50%;
   height: max-content;
-  background-color: white;
   border-radius: 3px;
+  background-color: rgba(254, 135, 126, .7);
+  border: 2px solid #E94E42;
+  display: none;
+}
+
+.view__alert {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
   animation: traslate .3s forwards;
@@ -83,14 +88,14 @@ body {
       transform: translateY(5%);
   }
   80% {
-      transform: translateY(0%);
+    transform: translateY(0%);
   }
   100% {
       transform: translateY(5px);
   }
 }
 
-.alert::before {
+/* .alert::before {
   position: absolute;
   content: "";
   height: 3px;
@@ -100,6 +105,7 @@ body {
   animation: progress 5s linear forwards;
 }
 
+
 @keyframes progress {
   100% {
       width: 0%;
@@ -108,16 +114,29 @@ body {
 
 .alert::before {
   background: #fb4138;
-}
+} */
 
-.alert__logo img {
-  width: 2.5rem;
+.alert__logo {
+  width: 3rem;
 }
 
 .alert__message {
   font-size: 1.5rem;
   font-family: 'Lato';
-  color: #0A015E;
+  color: #FFF;
+}
+
+.alert__close {
+  border: none;
+  background-color: transparent;
+  font-family: 'Lato';
+  font-weight: 600;
+  font-size: 2rem;
+  color: #e74e47;
+}
+
+.alert__close:hover {
+  cursor: pointer;
 }
 
 .form {
@@ -240,6 +259,11 @@ body {
 .error input[type="email"],
 .error input[type="password"] {
   border: 1px solid #E94E42;
+}
+
+.error input[type="email"]:focus,
+.error input[type="password"]:focus {
+  outline: 1px solid #E94E42;
 }
 
 .valid input[type="email"],

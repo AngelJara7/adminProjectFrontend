@@ -20,7 +20,7 @@ export class LoginPageComponent {
     email: ['angeljara7@correo.com', [Validators.required, Validators.pattern(this.validators.emailPattern)]],
     password: ['angeljara07', [Validators.required, Validators.minLength(8)]]
   });
-  public errorField: boolean = false;
+  public errorForm: boolean = false;
   public message: string = '';
 
   isValidField(field: string) {
@@ -42,7 +42,7 @@ export class LoginPageComponent {
           return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
 
         case 'pattern':
-          return `Introduzca un email valido`;
+          return `Introduzca un email válido`;
       }
     }
     return null;
@@ -58,9 +58,13 @@ export class LoginPageComponent {
         next: () => this.router.navigateByUrl('/dashboard'),
         error: ((message) => {
           this.message = message;
-          console.log('error', {message});
+          this.errorForm = true;
         })
       });
+  }
+
+  closeAlert() {
+    this.errorForm = false;
   }
 
 }

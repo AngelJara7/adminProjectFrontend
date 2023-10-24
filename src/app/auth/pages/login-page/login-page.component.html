@@ -3,9 +3,10 @@
 
   <div class="container__form">
 
-    <div class="alert">
-      <span class="alert__logo"><img src="../../../../assets/img/cerrar.png" alt=""></span>
-      <span class="alert__message">{{ message }}</span>
+    <div class="alert" [ngClass]="{ 'view__alert': errorForm === true }">
+      <img class="alert__logo" src="../../../../assets/img/error.svg" alt="">
+      <span class="alert__message">Error: {{ message }}</span>
+      <button class="alert__close" (click)="closeAlert()">x</button>
     </div>
 
       <div class="form">
@@ -48,7 +49,7 @@
 
           </form>
 
-          <span>Aún no tienes una cuenta? <a href="#">Registrate ahora</a></span>
+          <span>Aún no tienes una cuenta? <a routerLink="/auth/register">Registrate ahora</a></span>
 
       </div>
 
