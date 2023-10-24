@@ -21,7 +21,7 @@ export class AppComponent {
   });
 
   public authStatusChangedEffect = effect(() => {
-    
+
     switch(this.authService.authStatus()) {
 
       case AuthStatus.checking:
