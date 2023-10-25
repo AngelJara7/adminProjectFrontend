@@ -18,23 +18,24 @@ export class AppComponent {
     if (this.authService.authStatus() === AuthStatus.checking) return false;
 
     return true;
+
   });
 
-  public authStatusChangedEffect = effect(() => {
+  // public authStatusChangedEffect = effect(() => {
+  //   console.log('AuthStatus', this.authService.authStatus());
+  //   switch(this.authService.authStatus()) {
 
-    switch(this.authService.authStatus()) {
+  //     case AuthStatus.checking:
+  //       return;
 
-      case AuthStatus.checking:
-        return;
+  //     case AuthStatus.authenticated:
+  //       this.router.navigateByUrl('/dashboard');
+  //       return;
 
-      case AuthStatus.authenticated:
-        this.router.navigateByUrl('/dashboard');
-        return;
-
-      case AuthStatus.notAuthenticated:
-        this.router.navigateByUrl('/auth/login');
-        return;
-    }
-  });
+  //     case AuthStatus.notAuthenticated:
+  //       this.router.navigateByUrl('/auth/login');
+  //       return;
+  //   }
+  // });
 
 }

@@ -65,4 +65,13 @@ export class AuthService {
     this._authStatus.set(AuthStatus.notAuthenticated);
   }
 
+  confirmAccount(id: string): Observable<User> {
+    const url = `${this.baseUrl}/confirm-account/${id}`;
+
+    return this.http.get<User>(url)
+      .pipe(
+        catchError(err => throwError(() => err))
+      )
+  }
+
 }
