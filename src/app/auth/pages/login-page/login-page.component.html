@@ -19,17 +19,19 @@
                 [formGroup]="loginForm"
                 (ngSubmit)="login()">
 
-                <div class="form__field" [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email') }">
+                <div class="form__field"
+                    [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email')}">
                   <input type="email"
-                          placeholder="Email"
-                          formControlName="email">
+                  placeholder="Email"
+                  formControlName="email">
 
                   <span *ngIf="isValidField('email')">
                     {{ getFieldError('email') }}
                   </span>
                 </div>
 
-                <div class="form__field" [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password') }">
+                <div class="form__field"
+                    [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password') }">
                   <input type="password"
                         placeholder="Contraseña"
                         formControlName="password">

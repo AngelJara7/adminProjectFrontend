@@ -1,21 +1,85 @@
 
 <div class="container">
+
   <div class="container__img">
       <img src="../../../../assets/img/register-background.jpg" alt="">
   </div>
+
   <div class="container__form">
-      <div>
-          <h1>Crear Cuenta</h1>
-          <p>Registrate ahora y comienza a administrar tus proyectos de forma agil</p>
-          <form action="">
-              <input type="text" placeholder="Nombre">
-              <input type="email" placeholder="Email">
-              <input type="password" placeholder="Contraseña">
-              <input type="password" placeholder="Confirmar contraseña">
-              <input type="submit" value="Registrar">
-          </form>
-          <span>Ya tienes una cuenta? <a href="#">Ingresa aquí</a></span>
-      </div>
+
+    <div class="alert">
+      <img class="alert__logo" src="../../../../assets/img/error.svg">
+      <span class="alert__message">Error: algo salio mal</span>
+      <button class="alert__close">x</button>
+    </div>
+
+    <div class="form">
+
+      <h1>Crear Cuenta</h1>
+
+      <p>Registrate ahora y comienza a administrar tus proyectos de forma ágil</p>
+
+      <form autocomplete="off"
+            [formGroup]="registerForm"
+            >
+
+        <div class="form__field"
+            [ngClass]="{ 'error': isValidField('nombre'), 'valid': !isValidField('nombre')}">
+          <input type="text"
+                placeholder="Nombre"
+                formControlName="nombre">
+
+          <span *ngIf="isValidField('nombre')">
+            {{ getErrorField('nombre') }}
+          </span>
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email')}">
+          <input type="email"
+                placeholder="Email"
+                formControlName="email">
+
+          <span *ngIf="isValidField('email')">
+            {{ getErrorField('email') }}
+          </span>
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error': isValidField('password1'), 'valid': !isValidField('password1')}">
+          <input type="password"
+                placeholder="Contraseña"
+                formControlName="password1">
+
+          <span *ngIf="isValidField('password1')">
+            {{ getErrorField('password1') }}
+          </span>
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error': isValidField('password2'), 'valid': !isValidField('password2')}">
+          <input type="password"
+                placeholder="Confirmar contraseña"
+                formControlName="password2">
+
+          <span *ngIf="isValidField('password2')">
+            {{ getErrorField('password2') }}
+          </span>
+        </div>
+
+        <div class="form__field">
+
+          <input type="submit"
+                value="Registrar">
+        </div>
+
+
+      </form>
+
+      <span>Ya tienes una cuenta? <a routerLink="/auth/login">Ingresa aquí</a></span>
+
+    </div>
+
   </div>
 
 </div>

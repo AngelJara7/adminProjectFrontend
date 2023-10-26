@@ -14,11 +14,11 @@ export class LoginPageComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private validators = inject(ValidatorsService);
+  private validatorsService = inject(ValidatorsService);
 
   public loginForm: FormGroup = this.fb.group({
-    email: ['angeljara7@correo.com', [Validators.required, Validators.pattern(this.validators.emailPattern)]],
-    password: ['angeljara07', [Validators.required, Validators.minLength(8)]]
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    password: ['', [Validators.required, Validators.minLength(8)]]
   });
   public errorForm: boolean = false;
   public message: string = '';

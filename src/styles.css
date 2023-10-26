@@ -200,6 +200,7 @@ body {
   padding: 1rem 2rem;
 }
 
+.form_field input[type="text"]:focus,
 .form_field input[type="email"]:focus,
 .form_field input[type="password"]:focus {
   outline: 1px solid var(--primary-color);
@@ -256,17 +257,25 @@ body {
   cursor: pointer;
 }
 
+.error input[type="text"],
 .error input[type="email"],
 .error input[type="password"] {
   border: 1px solid #E94E42;
 }
 
+.error input[type="text"]:focus,
 .error input[type="email"]:focus,
 .error input[type="password"]:focus {
   outline: 1px solid #E94E42;
 }
 
+.valid input[type="text"],
 .valid input[type="email"],
 .valid input[type="password"] {
   border: none;
 }
+
+/* .valid input[type="email"]:focus,
+.valid input[type="password"]:focus {
+  outline: 1px solid var(--primary-color);
+} */
