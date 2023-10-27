@@ -7,10 +7,21 @@
 
   <div class="container__form">
 
-    <div class="alert">
-      <img class="alert__logo" src="../../../../assets/img/error.svg">
-      <span class="alert__message">Error: algo salio mal</span>
-      <button class="alert__close">x</button>
+    <div class="alert"
+        [ngClass]="{ 'view__alert': viewAlert === true, 'success': statusRes === success, 'error': statusRes === error }">
+
+      <img class="alert__logo"
+            [src]="imgAlert">
+
+      <span class="alert__message"
+            [ngClass]="{ 'success__msg': statusRes === success, 'error__msg': statusRes === error }">{{ message }}
+      </span>
+
+      <button class="alert__close"
+              [ngClass]="{ 'success': statusRes === success, 'error': statusRes === error }"
+              (click)="closeAlert()">X
+      </button>
+
     </div>
 
     <div class="form">
@@ -21,7 +32,7 @@
 
       <form autocomplete="off"
             [formGroup]="registerForm"
-            >
+            (ngSubmit)="register()">
 
         <div class="form__field"
             [ngClass]="{ 'error': isValidField('nombre'), 'valid': !isValidField('nombre')}">
@@ -46,13 +57,13 @@
         </div>
 
         <div class="form__field"
-            [ngClass]="{ 'error': isValidField('password1'), 'valid': !isValidField('password1')}">
+            [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password')}">
           <input type="password"
                 placeholder="Contraseña"
-                formControlName="password1">
+                formControlName="password">
 
-          <span *ngIf="isValidField('password1')">
-            {{ getErrorField('password1') }}
+          <span *ngIf="isValidField('password')">
+            {{ getErrorField('password') }}
           </span>
         </div>
 
@@ -70,7 +81,8 @@
         <div class="form__field">
 
           <input type="submit"
-                value="Registrar">
+                value="Registrar"
+                [disabled]="registerForm.invalid">
         </div>
 
 

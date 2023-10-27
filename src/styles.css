@@ -24,7 +24,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #BDD0FC;
-  height: max-content;
+  position: absolute;
+  height: 100%;
 }
 
 .container {
@@ -67,9 +68,19 @@ body {
   width: 50%;
   height: max-content;
   border-radius: 3px;
-  background-color: rgba(254, 135, 126, .7);
-  border: 2px solid #E94E42;
   display: none;
+}
+
+.error {
+  background-color: rgb(255 205 201);
+  border: 2px solid #E94E42;
+  color: #E74E47;
+}
+
+.success {
+  background-color: #c3f3d7;
+  border: 2px solid #0ABF30;
+  color: #069B27;
 }
 
 .view__alert {
@@ -82,39 +93,18 @@ body {
 
 @keyframes traslate {
   0% {
-      transform: translateY(-100%);
+    transform: translateY(-100%);
   }
   40% {
-      transform: translateY(5%);
+    transform: translateY(5%);
   }
   80% {
     transform: translateY(0%);
   }
   100% {
-      transform: translateY(5px);
+    transform: translateY(5px);
   }
 }
-
-/* .alert::before {
-  position: absolute;
-  content: "";
-  height: 3px;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
-  animation: progress 5s linear forwards;
-}
-
-
-@keyframes progress {
-  100% {
-      width: 0%;
-  }
-}
-
-.alert::before {
-  background: #fb4138;
-} */
 
 .alert__logo {
   width: 3rem;
@@ -123,7 +113,14 @@ body {
 .alert__message {
   font-size: 1.5rem;
   font-family: 'Lato';
-  color: #FFF;
+}
+
+.err__msg {
+  color: #E74E47;
+}
+
+.success__msg {
+  color: #069B27;
 }
 
 .alert__close {
@@ -132,7 +129,6 @@ body {
   font-family: 'Lato';
   font-weight: 600;
   font-size: 2rem;
-  color: #e74e47;
 }
 
 .alert__close:hover {

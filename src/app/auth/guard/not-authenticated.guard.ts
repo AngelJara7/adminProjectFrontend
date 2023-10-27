@@ -1,16 +1,24 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { AuthStatus } from '../interfaces';
+import { Observable, map, tap } from 'rxjs';
 
-export const notAuthenticatedGuard: CanActivateFn = (route, state) => {
+const checkAuthStatus = (): boolean | Observable<boolean> => {
+
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.authStatus() === AuthStatus.authenticated) {
-    router.navigateByUrl('/dashboard');
-    return false;
-  }
+  return authService.checkAuthStatus()
+    .pipe(
+      tap((isAuthenticated) => {
+        if (isAuthenticated) {
+          router.navigateByUrl('/dashboard');
+        }
+      }),
+      map(isAuthenticated => !isAuthenticated)
+    )
+}
 
-  return true;
+export const notAuthenticatedGuard: CanActivateFn = (route, state) => {
+  return checkAuthStatus();
 };

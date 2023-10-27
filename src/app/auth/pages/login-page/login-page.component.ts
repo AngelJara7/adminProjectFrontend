@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ValidatorsService } from 'src/app/shared/validators.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'login-page',
@@ -20,7 +21,7 @@ export class LoginPageComponent {
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
-  public errorForm: boolean = false;
+  public viewAlert: boolean = false;
   public message: string = '';
 
   isValidField(field: string) {
@@ -29,23 +30,8 @@ export class LoginPageComponent {
   }
 
   getFieldError(field: string): string | null {
-    if(!this.loginForm.controls[field]) return null;
 
-    const errors = this.loginForm.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-      switch(key) {
-        case 'required':
-          return 'Este campo es requerido';
-
-        case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracteres.`;
-
-        case 'pattern':
-          return `Introduzca un email válido`;
-      }
-    }
-    return null;
+    return this.validatorsService.getErrorField(this.loginForm, field);
   }
 
   login() {
@@ -58,13 +44,13 @@ export class LoginPageComponent {
         next: () => this.router.navigateByUrl('/dashboard'),
         error: ((message) => {
           this.message = message;
-          this.errorForm = true;
+          this.viewAlert = true;
         })
       });
   }
 
   closeAlert() {
-    this.errorForm = false;
+    this.viewAlert = false;
   }
 
 }

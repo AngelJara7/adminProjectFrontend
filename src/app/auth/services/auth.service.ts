@@ -37,7 +37,20 @@ export class AuthService {
       )
   }
 
-  checkAuthStatus() {
+  register(body: {}): Observable<string> {
+    console.log({body});
+    const url = `${this.baseUrl}/register`;
+
+    return this.http.post<string>(url, body)
+      .pipe(
+        map(( msg ) => {
+          return msg;
+        }),
+        catchError(err => throwError(()=> err.error))
+      )
+  }
+
+  checkAuthStatus():Observable<boolean> {
     const url = `${this.baseUrl}/profile`;
     const token = localStorage.getItem('token');
 

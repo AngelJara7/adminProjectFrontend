@@ -10,16 +10,16 @@ import { AuthStatus } from './auth/interfaces';
 })
 export class AppComponent {
 
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  // private authService = inject(AuthService);
+  // private router = inject(Router);
 
-  public finishAuthCheck = computed<boolean>(() => {
+  // public finishAuthCheck = computed<boolean>(() => {
 
-    if (this.authService.authStatus() === AuthStatus.checking) return false;
+  //   if (this.authService.authStatus() === AuthStatus.checking) return false;
 
-    return true;
+  //   return true;
 
-  });
+  // });
 
   // public authStatusChangedEffect = effect(() => {
   //   console.log('AuthStatus', this.authService.authStatus());

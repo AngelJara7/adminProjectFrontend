@@ -3,10 +3,18 @@
 
   <div class="container__form">
 
-    <div class="alert" [ngClass]="{ 'view__alert': errorForm === true }">
-      <img class="alert__logo" src="../../../../assets/img/error.svg" alt="">
+    <div class="alert error"
+        [ngClass]="{ 'view__alert': viewAlert === true }">
+
+      <img class="alert__logo"
+            src="../../../../assets/img/error.svg">
+
       <span class="alert__message">Error: {{ message }}</span>
-      <button class="alert__close" (click)="closeAlert()">x</button>
+
+      <button class="alert__close error"
+              (click)="closeAlert()">X
+      </button>
+      
     </div>
 
       <div class="form">

@@ -1,6 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { ValidatorsService } from 'src/app/shared/validators.service';
+import { AuthService } from '../../services/auth.service';
+import { RegisterResponse } from '../../interfaces';
 
 @Component({
   selector: 'app-register-page',
@@ -11,15 +15,30 @@ export class RegisterPageComponent {
 
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   public registerForm: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
-    password1: ['', [Validators.required, Validators.minLength(8)]],
-    password2: ['', [Validators.required, Validators.minLength(8)]]
+    nombre: ['angelpeluso7', [Validators.required]],
+    email: ['angelpeluso7@correo.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    password: ['angelpeluso7', [Validators.required, Validators.minLength(8)]],
+    password2: ['angelpeluso7', [Validators.required]]
+  }, {
+    validators: [ this.service.isFieldOneEqualFieldTwo('password', 'password2') ]
   });
-  public errorForm: boolean = false;
+
+  public viewAlert: boolean = false;
+  public statusRes: string = RegisterResponse.checking;
   public message: string = '';
+  public imgAlert: string = '';
+  public success: string = RegisterResponse.success;
+  public error: string = RegisterResponse.error;
+
+  constructor(
+    private service: ValidatorsService
+  ) {
+
+  }
 
   isValidField(field: string) {
     return this.registerForm.controls[field].errors && this.registerForm.controls[field].touched;
@@ -28,24 +47,34 @@ export class RegisterPageComponent {
 
   getErrorField(field: string): string | null {
 
-    if (!this.registerForm.controls[field]) return null;
+    return this.validatorsService.getErrorField(this.registerForm, field);
+  }
 
-    const errors = this.registerForm.controls[field].errors || {}
+  register() {
+    const { password2, ...userCredentials } = this.registerForm.value;
 
-    for (const key of Object.keys(errors)) {
-      switch (key) {
-        case 'required':
-            return 'Este campo es requerido';
+    // if (this.registerForm.valid) console.log('VALUE: ',this.registerForm.value);
 
-        case 'minlength':
-          return `Mínimo ${ errors['minlength'].requiredLength } caracteres`;
+    this.authService.register(userCredentials)
+      .subscribe({
+        next: ((msg) => {
+          this.message = msg;
+          this.viewAlert = true;
+          this.statusRes = RegisterResponse.success;
+          this.imgAlert = '../../../../assets/img/succes.svg';
+        }),
+        error: ((error) => {
+          this.message = `Error: ${error}`;
+          this.viewAlert = true;
+          this.statusRes = RegisterResponse.error;
+          this.imgAlert = '../../../../assets/img/error.svg';
+        })
+      });
+  }
 
-        case 'pattern':
-          return 'Introduzca un e-mail válido';
-      }
-    }
-
-    return null;
+  closeAlert() {
+    this.viewAlert = false;
+    this.statusRes = RegisterResponse.checking;
   }
 
 }
