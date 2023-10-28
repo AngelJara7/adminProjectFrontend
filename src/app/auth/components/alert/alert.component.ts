@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, Output, computed } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, Output, computed, signal } from '@angular/core';
 import { RegisterResponse } from '../../interfaces';
 import { Observable } from 'rxjs';
 
@@ -7,11 +7,21 @@ import { Observable } from 'rxjs';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnDestroy, OnChanges {
+export class AlertComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() statusRes: string = RegisterResponse.checking;
-  @Input() message: string = '';
+  @Input() message = signal<string>('');
   public imgAlert: string = '';
+
+  constructor() {
+    console.log('CONSTUYENDO...');
+    this.ngOnChanges();
+  }
+
+  ngOnInit(): void {
+    console.log('INICIANDO...');
+    this.ngOnChanges();
+  }
 
   ngOnChanges(): void {
 
@@ -26,7 +36,7 @@ export class AlertComponent implements OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.statusRes = RegisterResponse.checking;
-    this.message = '';
+    this.message.set('');
     this.imgAlert = '';
   }
 

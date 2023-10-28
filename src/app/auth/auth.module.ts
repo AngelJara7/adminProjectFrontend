@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmAccountPageComponent } from './pages/confirm-account-page/confirm-account-page.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
     RegisterPageComponent,
     ConfirmAccountPageComponent,
     AlertComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    ResetPasswordPageComponent
   ],
   imports: [
     CommonModule,

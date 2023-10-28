@@ -1,4 +1,4 @@
-import { Component, Output, inject } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { RegisterResponse } from '../../interfaces';
 
 @Component({
-  selector: 'login-page',
+  selector: 'auth-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
@@ -24,7 +24,7 @@ export class LoginPageComponent {
   });
 
   @Output() statusRes: string = RegisterResponse.checking;
-  @Output() message: string = '';
+  @Output() message = signal<string>('');
 
   isValidField(field: string) {
     return this.loginForm.controls[field].errors && this.loginForm.controls[field].touched;
@@ -38,14 +38,13 @@ export class LoginPageComponent {
 
   login() {
     const { email, password } = this.loginForm.value;
-
     // if (this.loginForm.valid) console.log('VALUE: ',this.loginForm.value);
 
     this.authService.login(email, password)
       .subscribe({
         next: () => this.router.navigateByUrl('/dashboard'),
         error: ((message) => {
-          this.message = message;
+          this.message.set(message);
           this.statusRes = RegisterResponse.error;
         })
       });

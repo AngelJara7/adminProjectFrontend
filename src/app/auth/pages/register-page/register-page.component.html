@@ -7,7 +7,7 @@
 
   <div class="container__form">
 
-    <auth-alert *ngIf="message"
+    <auth-alert *ngIf="message()"
                 [message]="message"
                 [statusRes]="statusRes">
     </auth-alert>

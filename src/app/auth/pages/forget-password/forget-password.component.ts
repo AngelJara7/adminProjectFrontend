@@ -1,4 +1,4 @@
-import { Component, Output, inject } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { RegisterResponse } from '../../interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators.service';
@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forget-password',
+  selector: 'auth-forget-password',
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.css']
 })
@@ -30,14 +30,23 @@ export class ForgetPasswordComponent {
   }
 
   @Output() statusRes: string = RegisterResponse.checking;
-  @Output() message: string = '';
+  @Output() message = signal<string>('');
 
-  solicitar() {
-    if (this.forgetPasswordForm.valid) console.log(this.forgetPasswordForm.value);
-  }
+  requestChangePassword() {
 
-  goBack() {
-    console.log(this.router.getCurrentNavigation());
+    const { email } = this.forgetPasswordForm.value;
+
+    this.authService.requestChangePassword(email)
+      .subscribe({
+        next: ((msg) => {
+          this.message.set(msg);
+          this.statusRes = RegisterResponse.success;
+        }),
+        error: ((error) => {
+          this.message.set(error);
+          this.statusRes = RegisterResponse.error;
+        })
+      });
   }
 
 }

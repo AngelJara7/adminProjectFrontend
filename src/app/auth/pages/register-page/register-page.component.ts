@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { RegisterResponse } from '../../interfaces';
 
 @Component({
-  selector: 'app-register-page',
+  selector: 'auth-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
@@ -27,7 +27,7 @@ export class RegisterPageComponent {
   });
 
   @Output() statusRes: string = RegisterResponse.checking;
-  @Output() message: string = '';
+  @Output() message = signal<string>('');
 
   isValidField(field: string) {
     return this.registerForm.controls[field].errors && this.registerForm.controls[field].touched;
@@ -47,11 +47,11 @@ export class RegisterPageComponent {
     this.authService.register(userCredentials)
       .subscribe({
         next: ((msg) => {
-          this.message = msg;
+          this.message.set(msg);
           this.statusRes = RegisterResponse.success;
         }),
         error: ((error) => {
-          this.message = `Error: ${error}`;
+          this.message.set(`Error: ${error}`);
           this.statusRes = RegisterResponse.error;
         })
       });

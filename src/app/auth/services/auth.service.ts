@@ -49,6 +49,19 @@ export class AuthService {
       )
   }
 
+  requestChangePassword(email: string):Observable<string> {
+    const url = `${this.baseUrl}/reset-password`;
+    const body = { email }
+
+    return this.http.post<string>(url, body)
+      .pipe(
+        map((msg) => {
+          return msg;
+        }),
+        catchError(err => throwError(() => err.error))
+      );
+  }
+
   checkAuthStatus():Observable<boolean> {
     const url = `${this.baseUrl}/profile`;
     const token = localStorage.getItem('token');
@@ -83,6 +96,19 @@ export class AuthService {
     return this.http.get<User>(url)
       .pipe(
         catchError(err => throwError(() => err))
+      )
+  }
+
+  changePassword(password: string, id: string) {
+    const body = { password };
+    const url = `${this.baseUrl}/reset-password/${id}`;
+
+    return this.http.post<string>(url, body)
+      .pipe(
+        map((msg) => {
+          return msg;
+        }),
+        catchError(err => throwError(() => err.error))
       )
   }
 
