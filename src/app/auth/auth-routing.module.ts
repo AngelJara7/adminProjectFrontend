@@ -4,6 +4,7 @@ import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ConfirmAccountPageComponent } from './pages/confirm-account-page/confirm-account-page.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterPageComponent },
       { path: 'confirm-account/:id', component: ConfirmAccountPageComponent },
+      { path: 'forget-password', component: ForgetPasswordComponent },
       { path: '**', redirectTo: 'login' },
     ]
   }

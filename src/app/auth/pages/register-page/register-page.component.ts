@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, Output, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,7 +16,6 @@ export class RegisterPageComponent {
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
   private authService = inject(AuthService);
-  private router = inject(Router);
 
   public registerForm: FormGroup = this.fb.group({
     nombre: ['angelpeluso7', [Validators.required]],
@@ -24,21 +23,11 @@ export class RegisterPageComponent {
     password: ['angelpeluso7', [Validators.required, Validators.minLength(8)]],
     password2: ['angelpeluso7', [Validators.required]]
   }, {
-    validators: [ this.service.isFieldOneEqualFieldTwo('password', 'password2') ]
+    validators: [ this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2') ]
   });
 
-  public viewAlert: boolean = false;
-  public statusRes: string = RegisterResponse.checking;
-  public message: string = '';
-  public imgAlert: string = '';
-  public success: string = RegisterResponse.success;
-  public error: string = RegisterResponse.error;
-
-  constructor(
-    private service: ValidatorsService
-  ) {
-
-  }
+  @Output() statusRes: string = RegisterResponse.checking;
+  @Output() message: string = '';
 
   isValidField(field: string) {
     return this.registerForm.controls[field].errors && this.registerForm.controls[field].touched;
@@ -59,22 +48,13 @@ export class RegisterPageComponent {
       .subscribe({
         next: ((msg) => {
           this.message = msg;
-          this.viewAlert = true;
           this.statusRes = RegisterResponse.success;
-          this.imgAlert = '../../../../assets/img/succes.svg';
         }),
         error: ((error) => {
           this.message = `Error: ${error}`;
-          this.viewAlert = true;
           this.statusRes = RegisterResponse.error;
-          this.imgAlert = '../../../../assets/img/error.svg';
         })
       });
-  }
-
-  closeAlert() {
-    this.viewAlert = false;
-    this.statusRes = RegisterResponse.checking;
   }
 
 }

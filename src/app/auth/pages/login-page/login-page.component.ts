@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsService } from 'src/app/shared/validators.service';
 import { AuthService } from '../../services/auth.service';
+import { RegisterResponse } from '../../interfaces';
 
 @Component({
   selector: 'login-page',
@@ -21,8 +22,9 @@ export class LoginPageComponent {
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
-  public viewAlert: boolean = false;
-  public message: string = '';
+
+  @Output() statusRes: string = RegisterResponse.checking;
+  @Output() message: string = '';
 
   isValidField(field: string) {
     return this.loginForm.controls[field].errors && this.loginForm.controls[field].touched;
@@ -44,13 +46,9 @@ export class LoginPageComponent {
         next: () => this.router.navigateByUrl('/dashboard'),
         error: ((message) => {
           this.message = message;
-          this.viewAlert = true;
+          this.statusRes = RegisterResponse.error;
         })
       });
-  }
-
-  closeAlert() {
-    this.viewAlert = false;
   }
 
 }

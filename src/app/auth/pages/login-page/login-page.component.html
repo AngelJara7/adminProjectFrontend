@@ -3,19 +3,10 @@
 
   <div class="container__form">
 
-    <div class="alert error"
-        [ngClass]="{ 'view__alert': viewAlert === true }">
-
-      <img class="alert__logo"
-            src="../../../../assets/img/error.svg">
-
-      <span class="alert__message">Error: {{ message }}</span>
-
-      <button class="alert__close error"
-              (click)="closeAlert()">X
-      </button>
-      
-    </div>
+    <auth-alert *ngIf="message"
+                [message]="message"
+                [statusRes]="statusRes">
+    </auth-alert>
 
       <div class="form">
 
@@ -28,7 +19,7 @@
                 (ngSubmit)="login()">
 
                 <div class="form__field"
-                    [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email')}">
+                    [ngClass]="{ 'error__field': isValidField('email'), 'valid__field': !isValidField('email')}">
                   <input type="email"
                   placeholder="Email"
                   formControlName="email">
@@ -39,7 +30,7 @@
                 </div>
 
                 <div class="form__field"
-                    [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password') }">
+                    [ngClass]="{ 'error__field': isValidField('password'), 'valid__field': !isValidField('password') }">
                   <input type="password"
                         placeholder="Contraseña"
                         formControlName="password">
@@ -49,7 +40,7 @@
                   </span>
                 </div>
 
-            <span><a routerLink="/auth/confirm-account/:id">Olvidaste tu contraseña?</a></span>
+            <span><a routerLink="/auth/forget-password">Olvidaste tu contraseña?</a></span>
 
             <div class="form__field">
               <input type="submit"

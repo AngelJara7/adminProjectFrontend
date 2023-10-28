@@ -7,6 +7,8 @@ import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmAccountPageComponent } from './pages/confirm-account-page/confirm-account-page.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { ConfirmAccountPageComponent } from './pages/confirm-account-page/confir
     LoginPageComponent,
     AuthLayoutComponent,
     RegisterPageComponent,
-    ConfirmAccountPageComponent
+    ConfirmAccountPageComponent,
+    AlertComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     CommonModule,

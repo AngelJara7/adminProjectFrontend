@@ -7,22 +7,10 @@
 
   <div class="container__form">
 
-    <div class="alert"
-        [ngClass]="{ 'view__alert': viewAlert === true, 'success': statusRes === success, 'error': statusRes === error }">
-
-      <img class="alert__logo"
-            [src]="imgAlert">
-
-      <span class="alert__message"
-            [ngClass]="{ 'success__msg': statusRes === success, 'error__msg': statusRes === error }">{{ message }}
-      </span>
-
-      <button class="alert__close"
-              [ngClass]="{ 'success': statusRes === success, 'error': statusRes === error }"
-              (click)="closeAlert()">X
-      </button>
-
-    </div>
+    <auth-alert *ngIf="message"
+                [message]="message"
+                [statusRes]="statusRes">
+    </auth-alert>
 
     <div class="form">
 
@@ -35,7 +23,7 @@
             (ngSubmit)="register()">
 
         <div class="form__field"
-            [ngClass]="{ 'error': isValidField('nombre'), 'valid': !isValidField('nombre')}">
+            [ngClass]="{ 'error__field': isValidField('nombre'), 'valid__field': !isValidField('nombre')}">
           <input type="text"
                 placeholder="Nombre"
                 formControlName="nombre">
@@ -46,7 +34,7 @@
         </div>
 
         <div class="form__field"
-            [ngClass]="{ 'error': isValidField('email'), 'valid': !isValidField('email')}">
+            [ngClass]="{ 'error__field': isValidField('email'), 'valid__field': !isValidField('email')}">
           <input type="email"
                 placeholder="Email"
                 formControlName="email">
@@ -57,7 +45,7 @@
         </div>
 
         <div class="form__field"
-            [ngClass]="{ 'error': isValidField('password'), 'valid': !isValidField('password')}">
+            [ngClass]="{ 'error__field': isValidField('password'), 'valid__field': !isValidField('password')}">
           <input type="password"
                 placeholder="Contraseña"
                 formControlName="password">
@@ -68,7 +56,7 @@
         </div>
 
         <div class="form__field"
-            [ngClass]="{ 'error': isValidField('password2'), 'valid': !isValidField('password2')}">
+            [ngClass]="{ 'error__field': isValidField('password2'), 'valid__field': !isValidField('password2')}">
           <input type="password"
                 placeholder="Confirmar contraseña"
                 formControlName="password2">
