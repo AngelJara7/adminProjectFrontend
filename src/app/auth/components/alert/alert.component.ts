@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, Output, computed, signal } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, signal } from '@angular/core';
 import { RegisterResponse } from '../../interfaces';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'auth-alert',
@@ -14,12 +13,10 @@ export class AlertComponent implements OnInit, OnDestroy, OnChanges {
   public imgAlert: string = '';
 
   constructor() {
-    console.log('CONSTUYENDO...');
     this.ngOnChanges();
   }
 
   ngOnInit(): void {
-    console.log('INICIANDO...');
     this.ngOnChanges();
   }
 
