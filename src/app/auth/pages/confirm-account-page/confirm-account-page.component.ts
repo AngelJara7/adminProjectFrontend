@@ -23,7 +23,7 @@ export class ConfirmAccountPageComponent implements OnInit {
 
       ).subscribe({
         next: (user) => this.userName = user.nombre,
-        error: () => this.router.navigateByUrl('/auth/register')
+        error: () => this.router.navigateByUrl('/not-found')
       }
       // user => {
       //   if (!user) return console.log('Error');

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
 :root {
     --primary-color: #4043e0;
@@ -31,16 +31,17 @@ body {
 
 .container {
   width: 100%;
-  /* height: 100%; */
+  height: max-content;
+  min-height: 100%;
+  padding: 1.5rem;
   position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 3rem
+  gap: 3rem;
 }
 
 .container__img {
-  margin: 1.5rem;
   width: 40%;
   /* height: 95%; */
   background-color: white;
@@ -56,7 +57,7 @@ body {
   flex: auto;
   text-align: center;
   margin: auto;
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
   background-color: #BDD0FC;
   display: flex;
   flex-direction: column;
@@ -121,7 +122,7 @@ auth-alert {
 
 .alert__message {
   font-size: 1.5rem;
-  font-family: 'Lato';
+  font-family: var(--second-font);
 }
 
 .err__msg {
@@ -135,7 +136,7 @@ auth-alert {
 .alert__close {
   border: none;
   background-color: transparent;
-  font-family: 'Lato';
+  font-family: var(--second-font);
   font-weight: 600;
   font-size: 2rem;
 }
@@ -145,8 +146,8 @@ auth-alert {
 }
 
 .form,
-.form__reset_password,
-.form__forget_password {
+.form--reset_password,
+.form--forget_password {
   width: 50%;
   margin: 0 3rem;
   font-family: var(--main-font);
@@ -171,7 +172,7 @@ auth-alert {
 
 .form p {
   font-size: 1.5rem;
-  font-family: 'Lato';
+  font-family: var(--second-font);
   text-align: center;
   color: #0A015E;
 }
@@ -204,7 +205,7 @@ auth-alert {
   height: 5rem;
   font-family: 'Lato';
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: .5px;
   color: var(--primary-color);
   border-radius: 5px;
@@ -239,7 +240,7 @@ auth-alert {
 .form__field > span {
   display: block;
   width: 100%;
-  font-family: 'Lato';
+  font-family: var(--second-font);
   text-align: start;
   color: #E94E42;
 }
@@ -247,7 +248,7 @@ auth-alert {
 .form form > span,
 .form > span {
   width: 100%;
-  font-family: 'Lato';
+  font-family: var(--second-font);
   font-weight: normal;
   text-align: end;
   margin: 0;
@@ -260,6 +261,7 @@ auth-alert {
 .form > span a {
   text-decoration: none;
   color: var(--primary-color);
+  font-weight: 400;
 }
 
 .form form > span a:hover,

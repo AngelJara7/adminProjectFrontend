@@ -99,9 +99,19 @@ export class AuthService {
       )
   }
 
-  changePassword(password: string, id: string) {
+  verifyToken(token: string):Observable<boolean> {
+    const url = `${this.baseUrl}/reset-password/${token}`;
+
+    return this.http.get<boolean>(url)
+      .pipe(
+        map(() => true),
+        catchError(() => throwError(() => false))
+      );
+  }
+
+  changePassword(password: string, token: string):Observable<string> {
     const body = { password };
-    const url = `${this.baseUrl}/reset-password/${id}`;
+    const url = `${this.baseUrl}/reset-password/${token}`;
 
     return this.http.post<string>(url, body)
       .pipe(

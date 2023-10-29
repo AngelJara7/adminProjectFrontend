@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { notAuthenticatedGuard } from './auth/guard/not-authenticated.guard';
 import { AuthenticatedGuard } from './auth/guard/authenticated.guard';
+import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -13,8 +14,15 @@ const routes: Routes = [
     canActivate: [ AuthenticatedGuard ],
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }, {
+    path: 'not-found',
+    component: NotFoundPageComponent
+  }, {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  }, {
     path: '**',
-    redirectTo: 'auth'
+    redirectTo: 'not-found'
   }
 ];
 

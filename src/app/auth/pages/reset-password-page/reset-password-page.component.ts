@@ -1,22 +1,23 @@
-import { Component, Output, inject, signal } from '@angular/core';
+import { Component, OnInit, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/validators.service';
 import { RegisterResponse } from '../../interfaces';
-import { ActivatedRoute } from '@angular/router';
-import { EmptyError, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'auth-reset-password-page',
   templateUrl: './reset-password-page.component.html',
   styleUrls: ['./reset-password-page.component.css']
 })
-export class ResetPasswordPageComponent {
+export class ResetPasswordPageComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private validatorsService = inject(ValidatorsService);
   private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
 
   public resetPasswordForm: FormGroup = this.fb.group({
     password: ['', [Validators.required, Validators.minLength(8)] ],
@@ -27,6 +28,16 @@ export class ResetPasswordPageComponent {
 
   @Output() statusRes: string = RegisterResponse.checking;
   @Output() message = signal<string>('');
+  // public tokenExists = signal<boolean>(false);
+
+  ngOnInit(): void {
+    this.activatedRoute.params
+      .pipe(
+        switchMap(({token}) => this.authService.verifyToken(token))
+      ).subscribe({
+        error: () => this.router.navigateByUrl('/not-found')
+      });
+  }
 
   isValidField(field: string) {
     return this.resetPasswordForm.controls[field].errors && this.resetPasswordForm.controls[field].touched
@@ -41,16 +52,13 @@ export class ResetPasswordPageComponent {
 
     this.activatedRoute.params
       .pipe(
-        switchMap(({id}) => this.authService.changePassword(password, id))
+        switchMap(({token}) => this.authService.changePassword(password, token))
       ).subscribe({
         next: (msg) => {
           this.message.set(msg);
           this.statusRes = RegisterResponse.success
         },
-        error: (error) => {
-          this.message.set(error);
-          this.statusRes = RegisterResponse.error;
-        }
+        error: () => this.router.navigateByUrl('/not-found')
       })
   }
 
