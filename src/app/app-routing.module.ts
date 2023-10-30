@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { notAuthenticatedGuard } from './auth/guard/not-authenticated.guard';
 import { AuthenticatedGuard } from './auth/guard/authenticated.guard';
 import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
+import { ServerInternalErrorPageComponent } from './shared/pages/server-internal-error-page/server-internal-error-page.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,9 @@ const routes: Routes = [
   }, {
     path: 'not-found',
     component: NotFoundPageComponent
+  }, {
+    path: 'server-internal-error',
+    component: ServerInternalErrorPageComponent
   }, {
     path: '',
     redirectTo: 'dashboard',

@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/validators.service';
 import { RegisterResponse } from '../../interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, switchMap, tap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'auth-reset-password-page',

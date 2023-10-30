@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterPageComponent },
-      { path: 'confirm-account/:id', component: ConfirmAccountPageComponent },
+      { path: 'confirm-account/:token', component: ConfirmAccountPageComponent },
       { path: 'reset-password/:token', component: ResetPasswordPageComponent },
       { path: 'forget-password', component: ForgetPasswordComponent },
       { path: '**', redirectTo: 'login' },

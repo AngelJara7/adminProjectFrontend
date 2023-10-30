@@ -19,7 +19,7 @@ export class ConfirmAccountPageComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params
       .pipe(
-        switchMap(({id}) => this.authService.confirmAccount(id))
+        switchMap(({token}) => this.authService.confirmAccount(token))
 
       ).subscribe({
         next: (user) => this.userName = user.nombre,

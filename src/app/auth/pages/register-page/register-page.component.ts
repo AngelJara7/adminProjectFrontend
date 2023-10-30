@@ -1,4 +1,4 @@
-import { Component, Output, computed, inject, signal } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,6 +16,7 @@ export class RegisterPageComponent {
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   public registerForm: FormGroup = this.fb.group({
     nombre: ['angelpeluso7', [Validators.required]],
@@ -51,7 +52,13 @@ export class RegisterPageComponent {
           this.statusRes = RegisterResponse.success;
         }),
         error: ((error) => {
-          this.message.set(`Error: ${error}`);
+          console.log(error);
+
+          if(error.status === 0 || error.status === 500) {
+            this.router.navigateByUrl('/server-internal-error');
+            return;
+          }
+          this.message.set(`Error: ${error.error}`);
           this.statusRes = RegisterResponse.error;
         })
       });
