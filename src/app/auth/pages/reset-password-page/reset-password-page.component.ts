@@ -56,10 +56,10 @@ export class ResetPasswordPageComponent implements OnInit {
       ).subscribe({
         next: (msg) => {
           this.message.set(msg);
-          this.statusRes = RegisterResponse.success
+          this.statusRes = RegisterResponse.success;
         },
-        error: () => this.router.navigateByUrl('/not-found')
-      })
+        error: (error) => this.message.set(error)
+      });
   }
 
 }

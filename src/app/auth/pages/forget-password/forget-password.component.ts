@@ -38,14 +38,15 @@ export class ForgetPasswordComponent {
 
     this.authService.requestChangePassword(email)
       .subscribe({
-        next: ((msg) => {
+        next: (msg) => {
           this.message.set(msg);
           this.statusRes = RegisterResponse.success;
-        }),
-        error: ((error) => {
+          this.forgetPasswordForm.reset();
+        },
+        error: (error) => {
           this.message.set(error);
           this.statusRes = RegisterResponse.error;
-        })
+        }
       });
   }
 

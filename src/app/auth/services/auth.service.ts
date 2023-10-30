@@ -58,7 +58,7 @@ export class AuthService {
         map((msg) => {
           return msg;
         }),
-        catchError(err => throwError(() => err.error))
+        catchError(err => throwError(() => err))
       );
   }
 
@@ -118,7 +118,7 @@ export class AuthService {
         map((msg) => {
           return msg;
         }),
-        catchError(err => throwError(() => err.error))
+        catchError(err => throwError(() => err))
       )
   }
 

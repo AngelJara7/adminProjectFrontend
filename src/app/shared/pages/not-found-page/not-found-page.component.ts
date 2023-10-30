@@ -6,12 +6,6 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './not-found-page.component.html',
   styleUrls: ['./not-found-page.component.css']
 })
-export class NotFoundPageComponent implements OnInit {
-
-  public activatedRoute = inject(ActivatedRoute);
-
-  ngOnInit(): void {
-    console.log('ERROR: ', this.activatedRoute.snapshot.params['error']);
-  }
+export class NotFoundPageComponent {
 
 }

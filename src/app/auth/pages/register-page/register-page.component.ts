@@ -47,20 +47,15 @@ export class RegisterPageComponent {
 
     this.authService.register(userCredentials)
       .subscribe({
-        next: ((msg) => {
+        next: (msg) => {
           this.message.set(msg);
           this.statusRes = RegisterResponse.success;
-        }),
-        error: ((error) => {
-          console.log(error);
-
-          if(error.status === 0 || error.status === 500) {
-            this.router.navigateByUrl('/server-internal-error');
-            return;
-          }
-          this.message.set(`Error: ${error.error}`);
+          this.registerForm.reset();
+        },
+        error: (error) => {
+          this.message.set(`Error: ${error}`);
           this.statusRes = RegisterResponse.error;
-        })
+        }
       });
   }
 

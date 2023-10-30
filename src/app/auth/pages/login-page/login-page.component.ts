@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { RegisterResponse } from '../../interfaces';
-import { AuthStatus } from '../../interfaces/auth-status.enum';
 
 @Component({
   selector: 'auth-login-page',
@@ -44,16 +43,10 @@ export class LoginPageComponent {
     this.authService.login(email, password)
       .subscribe({
         next: () => this.router.navigateByUrl('/dashboard'),
-        error: ((error) => {
-
-          if (error.status === 0 || error.status === 500) {
-            this.router.navigateByUrl('/server-internal-error');
-            return;
-          }
-
-          this.message.set(error.error);
+        error: (error) => {
+          this.message.set(error);
           this.statusRes = RegisterResponse.error;
-        })
+        }
       });
   }
 
