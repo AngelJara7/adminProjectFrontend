@@ -57,6 +57,7 @@ export class ResetPasswordPageComponent implements OnInit {
         next: (msg) => {
           this.message.set(msg);
           this.statusRes = RegisterResponse.success;
+          this.resetPasswordForm.reset();
         },
         error: (error) => this.message.set(error)
       });

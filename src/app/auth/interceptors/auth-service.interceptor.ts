@@ -21,13 +21,13 @@ export class AuthServiceInterceptor implements HttpInterceptor {
       catchError(err => throwError(() => {
 
         switch (err.status) {
-          case 0 || 500:
+          case 500:
             this.router.navigateByUrl('/server-internal-error');
             return;
 
-          case 0:
-            this.router.navigateByUrl('/server-internal-error');
-            return;
+           case 0:
+             this.router.navigateByUrl('/server-internal-error');
+             return;
 
           case 404:
             this.router.navigateByUrl('/not-found');

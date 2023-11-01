@@ -7,16 +7,17 @@
   height: max-content;
   border-radius: 3px;
   display: none;
+  margin-bottom: 1rem;
 }
 
 .error {
-  background-color: rgb(255 205 201);
+  /* background-color: rgb(255 205 201); */
   border: 2px solid #E94E42;
   color: #E74E47;
 }
 
 .success {
-  background-color: #c3f3d7;
+  /* background-color: #c3f3d7; */
   border: 2px solid #0ABF30;
   color: #069B27;
 }

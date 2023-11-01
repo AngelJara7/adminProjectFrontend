@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/*
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
@@ -6,6 +6,8 @@
 :root {
     --primary-color: #4043e0;
     --secondary-color: #;
+    --dark-primary-color: #0A015E;
+    --light-primary-color: #4f3bff;
     --main-font: 'Oswald';
     --second-font: 'Lato';
 }
@@ -40,7 +42,6 @@ body {
 
 .container__img {
   width: 40%;
-  /* height: 95%; */
   background-color: white;
   border-radius: 1rem;
   position: relative;
@@ -54,7 +55,6 @@ body {
   flex: auto;
   text-align: center;
   margin: auto;
-  /* padding: 2rem 0; */
   background-color: #BDD0FC;
   display: flex;
   flex-direction: column;
@@ -185,7 +185,7 @@ auth-alert {
 }
 
 ::placeholder {
-  color: #7d98f6;
+  color: #cecfd5;
 }
 
 .form__field {
@@ -210,10 +210,10 @@ auth-alert {
   padding: 1rem 2rem;
 }
 
-.form_field input[type="text"]:focus,
-.form_field input[type="email"]:focus,
-.form_field input[type="password"]:focus {
-  outline: 1px solid var(--primary-color);
+.form__field input[type="text"]:focus,
+.form__field input[type="email"]:focus,
+.form__field input[type="password"]:focus {
+  outline: 2px solid var(--primary-color);
 }
 
 .form__field input[type="submit"] {
@@ -284,9 +284,223 @@ auth-alert {
 .valid__field input[type="email"],
 .valid__field input[type="password"] {
   border: none;
+} */
+
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
+
+:root {
+    /* --primary-color: #6533D9;
+    --secondary-color: #2F344D;
+    --dark-primary-color: #8a60eb;
+    --light-primary-color: #a383ee; */
+
+    --primary-color: #d368cc;
+    --light-primary-color: #edb5e8;
+    --dark-primary-color: #91488f;
+
+
+    --secondary-color: #385965;
+    --light-secondary-color: #e1e1e1;
+    --dark-secondary-color: #29454e;
+    --main-font: 'Oswald';
+    --second-font: 'Lato';
 }
 
-/* .valid input[type="email"]:focus,
-.valid input[type="password"]:focus {
-  outline: 1px solid var(--primary-color);
-} */
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  height: max-content;
+  min-height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.container__img {
+  width: 40%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container__img img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+  }
+
+.container__form {
+  width: 50%;
+  flex: auto;
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+auth-alert {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.form,
+.form--reset_password,
+.form--forget_password {
+  width: 50%;
+  margin: 0 3rem;
+  font-family: var(--main-font);
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form--reset-password,
+.form--forget-password {
+  width: 40rem;
+}
+
+.form h1 {
+  margin: 0;
+  font-size: 4rem;
+  letter-spacing: 2px;
+  color: var(--dark-secondary-color);
+}
+
+.form p {
+  font-size: 1.5rem;
+  font-family: var(--second-font);
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+.form form {
+  width: 100%;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3rem;
+}
+
+::placeholder {
+  color: #e1e1e1
+}
+
+.form__field {
+  width: 100%;
+  height: max-content;
+}
+
+
+.form__field input[type="text"],
+.form__field input[type="email"],
+.form__field input[type="password"],
+.form__field input[type="submit"] {
+  width: 100%;
+  height: 5rem;
+  font-family: 'Lato';
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: .5px;
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  padding: 1rem 2rem;
+}
+
+.form__field input[type="text"]:focus,
+.form__field input[type="email"]:focus,
+.form__field input[type="password"]:focus {
+    border: none;
+  outline: 1.5px solid var(--primary-color);
+}
+
+.form__field input[type="submit"] {
+  border: none;
+  margin-bottom: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  transition: all 500ms;
+}
+
+.form__field input[type="submit"]:hover {
+  background-color: var(--dark-primary-color);
+  cursor: pointer;
+}
+
+.form__field input[type="submit"]:disabled {
+  background-color: var(--light-primary-color);
+  color: white;
+  cursor: initial;
+}
+
+.form__field > span {
+  display: block;
+  width: 100%;
+  font-family: var(--second-font);
+  text-align: start;
+  color: #E94E42;
+}
+
+.form form > span,
+.form > span {
+  width: 100%;
+  font-family: var(--second-font);
+  font-weight: normal;
+  text-align: end;
+  margin: 0;
+  margin-bottom: 1rem;
+  transition: all 500ms;
+  color: var(--dark-secondary-color);
+}
+
+.form form > span a,
+.form > span a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: 400;
+}
+
+.form form > span a:hover,
+.form > span a:hover {
+  text-decoration: underline;
+  color: var(--dark-primary-color);
+  cursor: pointer;
+}
+
+.error__field input[type="text"],
+.error__field input[type="email"],
+.error__field input[type="password"] {
+  border: 1px solid #E94E42;
+}
+
+.error__field input[type="text"]:focus,
+.error__field input[type="email"]:focus,
+.error__field input[type="password"]:focus {
+  outline: 1px solid #E94E42;
+}
