@@ -1,3 +1,6 @@
+.header {
+  display: block;
+}
 
 .container__confirm-account {
   width: 100%;
@@ -14,10 +17,10 @@
   border-radius: 5px;
 }
 
-.container__title h1 {
+.container__title h2 {
   font-family: 'Oswald';
-  font-size: 5rem;
-  font-weight: 800;
+  font-size: 3rem;
+  font-weight: 700;
   letter-spacing: 1px;
   color: var(--dark-secondary-color);
 }
@@ -25,21 +28,21 @@
 .container__title .user__name {
   color: var(--dark-secondary-color);
   font-family: 'Lato';
-  font-size: 3rem;
+  font-size: 2rem;
   letter-spacing: .5px;
 }
 
 .container__title .user__message {
   color: var(--secondary-color);
   font-family: 'Lato';
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   letter-spacing: .5px;
 }
 
 .container__title a {
   text-decoration: none;
   font-family: 'Lato';
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: var(--primary-color);
   letter-spacing: .5px;
 }

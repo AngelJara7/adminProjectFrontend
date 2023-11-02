@@ -99,13 +99,13 @@ export class AuthService {
       )
   }
 
-  verifyToken(token: string):Observable<boolean> {
+  verifyToken(token: string):Observable<string> {
     const url = `${this.baseUrl}/reset-password/${token}`;
 
-    return this.http.get<boolean>(url)
+    return this.http.get<string>(url)
       .pipe(
-        map(() => true),
-        catchError(() => throwError(() => false))
+        map((user) => user),
+        catchError(() => throwError(() => null))
       );
   }
 

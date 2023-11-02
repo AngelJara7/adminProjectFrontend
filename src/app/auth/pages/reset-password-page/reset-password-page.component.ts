@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, inject, signal } from '@angular/core';
+import { Component, OnInit, Output, inject, signal, computed } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/validators.service';
@@ -25,6 +25,7 @@ export class ResetPasswordPageComponent implements OnInit {
   }, {
     validators: [this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2')]
   });
+  public userName: string = '';
 
   @Output() statusRes: string = RegisterResponse.checking;
   @Output() message = signal<string>('');
@@ -35,6 +36,7 @@ export class ResetPasswordPageComponent implements OnInit {
       .pipe(
         switchMap(({token}) => this.authService.verifyToken(token))
       ).subscribe({
+        next: (user) => this.userName = user,
         error: () => this.router.navigateByUrl('/not-found')
       });
   }

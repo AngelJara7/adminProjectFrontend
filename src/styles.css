@@ -1,310 +1,19 @@
-/*
-@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
-
-:root {
-    --primary-color: #4043e0;
-    --secondary-color: #;
-    --dark-primary-color: #0A015E;
-    --light-primary-color: #4f3bff;
-    --main-font: 'Oswald';
-    --second-font: 'Lato';
-}
-
-html {
-    font-size: 62.5%;
-    box-sizing: border-box;
-    height: 100%;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 100%;
-  height: max-content;
-  background-color: #BDD0FC;
-  min-height: 100%;
-  padding: 1.5rem;
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 3rem;
-}
-
-.container__img {
-  width: 40%;
-  background-color: white;
-  border-radius: 1rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container__form {
-  width: 50%;
-  flex: auto;
-  text-align: center;
-  margin: auto;
-  background-color: #BDD0FC;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-auth-alert {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.alert {
-  position: relative;
-  overflow: hidden;
-  padding: 1rem;
-  width: 50%;
-  height: max-content;
-  border-radius: 3px;
-  display: none;
-}
-
-.error {
-  background-color: rgb(255 205 201);
-  border: 2px solid #E94E42;
-  color: #E74E47;
-}
-
-.success {
-  background-color: #c3f3d7;
-  border: 2px solid #0ABF30;
-  color: #069B27;
-}
-
-.view__alert {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  animation: traslate .3s forwards;
-}
-
-@keyframes traslate {
-  0% {
-    transform: translateY(-100%);
-  }
-  40% {
-    transform: translateY(5%);
-  }
-  80% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(5px);
-  }
-}
-
-.alert__logo {
-  width: 3rem;
-}
-
-.alert__message {
-  font-size: 1.5rem;
-  font-family: var(--second-font);
-}
-
-.err__msg {
-  color: #E74E47;
-}
-
-.success__msg {
-  color: #069B27;
-}
-
-.alert__close {
-  border: none;
-  background-color: transparent;
-  font-family: var(--second-font);
-  font-weight: 600;
-  font-size: 2rem;
-}
-
-.alert__close:hover {
-  cursor: pointer;
-}
-
-.form,
-.form--reset_password,
-.form--forget_password {
-  width: 50%;
-  margin: 0 3rem;
-  font-family: var(--main-font);
-  font-size: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.form--reset-password,
-.form--forget-password {
-  width: 40rem;
-}
-
-.form h1 {
-  margin: 0;
-  font-size: 4rem;
-  letter-spacing: 2px;
-  color: #0A015E;
-}
-
-.form p {
-  font-size: 1.5rem;
-  font-family: var(--second-font);
-  text-align: center;
-  color: #0A015E;
-}
-
-.form form {
-  width: 100%;
-  padding: 2rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  gap: 3rem;
-}
-
-::placeholder {
-  color: #cecfd5;
-}
-
-.form__field {
-  width: 100%;
-  height: max-content;
-}
-
-
-.form__field input[type="text"],
-.form__field input[type="email"],
-.form__field input[type="password"],
-.form__field input[type="submit"] {
-  width: 100%;
-  height: 5rem;
-  font-family: 'Lato';
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: .5px;
-  color: var(--primary-color);
-  border-radius: 5px;
-  border: none;
-  padding: 1rem 2rem;
-}
-
-.form__field input[type="text"]:focus,
-.form__field input[type="email"]:focus,
-.form__field input[type="password"]:focus {
-  outline: 2px solid var(--primary-color);
-}
-
-.form__field input[type="submit"] {
-  margin-bottom: 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  transition: all 500ms;
-}
-
-.form__field input[type="submit"]:hover {
-  background-color: #0A015E;
-  cursor: pointer;
-}
-
-.form__field input[type="submit"]:disabled {
-  background-color: #E8EDFE;
-  color: #7d98f6;
-  cursor: initial;
-}
-
-.form__field > span {
-  display: block;
-  width: 100%;
-  font-family: var(--second-font);
-  text-align: start;
-  color: #E94E42;
-}
-
-.form form > span,
-.form > span {
-  width: 100%;
-  font-family: var(--second-font);
-  font-weight: normal;
-  text-align: end;
-  margin: 0;
-  margin-bottom: 1rem;
-  transition: all 500ms;
-  color: #0A015E;
-}
-
-.form form > span a,
-.form > span a {
-  text-decoration: none;
-  color: var(--primary-color);
-  font-weight: 400;
-}
-
-.form form > span a:hover,
-.form > span a:hover {
-  text-decoration: underline;
-  color: #0A015E;
-  cursor: pointer;
-}
-
-.error__field input[type="text"],
-.error__field input[type="email"],
-.error__field input[type="password"] {
-  border: 1px solid #E94E42;
-}
-
-.error__field input[type="text"]:focus,
-.error__field input[type="email"]:focus,
-.error__field input[type="password"]:focus {
-  outline: 1px solid #E94E42;
-}
-
-.valid__field input[type="text"],
-.valid__field input[type="email"],
-.valid__field input[type="password"] {
-  border: none;
-} */
-
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@400;900&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
 :root {
-    /* --primary-color: #6533D9;
-    --secondary-color: #2F344D;
-    --dark-primary-color: #8a60eb;
-    --light-primary-color: #a383ee; */
 
     --primary-color: #d368cc;
     --light-primary-color: #edb5e8;
-    --dark-primary-color: #91488f;
+    --dark-primary-color: #8a60eb;
 
 
     --secondary-color: #385965;
     --light-secondary-color: #e1e1e1;
     --dark-secondary-color: #29454e;
+
     --main-font: 'Oswald';
     --second-font: 'Lato';
 }
@@ -326,31 +35,37 @@ body {
 
 .container {
   width: 100%;
-  height: max-content;
-  min-height: 100%;
+  /* height: max-content;
+  min-height: 100%; */
   position: absolute;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 3rem;
 }
 
-.container__img {
-  width: 40%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.header {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--dark-secondary-color);
 }
 
-.container__img img {
-    width: 85%;
-    height: 85%;
-    object-fit: contain;
-  }
+.header h1 {
+    width: 100%;
+    /* padding: 2rem; */
+    margin: 0;
+    font-family: var(--main-font);
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+.header span {
+    margin: 0;
+    display: inline;
+    color: white;
+}
 
 .container__form {
-  width: 50%;
+  width: 100%;
   flex: auto;
   text-align: center;
   margin: auto;
@@ -358,6 +73,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
+  padding-bottom: 3rem;
 }
 
 auth-alert {
@@ -369,7 +86,7 @@ auth-alert {
 .form,
 .form--reset_password,
 .form--forget_password {
-  width: 50%;
+  width: 100%;
   margin: 0 3rem;
   font-family: var(--main-font);
   font-size: 1.5rem;
@@ -379,15 +96,11 @@ auth-alert {
   gap: 1rem;
 }
 
-.form--reset-password,
-.form--forget-password {
-  width: 40rem;
-}
-
-.form h1 {
+.form h2 {
   margin: 0;
-  font-size: 4rem;
-  letter-spacing: 2px;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   color: var(--dark-secondary-color);
 }
 
@@ -441,15 +154,15 @@ auth-alert {
 }
 
 .form__field input[type="submit"] {
-  border: none;
-  margin-bottom: 1rem;
+    border: none;
+    margin-bottom: 1rem;
   background-color: var(--primary-color);
   color: white;
   transition: all 500ms;
 }
 
 .form__field input[type="submit"]:hover {
-  background-color: var(--dark-primary-color);
+    background-color: var(--dark-primary-color);
   cursor: pointer;
 }
 
@@ -503,4 +216,80 @@ auth-alert {
 .error__field input[type="email"]:focus,
 .error__field input[type="password"]:focus {
   outline: 1px solid #E94E42;
+}
+
+@media(min-width: 320px) {
+
+    .container__img {
+        display: none;
+    }
+}
+
+@media(min-width: 600px) {
+
+    .container__form {
+        width: 50%;
+        min-width: 40rem;
+    }
+}
+
+@media(min-width: 768px) {
+
+    /* .container__form {
+        width: 80%;
+        margin: 0 auto;
+    } */
+
+}
+
+@media(min-width: 998px) {
+
+  .header {
+        display: none;
+    }
+
+    .container {
+        height: max-content;
+        min-height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    .container__form {
+        width: 50%;
+        margin: 0;
+    }
+
+    .form,
+    .form--reset-password
+    .form--forget-password,
+    auth-alert {
+        width: 50%;
+        min-width: 40rem;
+    }
+
+    .container__img {
+      width: 40%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container__img img {
+        width: 100%;
+        object-fit: contain;
+    }
+}
+
+@media(min-width: 1440px) {
+
+    .form,
+    .form--reset-password
+    .form--forget-password,
+    auth-alert {
+        width: 50rem;
+    }
 }

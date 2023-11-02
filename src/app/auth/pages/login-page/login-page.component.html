@@ -1,3 +1,8 @@
+<div class="header">
+
+  <h1>Administrador <span>de Proyectos</span></h1>
+
+</div>
 
 <div class="container">
 
@@ -10,7 +15,7 @@
 
       <div class="form">
 
-          <h1>Bienvenido</h1>
+          <h2>Bienvenido</h2>
 
           <p>Crea y administra tus proyectos de manera colaborativa</p>
 
@@ -19,7 +24,7 @@
                 (ngSubmit)="login()">
 
                 <div class="form__field"
-                    [ngClass]="{ 'error__field': isValidField('email'), 'valid__field': !isValidField('email')}">
+                    [ngClass]="{ 'error__field': isValidField('email') }">
                   <input type="email"
                   placeholder="Email"
                   formControlName="email">
@@ -30,7 +35,7 @@
                 </div>
 
                 <div class="form__field"
-                    [ngClass]="{ 'error__field': isValidField('password'), 'valid__field': !isValidField('password') }">
+                    [ngClass]="{ 'error__field': isValidField('password') }">
                   <input type="password"
                         placeholder="Contraseña"
                         formControlName="password">
