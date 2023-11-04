@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localeEsPA from '@angular/common/locales/es-HN';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AuthServiceInterceptor } from './auth/interceptors/auth-service.interceptor';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEsPA);
 
 @NgModule({
   declarations: [

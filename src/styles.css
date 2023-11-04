@@ -33,6 +33,10 @@ body {
   padding: 0;
 }
 
+.fa-2xl {
+  color: var(--secondary-color);
+}
+
 .container {
   width: 100%;
   /* height: max-content;
@@ -66,7 +70,7 @@ body {
 
 .container__form {
   width: 100%;
-  flex: auto;
+  flex: 1;
   text-align: center;
   margin: auto;
   display: flex;
@@ -102,7 +106,7 @@ auth-alert {
 
 .form h1 {
   margin: 0;
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--dark-secondary-color);
@@ -138,10 +142,12 @@ auth-alert {
 .form__field input[type="text"],
 .form__field input[type="email"],
 .form__field input[type="password"],
-.form__field input[type="submit"] {
+.form__field input[type="date"],
+.form__field input[type="submit"],
+textarea {
   width: 100%;
   height: 5rem;
-  font-family: 'Lato';
+  font-family: var(--second-font);
   font-size: 1.5rem;
   font-weight: 400;
   letter-spacing: .5px;
@@ -150,9 +156,18 @@ auth-alert {
   padding: 1rem 2rem;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  opacity: 0.9;
+  filter: invert(0.9);
+}
+
 .form__field input[type="text"]:focus,
 .form__field input[type="email"]:focus,
-.form__field input[type="password"]:focus {
+.form__field input[type="password"]:focus,
+.form__field input[type="date"]:focus {
     border: none;
   outline: 1.5px solid var(--primary-color);
 }
@@ -263,12 +278,11 @@ auth-alert {
     .form--reset-password
     .form--forget-password,
     auth-alert {
-        width: 50%;
-        min-width: 40rem;
+        width: 40rem;
     }
 
     .container__img {
-      width: 40%;
+      width: 45%;
       position: relative;
       display: flex;
       align-items: center;
@@ -276,9 +290,17 @@ auth-alert {
     }
 
     .container__img img {
-        width: 100%;
+        width: 90%;
         object-fit: contain;
     }
+}
+
+@media(min-width: 1200px) {
+
+  .container__img img {
+    width: 85%;
+    object-fit: contain;
+}
 }
 
 @media(min-width: 1440px) {
@@ -287,6 +309,15 @@ auth-alert {
     .form--reset-password
     .form--forget-password,
     auth-alert {
-        width: 50rem;
+        width: 45rem;
     }
+
+    .container__img img {
+      width: 80%;
+      object-fit: contain;
+  }
+}
+
+.view__modal {
+  display: none;
 }

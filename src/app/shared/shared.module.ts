@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ServerInternalErrorPageComponent } from './pages/server-internal-error-page/server-internal-error-page.component';
 import { SideBarComponent } from './pages/side-bar/side-bar.component';
+import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
 
 
 
@@ -10,11 +11,13 @@ import { SideBarComponent } from './pages/side-bar/side-bar.component';
   declarations: [
     NotFoundPageComponent,
     ServerInternalErrorPageComponent,
-    SideBarComponent
+    SideBarComponent,
+    NavBarComponent
   ],
   exports: [
     NotFoundPageComponent,
-    SideBarComponent
+    SideBarComponent,
+    NavBarComponent
   ],
   imports: [
     CommonModule

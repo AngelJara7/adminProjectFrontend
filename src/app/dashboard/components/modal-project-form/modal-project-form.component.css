@@ -1,0 +1,45 @@
+/* modal-project-form {
+  position: absolute;
+  width: 100%;
+} */
+.container {
+  /* height: 100%; */
+  flex-direction: row;
+  background-color: rgba(56, 89, 101, .6);
+  top: 0;
+  z-index: 1;
+}
+
+/* .container__form {
+  height: 100%;
+} */
+
+.form {
+  position: relative;
+  max-width: 40rem;
+  background-color: white;
+  padding: 3rem;
+  border-radius: 3px;
+}
+
+textarea {
+  resize: none;
+  height: 10rem;
+}
+
+.close__modal {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  padding: .2rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border-radius: 3px;
+  background-color: white;
+  transition: all 300ms;
+}
+
+.close__modal:hover {
+  background-color: var(--light-secondary-color);
+}
