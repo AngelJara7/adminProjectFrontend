@@ -4,6 +4,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { ServerInternalErrorPageComponent } from './pages/server-internal-error-page/server-internal-error-page.component';
 import { SideBarComponent } from './pages/side-bar/side-bar.component';
 import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
+import { SharedAlertComponent } from './components/alert/alert.component';
 
 
 
@@ -12,12 +13,14 @@ import { NavBarComponent } from './pages/nav-bar/nav-bar.component';
     NotFoundPageComponent,
     ServerInternalErrorPageComponent,
     SideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    SharedAlertComponent
   ],
   exports: [
     NotFoundPageComponent,
     SideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    SharedAlertComponent
   ],
   imports: [
     CommonModule

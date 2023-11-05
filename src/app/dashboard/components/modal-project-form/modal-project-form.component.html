@@ -1,37 +1,51 @@
 
-<div class="container" [class]="{ view__modal: !modalService.modalStatus }">
+<div class="container"
+    [class.view__modal]="!modalService.modalStatus">
 
   <div class="container__form">
+
+    <shared-alert *ngIf="message()"
+                [message]="message"
+                [statusRes]="statusRes">
+
+    </shared-alert>
 
     <div class="form">
 
       <button class="close__modal" (click)="hideModal()">
-        <i class="fa-solid fa-xmark fa-2xl"></i>
+        <i class="fa-solid fa-xmark fa-xl"></i>
       </button>
 
       <h1>Crear Proyecto</h1>
 
-      <form autocomplete="off">
+      <form autocomplete="off"
+            [formGroup]="projectForm"
+            (ngSubmit)="addProject()"
+            >
 
-            <div class="form__field">
+            <div class="form__field"
+                [ngClass]="{ 'error__field': isValidField('nombre') }">
 
               <input type="text"
                     placeholder="Nombre"
                     formControlName="nombre">
 
-              <span></span>
+              <span *ngIf="isValidField('nombre')">
+                {{ getFieldError('nombre') }}
+              </span>
 
             </div>
 
             <div class="form__field">
 
-              <textarea name="" cols="30" rows="5" placeholder="Descripción"></textarea>
+              <textarea cols="30" rows="5"
+                        placeholder="Descripción"
+                        formControlName="descripcion">
+              </textarea>
 
-              <!-- <input type="text"
-                    placeholder="Descripción"
-                    formControlName="descripcion"> -->
-
-              <span></span>
+              <span *ngIf="isValidField('descripcion')">
+                {{ getFieldError('descripcion') }}
+              </span>
 
             </div>
 
@@ -42,7 +56,9 @@
                     onfocus="(this.type = 'date')"
                     formControlName="fecha">
 
-              <span></span>
+              <span *ngIf="isValidField('fecha')">
+                {{ getFieldError('fecha') }}
+              </span>
 
             </div>
 
@@ -52,15 +68,18 @@
                     placeholder="Clave"
                     formControlName="clave">
 
-              <span></span>
+              <span *ngIf="isValidField('clave')">
+                {{ getFieldError('clave') }}
+              </span>
+
             </div>
 
             <div class="form__field">
 
               <input type="submit"
-                    value="Crear Proyecto">
+                    value="Crear Proyecto"
+                    [disabled]="projectForm.invalid">
             </div>
-
 
           </form>
 

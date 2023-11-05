@@ -17,7 +17,7 @@ registerLocaleData(localeEsPA);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {

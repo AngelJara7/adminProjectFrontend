@@ -1,9 +1,10 @@
 import { Component, Output, inject, signal } from '@angular/core';
-import { RegisterResponse } from '../../interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { ValidatorsService } from 'src/app/shared/validators.service';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'auth-forget-password',
@@ -29,7 +30,7 @@ export class ForgetPasswordComponent {
     return this.validatorsService.getErrorField(this.forgetPasswordForm, field);
   }
 
-  @Output() statusRes: string = RegisterResponse.checking;
+  @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
 
   requestChangePassword() {
@@ -40,12 +41,12 @@ export class ForgetPasswordComponent {
       .subscribe({
         next: (msg) => {
           this.message.set(msg);
-          this.statusRes = RegisterResponse.success;
+          this.statusRes = AlertStatus.success;
           this.forgetPasswordForm.reset();
         },
         error: (error) => {
           this.message.set(error);
-          this.statusRes = RegisterResponse.error;
+          this.statusRes = AlertStatus.error;
         }
       });
   }

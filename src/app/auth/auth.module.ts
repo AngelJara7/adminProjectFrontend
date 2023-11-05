@@ -7,9 +7,10 @@ import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmAccountPageComponent } from './pages/confirm-account-page/confirm-account-page.component';
-import { AlertComponent } from './components/alert/alert.component';
+import { SharedAlertComponent } from '../shared/components/alert/alert.component';
 import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
 import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-password-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -18,14 +19,14 @@ import { ResetPasswordPageComponent } from './pages/reset-password-page/reset-pa
     AuthLayoutComponent,
     RegisterPageComponent,
     ConfirmAccountPageComponent,
-    AlertComponent,
     ForgetPasswordComponent,
     ResetPasswordPageComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class AuthModule { }

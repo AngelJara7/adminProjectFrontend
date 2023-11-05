@@ -33,7 +33,7 @@ body {
   padding: 0;
 }
 
-.fa-2xl {
+.fa-2xl, .fa-xl {
   color: var(--secondary-color);
 }
 
@@ -85,7 +85,7 @@ body {
   display: none;
 }
 
-auth-alert {
+shared-alert {
   width: 100%;
   display: flex;
   justify-content: center;

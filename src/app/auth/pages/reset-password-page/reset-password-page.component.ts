@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../../shared/validators.service';
-import { RegisterResponse } from '../../interfaces';
-import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'auth-reset-password-page',
@@ -27,7 +28,7 @@ export class ResetPasswordPageComponent implements OnInit {
   });
   public userName: string = '';
 
-  @Output() statusRes: string = RegisterResponse.checking;
+  @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
   // public tokenExists = signal<boolean>(false);
 
@@ -58,7 +59,7 @@ export class ResetPasswordPageComponent implements OnInit {
       ).subscribe({
         next: (msg) => {
           this.message.set(msg);
-          this.statusRes = RegisterResponse.success;
+          this.statusRes = AlertStatus.success;
           this.resetPasswordForm.reset();
         },
         error: (error) => this.message.set(error)

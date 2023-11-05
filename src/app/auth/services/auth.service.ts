@@ -19,6 +19,7 @@ export class AuthService {
 
   constructor() { this.checkAuthStatus().subscribe() }
 
+  //* Establece el estado de la sesion del usuario y guarda el token
   setAuthentication(user: User, token: string,) {
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
@@ -49,6 +50,7 @@ export class AuthService {
       )
   }
 
+  //* Solicitud para cambio de contraseña por el email de usuario
   requestChangePassword(email: string):Observable<string> {
     const url = `${this.baseUrl}/reset-password`;
     const body = { email }
@@ -62,6 +64,7 @@ export class AuthService {
       );
   }
 
+  //* Verificar el estado de la sesion del usuario (ver Auth-Guard)
   checkAuthStatus():Observable<boolean> {
     const url = `${this.baseUrl}/profile`;
     const token = localStorage.getItem('token');
@@ -99,6 +102,7 @@ export class AuthService {
       )
   }
 
+  //* Verifica el token del usuario con el del backend
   verifyToken(token: string):Observable<string> {
     const url = `${this.baseUrl}/reset-password/${token}`;
 
@@ -109,6 +113,7 @@ export class AuthService {
       );
   }
 
+  //* Hace uso de la solicitud de cambio de contraseña
   changePassword(password: string, token: string):Observable<string> {
     const body = { password };
     const url = `${this.baseUrl}/reset-password/${token}`;

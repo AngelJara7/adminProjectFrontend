@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ProjectsService } from '../../services/project.service';
+import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { ModalService } from '../../services/modal.service';
 
@@ -10,7 +10,7 @@ import { ModalService } from '../../services/modal.service';
 })
 export class ProjectListComponent implements OnInit {
 
-  private projectService = inject(ProjectsService);
+  private projectService = inject(ProjectService);
   private modalService = inject(ModalService);
 
   public projects: Project[] = [];

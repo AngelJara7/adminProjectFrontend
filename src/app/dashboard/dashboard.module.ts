@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-layout.component';
-import { SharedModule } from '../shared/shared.module';
 import { ProjectListComponent } from './pages/project-list/project-list.component';
 import { ModalProjectFormComponent } from './components/modal-project-form/modal-project-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { ModalProjectFormComponent } from './components/modal-project-form/modal
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+
   ]
 })
 export class DashboardModule { }

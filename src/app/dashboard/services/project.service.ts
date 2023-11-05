@@ -6,7 +6,7 @@ import { Project } from '../models/project.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectsService {
+export class ProjectService {
 
   // todo: crear variable de entorno de ruta (url backend)
   private readonly baseUrl: string = 'http://localhost:4000/api';
@@ -32,6 +32,22 @@ export class ProjectsService {
       .pipe(
         map((resp) => resp),
         catchError(err => throwError(() => err))
+      );
+  }
+
+  addProject(project: { nombre: string, descripcion: string, fecha: Date, clave: string }):Observable<string> {
+    const url = `${this.baseUrl}/projects`;
+
+    return this.http.post<string>(url, project, this.headers)
+      .pipe(
+        map((res) => {
+          console.log('RESPUESTA:', res);
+          return res;
+        }),
+        catchError(err => throwError(() => {
+          console.log('ERROR:', {err});
+          return err;
+        }))
       );
   }
 

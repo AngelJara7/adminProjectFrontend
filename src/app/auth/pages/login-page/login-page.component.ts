@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsService } from 'src/app/shared/validators.service';
 import { AuthService } from '../../services/auth.service';
-import { RegisterResponse } from '../../interfaces';
+import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'auth-login-page',
@@ -23,7 +23,7 @@ export class LoginPageComponent {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  @Output() statusRes: string = RegisterResponse.checking;
+  @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
 
   isValidField(field: string) {
@@ -45,7 +45,7 @@ export class LoginPageComponent {
         next: () => this.router.navigateByUrl('/dashboard'),
         error: (error) => {
           this.message.set(error);
-          this.statusRes = RegisterResponse.error;
+          this.statusRes = AlertStatus.error;
         }
       });
   }
