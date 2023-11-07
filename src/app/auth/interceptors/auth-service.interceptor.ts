@@ -33,11 +33,18 @@ export class AuthServiceInterceptor implements HttpInterceptor {
             this.router.navigateByUrl('/not-found');
             return;
 
+          case 403:
+            // this.router.navigateByUrl('/not-found');
+            return err.error;
+
           case 400:
             return err.error;
 
           case 200:
             return err.error;
+
+          // default:
+          //   return err.error;
         }
       }))
     );

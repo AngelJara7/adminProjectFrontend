@@ -10,17 +10,46 @@
 
   <div class="tools">
 
-    <div class="tools__notifications">
+    <!-- <div class="tools__notifications">
       <i class="fa-solid fa-bell fa-2xl"></i>
-    </div>
+    </div> -->
 
     <div class="tools__profile">
 
-      <div class="avatar">
+      <button (click)="viewProfile()">
         <i class="fa-solid fa-circle-user fa-2xl"></i>
-      </div>
 
-      <p>Nombre usuario</p>
+        Nombre usuario
+      </button>
+
+      <div class="profile__options" [class.view__options]="!viewOptionsProfile">
+
+        <div class="profile__account">
+
+          <div class="account__info">
+
+            <i class="fa-solid fa-circle-user fa-2xl"></i>
+
+            <div class="user__info">
+
+              <b>{{ userName }}</b>
+              <p>{{ email }}</p>
+
+            </div>
+
+          </div>
+
+          <hr>
+
+          <button>Perfil</button>
+
+          <hr>
+
+          <button (click)="logout()">Salir</button>
+
+        </div>
+
+      </div>
 
     </div>
 

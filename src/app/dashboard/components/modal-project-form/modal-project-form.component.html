@@ -4,6 +4,17 @@
 
   <div class="container__form">
 
+    <div class="container__header">
+
+      <h3>Crear Proyecto</h3>
+
+      <button class="close__modal" (click)="hideModal()">
+        Cerrar
+      </button>
+
+    </div>
+
+
     <shared-alert *ngIf="message()"
                 [message]="message"
                 [statusRes]="statusRes">
@@ -12,11 +23,7 @@
 
     <div class="form">
 
-      <button class="close__modal" (click)="hideModal()">
-        <i class="fa-solid fa-xmark fa-xl"></i>
-      </button>
-
-      <h1>Crear Proyecto</h1>
+      <!-- <h1>Crear Proyecto</h1> -->
 
       <form autocomplete="off"
             [formGroup]="projectForm"
@@ -49,7 +56,7 @@
 
             </div>
 
-            <div class="form__field">
+            <!-- <div class="form__field">
 
               <input type="text"
                     placeholder="Fecha de creación"
@@ -60,7 +67,7 @@
                 {{ getFieldError('fecha') }}
               </span>
 
-            </div>
+            </div> -->
 
             <div class="form__field">
 

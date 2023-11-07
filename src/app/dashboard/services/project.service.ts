@@ -31,7 +31,8 @@ export class ProjectService {
     return this.http.get<Project[]>(url, this.headers)
       .pipe(
         map((resp) => resp),
-        catchError(err => throwError(() => err))
+        catchError(err => throwError(() => err.error
+        ))
       );
   }
 

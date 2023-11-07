@@ -21,7 +21,7 @@ export class ModalProjectFormComponent implements OnDestroy {
   public projectForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
-    fecha: ['', [Validators.required]],
+    // fecha: ['', [Validators.required]],
     clave: ['', [Validators.required]],
   });
 
@@ -48,7 +48,6 @@ export class ModalProjectFormComponent implements OnDestroy {
   }
 
   addProject() {
-    console.log('FORMULARIO', this.projectForm.value);
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
         next: res => {
