@@ -4,15 +4,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Covered+By+Your+Grace&family=Lato:wght@300;400;700&family=Nunito:wght@300;700;900&family=Oswald:wght@300;400&family=Playfair+Display:wght@700&family=Raleway:wght@300;700;900&family=Roboto:wght@300;400;700&family=Staatliches&display=swap');
 
 :root {
-
-    --primary-color: #d368cc;
-    --light-primary-color: #edb5e8;
-    --dark-primary-color: #8a60eb;
-
+    --primary-color: #D368CC;
+    --light-primary-color: #EDB5E8;
+    --dark-primary-color: #8A60EB;
 
     --secondary-color: #385965;
-    --light-secondary-color: #e1e1e1;
-    --dark-secondary-color: #29454e;
+    --light-secondary-color: #E1E1E1;
+    --dark-secondary-color: #29454E;
+
+    --white: #FFFFFF;
 
     --main-font: 'Oswald';
     --second-font: 'Lato';

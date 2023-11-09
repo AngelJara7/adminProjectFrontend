@@ -19,6 +19,19 @@ export class AuthService {
 
   constructor() { this.checkAuthStatus().subscribe() }
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        // "Content-Type": "application/json",
+        Authorization: `Bearer ${this.token}`
+      }
+    }
+  }
+
   //* Establece el estado de la sesion del usuario y guarda el token
   setAuthentication(user: User, token: string,) {
     this._currentUser.set(user);
@@ -125,6 +138,23 @@ export class AuthService {
         }),
         catchError(err => throwError(() => err))
       )
+  }
+
+  uploadImg(file: File): Observable<string> {
+    const url = `${this.baseUrl}/upload-img`;
+    const fd = new FormData();
+    fd.append('image', file);
+    console.log('FB:',fd);
+
+    return this.http.put<string>(url, fd, this.headers)
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(err => throwError(() => {
+          return err;
+        }))
+      );
   }
 
 }

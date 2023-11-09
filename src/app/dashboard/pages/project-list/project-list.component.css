@@ -33,7 +33,7 @@
 .header {
   width: 100%;
   height: max-content;
-  padding: 2rem;
+  padding: 2rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -93,10 +93,16 @@
   font-weight: 400;
   color: var(--dark-secondary-color);
   letter-spacing: .5px;
-  padding: 0 2rem 0 4rem;
+  padding: 0 2rem;
+  transition: all 300ms;
+}
+
+.field-project input:hover {
+  background-color: rgba(225, 225, 225, .3);
 }
 
 .field-project input:focus {
+  background-color: transparent;
   outline: 1px solid var(--primary-color);
 }
 
@@ -162,7 +168,8 @@
   transition: all 300ms;
 }
 
-.info--link:hover {
+.info--link a:hover {
+  cursor: pointer;
   text-decoration: underline;
   color: var(--dark-primary-color);
 }

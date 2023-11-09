@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Project } from '../models/project.model';
+import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class ProjectService {
   // todo: crear variable de entorno de ruta (url backend)
   private readonly baseUrl: string = 'http://localhost:4000/api';
   private http = inject(HttpClient);
+
+  constructor() { }
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -42,11 +45,9 @@ export class ProjectService {
     return this.http.post<string>(url, project, this.headers)
       .pipe(
         map((res) => {
-          console.log('RESPUESTA:', res);
           return res;
         }),
         catchError(err => throwError(() => {
-          console.log('ERROR:', {err});
           return err;
         }))
       );

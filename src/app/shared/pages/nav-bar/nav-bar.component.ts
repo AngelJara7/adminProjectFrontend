@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
 
   private userService = inject(AuthService);
   private router = inject(Router);
@@ -16,7 +16,11 @@ export class NavBarComponent {
   public user = computed(() => this.userService.currentUser());
   public userName = this.user()?.nombre;
   public email = this.user()?.email;
+  public img = `http://localhost:4000/${this.user()?.foto}`;
 
+  ngOnInit(): void {
+    this.loadImg();
+  }
 
   viewProfile() {
     this.viewOptionsProfile = !this.viewOptionsProfile;
@@ -25,6 +29,12 @@ export class NavBarComponent {
   logout() {
     this.userService.logout();
     this.router.navigateByUrl('/auth/login');
+  }
+
+  loadImg() {
+    if (!this.img) {
+      this.img = '../../../../assets/img/user_circle.svg';
+    }
   }
 
 }

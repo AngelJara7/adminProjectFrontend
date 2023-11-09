@@ -5,6 +5,7 @@ import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
 import { ModalService } from '../../services/modal.service';
 import { ValidatorsService } from 'src/app/shared/validators.service';
 import { ProjectService } from '../../services/project.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'modal-project-form',
@@ -16,12 +17,12 @@ export class ModalProjectFormComponent implements OnDestroy {
   private fb = inject(FormBuilder);
   private projectService = inject(ProjectService);
   private validatorsServices = inject(ValidatorsService);
+  private socket = inject(SocketService);
 
   public modalService = inject(ModalService);
   public projectForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
-    // fecha: ['', [Validators.required]],
     clave: ['', [Validators.required]],
   });
 
@@ -54,6 +55,7 @@ export class ModalProjectFormComponent implements OnDestroy {
           this.message.set(res);
           this.statusRes = AlertStatus.success;
           this.projectForm.reset();
+          this.socket.addProject();
         },
         error: error => {
           this.message.set(error);

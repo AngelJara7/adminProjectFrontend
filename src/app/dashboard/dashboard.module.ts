@@ -6,6 +6,7 @@ import { DashboardLayoutComponent } from './layout/dashboard-layout/dashboard-la
 import { ProjectListComponent } from './pages/project-list/project-list.component';
 import { ModalProjectFormComponent } from './components/modal-project-form/modal-project-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalImgComponent } from './components/modal-img/modal-img.component';
 import { SharedModule } from '../shared/shared.module';
 
 
@@ -13,14 +14,14 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     DashboardLayoutComponent,
     ProjectListComponent,
-    ModalProjectFormComponent
+    ModalProjectFormComponent,
+    ModalImgComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule,
     ReactiveFormsModule,
-
+    SharedModule,
   ]
 })
 export class DashboardModule { }

@@ -1,0 +1,48 @@
+ <div class="container"
+      [class.view__modal]="true">
+
+      <div class="container__form">
+
+        <div class="container__header">
+
+          <h3>Cargar Foto de Perfil</h3>
+
+          <!-- <button class="close__modal">
+            Cerrar
+          </button> -->
+
+        </div>
+
+        <div class="form">
+
+          <div class="form__img">
+
+            <img [src]="selectdImg || '../../../../assets/img/upload-img.svg'" alt="">
+
+          </div>
+
+          <div class="form__field">
+
+            <input type="file"
+                  (change)="loadImg($event)">
+
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button class="actions--cancel">
+            Cancelar
+          </button>
+
+          <button class="actions--load"
+                  (click)="uploadImg()">
+            Cargar
+          </button>
+
+        </div>
+
+      </div>
+
+ </div>
