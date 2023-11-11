@@ -36,8 +36,8 @@ export class ModalProjectFormComponent implements OnDestroy {
   }
 
   hideModal() {
+    this.modalService.modalProjectFormStatus = false;
     this.ngOnDestroy();
-    this.modalService.hideModal();
   }
 
   isValidField(field: string) {

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
   private userService = inject(AuthService);
   private router = inject(Router);
@@ -16,9 +16,9 @@ export class NavBarComponent implements OnInit {
   public user = computed(() => this.userService.currentUser());
   public userName = this.user()?.nombre;
   public email = this.user()?.email;
-  public img = `http://localhost:4000/${this.user()?.foto}`;
+  public img: string = '';
 
-  ngOnInit(): void {
+  constructor() {
     this.loadImg();
   }
 
@@ -32,9 +32,9 @@ export class NavBarComponent implements OnInit {
   }
 
   loadImg() {
-    if (!this.img) {
-      this.img = '../../../../assets/img/user_circle.svg';
-    }
+    !this.user()?.foto
+    ? this.img = '../../../../assets/img/user_circle.svg'
+    : this.img = `http://localhost:4000/${this.user()?.foto}`;
   }
 
 }

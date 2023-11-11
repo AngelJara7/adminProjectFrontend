@@ -1,23 +1,16 @@
 
 <div class="alert"
-        [ngClass]="{ 'view__alert': message(), 'success': statusRes === 'success', 'error': statusRes === 'error' }">
+        [ngClass]="{ 'hide__alert': message(),
+                    'success': statusRes === alertStatus.success,
+                    'error': statusRes === alertStatus.error }">
 
-      <!-- <img class="alert__logo"
-            [src]="imgAlert"> -->
-
-      <span class="alert__message"
-            [ngClass]="{ 'success__msg': statusRes === 'success', 'error__msg': statusRes === 'error' }">{{ message() }}
+      <span class="alert__message">
+        {{ message() }}
       </span>
 
-      <!-- <button class="alert__close"
-              [ngClass]="{ 'success': statusRes === 'success', 'error': statusRes === 'error' }"
-              (click)="ngOnDestroy()">X
-      </button> -->
-
       <button class="alert__close"
-              [ngClass]="{ 'success': statusRes === 'success', 'error': statusRes === 'error' }"
               (click)="ngOnDestroy()">
-        <i class="fa-solid fa-xmark fa-sm"></i>
+              <i class="fa-solid fa-xmark fa-sm"></i>
       </button>
 
     </div>

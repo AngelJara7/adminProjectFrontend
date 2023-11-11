@@ -10,9 +10,10 @@ import { AlertStatus } from '../../interfaces';
 })
 export class SharedAlertComponent implements OnInit, OnDestroy, OnChanges {
 
-  @Input() statusRes: string = AlertStatus.checking;
-  @Input() message = signal<string>('');
+  public alertStatus = AlertStatus;
   public imgAlert: string = '';
+  @Input() statusRes: string = this.alertStatus.checking;
+  @Input() message = signal<string>('');
 
   constructor() {
     this.ngOnChanges();
@@ -24,17 +25,17 @@ export class SharedAlertComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(): void {
 
-    if (this.statusRes === AlertStatus.success) {
+    if (this.statusRes === this.alertStatus.success) {
       this.imgAlert = '../../../../assets/img/succes.svg';
     }
 
-    if (this.statusRes === AlertStatus.error) {
+    if (this.statusRes === this.alertStatus.error) {
       this.imgAlert = '../../../../assets/img/error.svg';
     }
   }
 
   ngOnDestroy(): void {
-    this.statusRes = AlertStatus.checking;
+    this.statusRes = this.alertStatus.checking;
     this.message.set('');
     this.imgAlert = '';
   }

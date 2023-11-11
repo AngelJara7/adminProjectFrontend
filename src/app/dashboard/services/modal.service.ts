@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,17 +7,23 @@ export class ModalService {
 
   constructor() { }
 
-  private _modalStatus: boolean = false;
+  private _modalProjectFormStatus: boolean = false;
+  private _modalImgStatus: boolean = false;
 
-  get modalStatus() {
-    return this._modalStatus;
+  get modalProjectFormStatus() {
+    return this._modalProjectFormStatus;
   }
 
-  viewModal() {
-    this._modalStatus = true;
+  set modalProjectFormStatus(status: boolean) {
+    this._modalProjectFormStatus = status;
   }
 
-  hideModal() {
-    this._modalStatus = false;
+  get modalImgStatus() {
+    return this._modalImgStatus;
   }
+
+  set modalImgStatus(status: boolean) {
+    this._modalImgStatus = status;
+  }
+
 }

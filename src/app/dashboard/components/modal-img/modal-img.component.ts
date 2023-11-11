@@ -1,27 +1,37 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-
-interface HtmlInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-}
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'modal-img-component',
   templateUrl: './modal-img.component.html',
   styleUrls: ['./modal-img.component.css']
 })
-export class ModalImgComponent {
+export class ModalImgComponent implements OnDestroy {
 
   private authService = inject(AuthService);
 
+  public modalService = inject(ModalService);
   public selectdImg: any;
   public image: any;
 
+  ngOnDestroy(): void {
+    this.clearImg();
+  }
+
+  hideModal() {
+    this.modalService.modalImgStatus = false;
+    this.ngOnDestroy();
+  }
+
+  clearImg() {
+    this.selectdImg = '';
+    this.image = '';
+  }
+
   loadImg(event: any) {
-    console.log(event.target.files[0]);
     if (event.target.files && event.target.files[0]) {
 
-      // console.log( event.file.files[0] );
       this.image = event.target.files[0];
 
       const reader = new FileReader();
@@ -42,6 +52,6 @@ export class ModalImgComponent {
           console.log({err});
         }
       });
-    }
+  }
 
 }

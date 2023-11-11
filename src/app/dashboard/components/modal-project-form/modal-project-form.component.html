@@ -1,14 +1,14 @@
 
-<div class="container"
-    [class.view__modal]="!modalService.modalStatus">
+<section class="modal"
+    [class.view--modal]="modalService.modalProjectFormStatus">
 
-  <div class="container__form">
+  <div class="modal__container">
 
-    <div class="container__header">
+    <div class="modal__header">
 
       <h3>Crear Proyecto</h3>
 
-      <button class="close__modal" (click)="hideModal()">
+      <button class="modal__close" (click)="hideModal()">
         Cerrar
       </button>
 
@@ -21,7 +21,7 @@
 
     </shared-alert>
 
-    <div class="form">
+    <div class="form modal__form">
 
       <!-- <h1>Crear Proyecto</h1> -->
 
@@ -94,4 +94,4 @@
 
   </div>
 
-</div>
+</section>

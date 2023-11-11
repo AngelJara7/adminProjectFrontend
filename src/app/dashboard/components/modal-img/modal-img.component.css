@@ -1,98 +1,67 @@
 
-.container {
-  height: 100%;
-  flex-direction: row;
-  background-color: rgba(56, 89, 101, .6);
-  top: 0;
-  z-index: 1;
-}
-
-.container__form {
-  flex: none;
-  width: 40rem;
-  border-radius: 3px;
-  background-color: white;
-  padding: 2rem;
-  /* padding-bottom: 0; */
-}
-
-.container__header {
-  width: 100%;
-  font-family: var(--second-font);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--dark-secondary-color);
-}
-
-.container__header h3 {
-  margin: 0;
-  float: left;
-}
-
-.form {
-  position: relative;
-  max-width: 40rem;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 3px;
-}
-
-.form form {
-  padding: 1rem 0;
-}
-
-.form__img {
+.modal__header {
   width: 100%;
 }
 
-.form__img img {
-  width: 85%;
-  object-fit: contain;
+.modal__img {
+  max-width: 100%;
+  background-color: white;
+  border-radius: 3px;
+  margin: 2rem 0;
 }
 
-.form__field {
-  position: relative;
-  width: 50%;
+.clear__img {
   height: 3rem;
-  cursor: pointer;
-}
-
-.form__field::before {
-  background-color: var(--primary-color);
-  font-family: var(--second-font);
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: .3px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  content: 'Carga una foto';
+  width: 3rem;
+  border: none;
+  border-radius: 3px;
+  background-color: transparent;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  transition: all 300ms;
+  top: .5rem;
+  right: .5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: all .3s;
 }
 
-.form__field input {
-  opacity: 0;
+.clear__img:hover {
+  background-color: var(--light-secondary-color);
+}
+
+.container__img {
   width: 100%;
-  height: 3rem;
-  display: inline-block;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px dashed var(--light-secondary-color);
+  position: relative;
 }
 
-/* .form__field input::before {
-  content: 'Carga una foto';
-} */
-
-.form__field:hover::before {
-  background-color: var(--dark-primary-color);
+.container__img img {
+  width: 100%;
+  height: 35rem;
+  object-fit: contain;
+  margin: auto;
+  padding: .5rem;
 }
 
-.actions {
+.no-img img {
+  width: 60%;
+}
+
+.container__img p {
+  color: var(--light-secondary-color);
+  margin: 1rem 0;
+  position: absolute;
+}
+
+.input__img {
+  display: none;
+}
+
+.modal__actions {
   width: 100%;
   height: 3.5rem;
   display: flex;
@@ -100,7 +69,7 @@
   gap: 1rem;
 }
 
-.actions button {
+.modal__actions button {
   flex: 1;
   border: none;
   font-family: var(--second-font);
@@ -111,22 +80,27 @@
   transition: all 300ms;
 }
 
-.actions--cancel {
+.modal__actions--cancel {
   background-color: var(--light-secondary-color);
   color: var(--secondary-color);
 }
 
-.actions--load {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.actions--cancel:hover {
+.modal__actions--cancel:hover {
   background-color: #758d95;
   cursor: pointer;
 }
 
-.actions--load:hover {
-  background-color: var(--dark-primary-color);
+.modal__actions--load {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.modal__actions--load:hover {
+  background-color: var(--background-modal);
   cursor: pointer;
+}
+
+.modal__actions--load:disabled {
+  background-color: var(--light-primary-color);
+  cursor: initial;
 }

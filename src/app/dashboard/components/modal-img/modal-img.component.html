@@ -1,43 +1,48 @@
- <div class="container"
-      [class.view__modal]="true">
+ <section class="modal"
+      [class.view--modal]="modalService.modalImgStatus">
 
-      <div class="container__form">
+      <div class="modal__container">
 
-        <div class="container__header">
+        <div class="modal__header">
 
-          <h3>Cargar Foto de Perfil</h3>
-
-          <!-- <button class="close__modal">
-            Cerrar
-          </button> -->
+          <h3>Cambiar foto de perfil</h3>
 
         </div>
 
-        <div class="form">
+        <div class="modal__img">
 
-          <div class="form__img">
+          <button class="clear__img" (click)="clearImg()">
+
+            <i class="fa-solid fa-xmark fa-lg" style="color: #385965;"></i>
+
+          </button>
+
+          <div class="container__img" (click)="imgInput.click()" [ngClass]="{ 'no-img': !selectdImg }">
 
             <img [src]="selectdImg || '../../../../assets/img/upload-img.svg'" alt="">
+            
+            <p *ngIf="!selectdImg">click para cargar imagen</p>
 
           </div>
 
-          <div class="form__field">
+          <div class="input__img">
 
             <input type="file"
-                  (change)="loadImg($event)">
+                  (change)="loadImg($event)" #imgInput>
 
           </div>
 
         </div>
 
-        <div class="actions">
+        <div class="modal__actions">
 
-          <button class="actions--cancel">
+          <button class="modal__actions--cancel" (click)="hideModal()">
             Cancelar
           </button>
 
-          <button class="actions--load"
-                  (click)="uploadImg()">
+          <button class="modal__actions--load"
+                  (click)="uploadImg()"
+                  [disabled]="!selectdImg">
             Cargar
           </button>
 
@@ -45,4 +50,4 @@
 
       </div>
 
- </div>
+ </section>

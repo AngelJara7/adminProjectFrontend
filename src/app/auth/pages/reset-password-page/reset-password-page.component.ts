@@ -30,7 +30,6 @@ export class ResetPasswordPageComponent implements OnInit {
 
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
-  // public tokenExists = signal<boolean>(false);
 
   ngOnInit(): void {
     this.activatedRoute.params

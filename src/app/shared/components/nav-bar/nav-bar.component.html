@@ -10,18 +10,12 @@
 
   <div class="tools">
 
-    <!-- <div class="tools__notifications">
-      <i class="fa-solid fa-bell fa-2xl"></i>
-    </div> -->
-
     <div class="tools__profile">
 
       <button (click)="viewProfile()">
-        <!-- <i class="fa-solid fa-circle-user fa-2xl"></i> -->
 
         <img [src]="img" alt="">
-
-        <!-- Nombre usuario -->
+        
       </button>
 
       <div class="profile__options" [class.view__options]="!viewOptionsProfile">
@@ -30,10 +24,8 @@
 
           <div class="account__info">
 
-            <!-- <i class="fa-solid fa-circle-user fa-2xl"></i> -->
-
             <img [src]="img" alt="">
-            
+
             <div class="user__info">
 
               <b>{{ userName }}</b>

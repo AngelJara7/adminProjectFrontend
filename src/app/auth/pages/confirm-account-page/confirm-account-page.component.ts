@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './confirm-account-page.component.html',
   styleUrls: ['./confirm-account-page.component.css']
 })
-export class ConfirmAccountPageComponent implements OnInit {
+export class ConfirmAccountPageComponent {
 
   private activatedRoute = inject(ActivatedRoute);
   private authService = inject(AuthService);
@@ -16,21 +16,15 @@ export class ConfirmAccountPageComponent implements OnInit {
 
   public userName: string = '';
 
-  ngOnInit(): void {
+  constructor() {
+
     this.activatedRoute.params
       .pipe(
         switchMap(({token}) => this.authService.confirmAccount(token))
-
       ).subscribe({
         next: (user) => this.userName = user.nombre,
         error: () => this.router.navigateByUrl('/not-found')
-      }
-      // user => {
-      //   if (!user) return console.log('Error');
-      //   this.userName = user.nombre;
-      //   return;
-      // }
-      );
-  }
-
+      });
+    }
+    
 }

@@ -14,6 +14,11 @@
 
     --white: #FFFFFF;
 
+    --error-color: #E94E42;
+    --success-color: #0ABF30;
+
+    --background-modal: #385965bd;
+
     --main-font: 'Oswald';
     --second-font: 'Lato';
 }
@@ -33,52 +38,107 @@ body {
   padding: 0;
 }
 
+/** Clases Generales **/
+h1, h2 {
+  margin: 0;
+  font-family: var(--main-font);
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: var(--dark-secondary-color);
+}
+
+p {
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  letter-spacing: .3px;
+}
+
+span {
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: .3px;
+  color: var(--secondary-color);
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  transition: all 300ms;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--dark-primary-color);
+  cursor: pointer;
+}
+
 .fa-2xl, .fa-xl {
   color: var(--secondary-color);
 }
 
+/** Clases generales para visualizar y ocultar de vantanas modales **/
+.modal {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  background-color: rgba(56, 89, 101, .6);
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s .6s;
+  --transform: translateX(100vw);
+  --transition: transform .4s;
+}
+
+.modal__container {
+  flex: none;
+  width: 100%;
+  max-width: 40rem;
+  border-radius: 3px;
+  background-color: white;
+  padding: 2rem;
+  /* padding-bottom: 0; */
+  margin: auto;
+  transform: var(--transform);
+  transition: var(--transition);
+}
+
+.modal__header h3 {
+  font-family: var(--second-font);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-secondary-color);
+  margin: 0;
+}
+
+.view--modal {
+  opacity: 1;
+  pointer-events: unset;
+  transition: opacity .3s;
+  --transform: translateX(0);
+  --transition: transform .4s .4s;
+}
+
+
+/** Contenedores y formularios **/
 .container {
   width: 100%;
-  /* height: max-content;
-  min-height: 100%; */
   position: absolute;
 }
 
-.header {
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--dark-secondary-color);
-}
-
-.header h1 {
-    width: 100%;
-    /* padding: 2rem; */
-    margin: 0;
-    font-family: var(--main-font);
-    font-size: 3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-align: center;
-    color: var(--primary-color);
-}
-
-.header span {
-    margin: 0;
-    display: inline;
-    color: white;
-}
-
 .container__form {
-  width: 100%;
   flex: 1;
   text-align: center;
-  margin: auto;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  padding-bottom: 3rem;
 }
 
 .container__img {
@@ -95,28 +155,10 @@ shared-alert {
 .form--reset_password,
 .form--forget_password {
   width: 100%;
-  margin: 0 3rem;
-  font-family: var(--main-font);
-  font-size: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-}
-
-.form h1 {
-  margin: 0;
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: var(--dark-secondary-color);
-}
-
-.form p {
-  font-size: 1.5rem;
-  font-family: var(--second-font);
-  text-align: center;
-  color: var(--secondary-color);
 }
 
 .form form {
@@ -130,7 +172,7 @@ shared-alert {
 }
 
 ::placeholder {
-  color: #e1e1e1
+  color: var(--light-secondary-color)
 }
 
 .form__field {
@@ -138,13 +180,8 @@ shared-alert {
   height: max-content;
 }
 
-
-.form__field input[type="text"],
-.form__field input[type="email"],
-.form__field input[type="password"],
-.form__field input[type="date"],
-.form__field input[type="submit"],
-textarea {
+.form__field input,
+.form__field textarea {
   width: 100%;
   height: 5rem;
   font-family: var(--second-font);
@@ -156,7 +193,7 @@ textarea {
   padding: 1rem 2rem;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+.form__field input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   border-radius: 4px;
   margin-right: 2px;
@@ -164,34 +201,36 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.9);
 }
 
-.form__field input[type="text"]:focus,
-.form__field input[type="email"]:focus,
-.form__field input[type="password"]:focus,
-.form__field input[type="date"]:focus {
-    border: none;
+.form__field input:focus,
+.form__field textarea:focus {
+  border: none;
   outline: 1.5px solid var(--primary-color);
 }
 
 .form__field input[type="submit"] {
-    border: none;
-    margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  margin-bottom: 1rem;
   background-color: var(--primary-color);
   color: white;
   transition: all 500ms;
 }
 
 .form__field input[type="submit"]:hover {
-    background-color: var(--dark-primary-color);
+  background-color: var(--dark-primary-color);
   cursor: pointer;
+}
+
+.form__field input[type="submit"]:active {
+  background-color: var(--light-primary-color);
 }
 
 .form__field input[type="submit"]:disabled {
   background-color: var(--light-primary-color);
-  color: white;
   cursor: initial;
 }
 
-.form__field > span {
+.form__field span {
   display: block;
   width: 100%;
   font-family: var(--second-font);
@@ -201,48 +240,82 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .form form > span,
 .form > span {
-  width: 100%;
-  font-family: var(--second-font);
-  font-weight: normal;
-  text-align: end;
-  margin: 0;
+  align-self: end;
   margin-bottom: 1rem;
   transition: all 500ms;
-  color: var(--dark-secondary-color);
 }
 
-.form form > span a,
-.form > span a {
-  text-decoration: none;
+
+/** Pagina confimación de cuenta **/
+.container__confirm-account {
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.container__title {
+  width: 100%;
+  padding: 6rem 0;
+  text-align: center;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.container__title h1 {
+  margin: 2.5rem 0;
+}
+
+.user__name {
+  font-size: 2rem;
+}
+
+span a {
+  color: var(--primary-color);
+}
+
+.container__title footer {
+  margin-top: 3rem;
+}
+
+.container__title footer p {
+  font-family: var(--main-font);
+  font-size: 1.3rem;
+  letter-spacing: .3px;
   color: var(--secondary-color);
-  font-weight: 400;
 }
 
-.form form > span a:hover,
-.form > span a:hover {
-  text-decoration: underline;
-  color: var(--dark-primary-color);
-  cursor: pointer;
+hr {
+  border: .1px solid var(--light-secondary-color);
 }
 
+/** ALertas para campos de formularios invalidos **/
 .error__field input[type="text"],
 .error__field input[type="email"],
 .error__field input[type="password"] {
-  border: 1px solid #E94E42;
+  border: 1px solid var(--error-color);
 }
 
 .error__field input[type="text"]:focus,
 .error__field input[type="email"]:focus,
 .error__field input[type="password"]:focus {
-  outline: 1px solid #E94E42;
+  outline: 1px solid var(--error-color);
 }
 
+/** Puntos de quiebre para diferentes dispositivos **/
 @media(min-width: 600px) {
 
+  /** Contenedores y formularios **/
     .container__form {
         width: 50%;
         min-width: 40rem;
     }
+
+
+    /** Pagina Confimacion de Cuenta **/
+    .container__confirm-account {
+      width: 50%;
+    }
+
 }
 
 @media(min-width: 768px) {
@@ -277,13 +350,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .form,
     .form--reset-password
     .form--forget-password,
-    auth-alert {
+    shared-alert {
         width: 40rem;
     }
 
     .container__img {
-      width: 45%;
-      position: relative;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -308,7 +380,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .form,
     .form--reset-password
     .form--forget-password,
-    auth-alert {
+    shared-alert {
         width: 45rem;
     }
 
@@ -318,6 +390,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-.view__modal {
+.view {
   display: none;
 }

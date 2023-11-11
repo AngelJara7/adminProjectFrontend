@@ -15,10 +15,7 @@
 
     <div class="field-project">
 
-      <!-- <i class="fa-solid fa-magnifying-glass fa-2xl"></i> -->
-
-      <input type="text"
-            placeholder="Buscar proyecto">
+      <input type="text" placeholder="Buscar proyecto">
 
     </div>
 
@@ -26,59 +23,53 @@
 
   <div class="list-projects">
 
-    <div>
+    <table class="table-projects">
 
-      <table class="table-projects">
+      <thead class="table-header">
 
-        <thead class="table-header">
+        <tr>
+          <th>Nombre Proyecto</th>
+          <th>Llave</th>
+          <th>Descripción</th>
+          <th>Administrador</th>
+          <th></th>
+          <th></th>
+        </tr>
 
-          <tr>
-            <th>Nombre Proyecto</th>
-            <th>Llave</th>
-            <th>Descripción</th>
-            <th>Administrador</th>
-            <th></th>
-            <th></th>
-          </tr>
+      </thead>
 
-        </thead>
+      <tbody class="table-info">
 
-        <tbody class="table-info">
+        <tr class="info" *ngFor="let project of projects">
 
-          <tr class="info" *ngFor="let project of projects">
+          <td class="info--link">
+            <a>{{ project.nombre }}</a>
+          </td>
 
-            <td class="info--link">
-              <a>{{ project.nombre }}</a>
-            </td>
+          <td>{{ project.clave }}</td>
 
-            <td>{{ project.clave }}</td>
+          <td>{{ project.descripcion | slice:0:20 }}...</td>
 
-            <td>{{ project.descripcion }}</td>
+          <td class="info--link">
+            <a>{{ project.usuario }}</a>
+          </td>
 
-            <td class="info--link">
-              <a>{{ project.usuario }}</a>
-            </td>
+          <td class="info--actions">
+            <div>
+              <i class="fa-solid fa-trash fa-lg"></i>
+            </div>
+          </td>
 
-            <td class="info--actions">
-              <div>
-                <i class="fa-solid fa-trash fa-lg"></i>
-              </div>
-            </td>
+          <td class="info--actions">
+            <div>
+              <i class="fa-solid fa-gear fa-lg"></i>
+            </div>
+          </td>
+        </tr>
 
-            <td class="info--actions">
-              <div>
-                <i class="fa-solid fa-gear fa-lg"></i>
-              </div>
-            </td>
-          </tr>
+      </tbody>
 
-
-        </tbody>
-
-
-      </table>
-
-    </div>
+    </table>
 
   </div>
 

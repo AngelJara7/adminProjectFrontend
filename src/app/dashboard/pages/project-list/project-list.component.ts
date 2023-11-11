@@ -23,7 +23,10 @@ export class ProjectListComponent {
 
   constructor() {
     this.getProjects();
-    this.reloadProjects();
+
+    this.socket.io.on('project created', () => {
+      this.getProjects();
+    });
 
     if (this.currentUser()?._id) {
       this.socket.loadProjects(this.currentUser()!._id);
@@ -38,15 +41,8 @@ export class ProjectListComponent {
       });
   }
 
-  reloadProjects() {
-    this.socket.io.on('project created', () => {
-      this.getProjects();
-    });
-  }
-
-
   viewModalProjectForm() {
-    this.modalService.viewModal();
+    this.modalService.modalProjectFormStatus = true;
   }
 
 }

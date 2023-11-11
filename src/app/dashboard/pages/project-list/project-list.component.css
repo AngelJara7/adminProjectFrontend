@@ -1,43 +1,23 @@
 
-/* modal-project-form {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(56, 89, 101, .6);
-  top: 0;
-  z-index: 1;
-} */
-
 .projects {
   width: 100%;
   height: 100%;
-  /* background-color: var(--light-secondary-color); */
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3rem;
 }
 
-.projects h2 {
-  font-family: var(--main-font);
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: .5px;
-  color: var(--dark-secondary-color);
-  margin: 0;
-}
-
-/* Encabezado de pagina */
-
 .header {
   width: 100%;
-  height: max-content;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
+}
+.header h2 {
+  font-size: 2.5rem;
 }
 
 .header button {
@@ -55,27 +35,24 @@
 
 .header button:hover {
   background-color: var(--dark-primary-color);
+  cursor: pointer;
 }
 
 .header button:active {
   background-color: var(--light-primary-color);
+  cursor: pointer;
 }
-
-/* Campo de busqueda de proyectos por nombre */
 
 .search-project {
   width: 100%;
-  padding: 0 1rem;
+  max-width: 40rem;
+  align-self: start;
 }
 
 .field-project {
-  width: 40rem;
+  width: 100%;
   height: 5rem;
   border: 1px solid var(--secondary-color);
-  display: flex;
-  align-items: center;
-  /* padding: 1rem; */
-  position: relative;
 }
 
 .field-project .fa-2xl {
@@ -92,13 +69,13 @@
   font-size: 1.5rem;
   font-weight: 400;
   color: var(--dark-secondary-color);
-  letter-spacing: .5px;
+  letter-spacing: .3px;
   padding: 0 2rem;
   transition: all 300ms;
 }
 
 .field-project input:hover {
-  background-color: rgba(225, 225, 225, .3);
+  background-color: rgba(225, 225, 225, .4);
 }
 
 .field-project input:focus {
@@ -110,36 +87,22 @@
   color: var(--light-secondary-color);
 }
 
-/* Listado de proyectos */
+/** Listado de proyectos **/
 
 .list-projects {
   width: 100%;
   height: 100%;
   padding: 0 1rem;
-}
-
-.list-projects > div {
-  width: 100%;
-  height: 100%;
+  overflow: auto;
 }
 
 .table-projects {
   width: 100%;
   height: 100%;
   border-collapse: collapse;
-  /* background-color: var(--secondary-color); */
-}
-
-.table-header {
   font-family: var(--second-font);
   font-size: 1.5rem;
-  font-weight: 700;
   color: var(--secondary-color);
-}
-
-.table-header,
-.table-info {
-  background-color: white;
 }
 
 .table-header tr th,
@@ -149,21 +112,21 @@
   height: 5rem;
 }
 
+.info:hover {
+  transition: all 300ms;
+  background-color: rgba(225, 225, 225, .4);
+}
+
+.info td {
+  min-width: 14rem;
+}
+
 .table-info {
   border-top: 2px solid var(--light-secondary-color);
   border-bottom: 2px solid var(--light-secondary-color);
 }
 
-.info {
-  height: 2rem;
-  text-align: center;
-  font-family: var(--second-font);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--secondary-color);
-}
-
-.info--link {
+.info--link a {
   color: var(--primary-color);
   transition: all 300ms;
 }
@@ -175,18 +138,47 @@
 }
 
 .info--actions {
-  padding: 1rem;
+  min-width: 5rem!important;
+  padding: 0!important;
 }
 
-.info--actions {
+.info--actions div {
+  width: 100%;
+  height: 90%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 300ms;
 }
 
-.info--actions:hover {
+.info--actions div:hover {
   background-color: var(--light-secondary-color);
   border-radius: 2px;
 }
 
-.info--actions div {
-  text-align: center;
+@media(min-width: 768px) {
+
+  .projects {
+    padding: 2rem;
+  }
+
+  .header {
+    padding: 2rem 1rem;
+  }
+
+}
+
+@media(min-width: 998px) {
+  .info--actions {
+    min-width: 3.5rem!important;
+  }
+
+}
+
+@media(min-width: 1200px) {
+  .info--actions {
+    min-width: 3rem!important;
+  }
+
 }
