@@ -2,7 +2,7 @@ import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ValidatorsService } from 'src/app/shared/validators.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
@@ -16,11 +16,12 @@ export class ForgetPasswordComponent {
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
   private authService = inject(AuthService);
-  private router = inject(Router);
 
   public forgetPasswordForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
   });
+
+  public isLoading: boolean = false;
 
   isValidField(field: string) {
     return this.forgetPasswordForm.controls[field].errors && this.forgetPasswordForm.controls[field].touched;
@@ -34,7 +35,7 @@ export class ForgetPasswordComponent {
   @Output() message = signal<string>('');
 
   requestChangePassword() {
-
+    this.isLoading = true;
     const { email } = this.forgetPasswordForm.value;
 
     this.authService.requestChangePassword(email)
@@ -45,9 +46,11 @@ export class ForgetPasswordComponent {
           this.forgetPasswordForm.reset();
         },
         error: (error) => {
+          this.isLoading = false;
           this.message.set(error);
           this.statusRes = AlertStatus.error;
-        }
+        },
+        complete: () => this.isLoading = false
       });
   }
 

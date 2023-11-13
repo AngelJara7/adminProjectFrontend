@@ -35,8 +35,3 @@
 .modal__form form {
   padding: 1rem 0;
 }
-
-textarea {
-  resize: none;
-  height: 10rem;
-}

@@ -2,7 +2,7 @@ import { Component, Output, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ValidatorsService } from 'src/app/shared/validators.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
@@ -23,6 +23,8 @@ export class LoginPageComponent {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
+  public isLoading: boolean = false;
+
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
 
@@ -37,16 +39,18 @@ export class LoginPageComponent {
   }
 
   login() {
+    this.isLoading = true;
     const { email, password } = this.loginForm.value;
-    // if (this.loginForm.valid) console.log('VALUE: ',this.loginForm.value);
 
     this.authService.login(email, password)
       .subscribe({
         next: () => this.router.navigateByUrl('/dashboard'),
         error: (error) => {
+          this.isLoading = false;
           this.message.set(error);
           this.statusRes = AlertStatus.error;
-        }
+        },
+        complete: () => this.isLoading = false,
       });
   }
 

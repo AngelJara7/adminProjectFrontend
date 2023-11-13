@@ -1,7 +1,7 @@
 
 <div class="projects">
 
-  <div class="header">
+  <div class="projects__header">
 
     <h2>Proyectos</h2>
 
@@ -11,9 +11,9 @@
 
   </div>
 
-  <div class="search-project">
+  <div class="projects__search">
 
-    <div class="field-project">
+    <div class="search__field">
 
       <input type="text" placeholder="Buscar proyecto">
 
@@ -21,11 +21,11 @@
 
   </div>
 
-  <div class="list-projects">
+  <div class="projects__list">
 
-    <table class="table-projects">
+    <table class="list__table" *ngIf="!loadingProjects && projects.length > 0">
 
-      <thead class="table-header">
+      <thead class="table__header">
 
         <tr>
           <th>Nombre Proyecto</th>
@@ -38,11 +38,11 @@
 
       </thead>
 
-      <tbody class="table-info">
+      <tbody class="table__info">
 
-        <tr class="info" *ngFor="let project of projects">
+        <tr class="info__row" *ngFor="let project of projects">
 
-          <td class="info--link">
+          <td class="info__row--link">
             <a>{{ project.nombre }}</a>
           </td>
 
@@ -50,17 +50,17 @@
 
           <td>{{ project.descripcion | slice:0:20 }}...</td>
 
-          <td class="info--link">
-            <a>{{ project.usuario }}</a>
+          <td class="info__row--link" (click)="navigateUserProfile(project.usuario!._id)">
+            <a>{{ project.usuario?.nombre }}</a>
           </td>
 
-          <td class="info--actions">
+          <td class="info__row--actions">
             <div>
               <i class="fa-solid fa-trash fa-lg"></i>
             </div>
           </td>
 
-          <td class="info--actions">
+          <td class="info__row--actions">
             <div>
               <i class="fa-solid fa-gear fa-lg"></i>
             </div>
@@ -71,7 +71,16 @@
 
     </table>
 
-  </div>
+    <div class="list__empty" *ngIf="!loadingProjects && projects.length === 0">
 
+      <img src="../../../../assets/img/404-not-found.jpg" alt="Folder vacío">
+
+      <b>No hay proyectos que mostrar</b>
+
+    </div>
+
+    <loading *ngIf="loadingProjects"></loading>
+
+  </div>
 
 </div>

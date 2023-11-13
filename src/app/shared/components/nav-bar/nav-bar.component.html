@@ -15,7 +15,7 @@
       <button (click)="viewProfile()">
 
         <img [src]="img" alt="">
-        
+
       </button>
 
       <div class="profile__options" [class.view__options]="!viewOptionsProfile">
@@ -28,8 +28,8 @@
 
             <div class="user__info">
 
-              <b>{{ userName }}</b>
-              <p>{{ email }}</p>
+              <b>{{ user()?.nombre }}</b>
+              <p>{{ user()?.email }}</p>
 
             </div>
 
@@ -37,7 +37,7 @@
 
           <hr>
 
-          <button>Perfil</button>
+          <button (click)="navigateUserProfile()">Perfil</button>
 
           <hr>
 

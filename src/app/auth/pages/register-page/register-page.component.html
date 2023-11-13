@@ -70,7 +70,7 @@
 
           <input type="submit"
                 value="Registrar"
-                [disabled]="registerForm.invalid">
+                [disabled]="registerForm.invalid || isLoading">
         </div>
 
       </form>

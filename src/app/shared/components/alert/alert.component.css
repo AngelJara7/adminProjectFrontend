@@ -27,6 +27,7 @@
 
 .alert__message {
   width: 100%;
+  text-align: center;
 }
 
 .alert__close {

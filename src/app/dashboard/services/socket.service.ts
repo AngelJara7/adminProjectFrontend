@@ -20,4 +20,8 @@ export class SocketService {
   addProject() {
     this.io.emit('create project');
   }
+
+  loadImg() {
+    this.io.emit('load img');
+  }
 }

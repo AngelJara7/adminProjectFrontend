@@ -1,6 +1,7 @@
 import { Component, OnDestroy, inject } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from '../../services/modal.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'modal-img-component',
@@ -10,10 +11,12 @@ import { ModalService } from '../../services/modal.service';
 export class ModalImgComponent implements OnDestroy {
 
   private authService = inject(AuthService);
+  private socket = inject(SocketService);
 
   public modalService = inject(ModalService);
   public selectdImg: any;
   public image: any;
+  public isLoading: boolean = false;
 
   ngOnDestroy(): void {
     this.clearImg();
@@ -43,15 +46,34 @@ export class ModalImgComponent implements OnDestroy {
   }
 
   uploadImg() {
+    this.isLoading = true;
+
     this.authService.uploadImg(this.image)
       .subscribe({
         next: res => {
-          console.log({res});
+          this.clearImg();
+          this.socket.loadImg();
+          this.hideModal();
         },
         error: err => {
+          this.isLoading = false;
           console.log({err});
+        },
+        complete: () => {
+          this.isLoading = false
         }
       });
+  }
+
+  addProjectSuccess(res: string) {
+
+    this.isLoading = false;
+
+    // this.message.set(res);
+
+    // status === AlertStatus.success
+    // ? this.statusRes = AlertStatus.success
+    // : this.statusRes = AlertStatus.error;
   }
 
 }

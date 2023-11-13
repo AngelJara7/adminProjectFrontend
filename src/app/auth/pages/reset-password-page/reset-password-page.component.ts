@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
-import { ValidatorsService } from '../../../shared/validators.service';
+import { ValidatorsService } from '../../../shared/services/validators.service';
 import { switchMap } from 'rxjs';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
@@ -27,6 +27,7 @@ export class ResetPasswordPageComponent implements OnInit {
     validators: [this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2')]
   });
   public userName: string = '';
+  public isLoading: boolean = false;
 
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
@@ -50,6 +51,7 @@ export class ResetPasswordPageComponent implements OnInit {
   }
 
   changePassword() {
+    this.isLoading = true;
     const { password } = this.resetPasswordForm.value;
 
     this.activatedRoute.params
@@ -57,11 +59,13 @@ export class ResetPasswordPageComponent implements OnInit {
         switchMap(({token}) => this.authService.changePassword(password, token))
       ).subscribe({
         next: (msg) => {
+          this.isLoading = false;
           this.message.set(msg);
           this.statusRes = AlertStatus.success;
           this.resetPasswordForm.reset();
         },
-        error: (error) => this.message.set(error)
+        error: (error) => this.message.set(error),
+        complete: () => this.isLoading = false
       });
   }
 

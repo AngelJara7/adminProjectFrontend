@@ -1,12 +1,29 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, AsyncValidator, FormGroup, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ValidatorsService {
+export class ValidatorsService implements AsyncValidator {
 
   public emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
+  public emptySpace = /\s/;
+
+  validate(control: AbstractControl): Observable<ValidationErrors | null> {
+    const clave = control.value;
+
+    const httpCallObservable = new Observable<ValidationErrors | null>((subcriber) => {
+      if (this.emptySpace.test(clave)) {
+        subcriber.next({ taken: 'No se permiten espacios en blanco' });
+        subcriber.complete();
+      }
+      subcriber.next(null);
+      subcriber.complete();
+    });
+
+    return httpCallObservable;
+  }
 
   public isValidField(form: FormGroup, field: string) {
     return form.controls[field] && form.controls[field].touched;
@@ -16,10 +33,10 @@ export class ValidatorsService {
 
     return (formGroup: AbstractControl): ValidationErrors | null => {
 
-      const fireldValue1 = formGroup.get(field1)?.value;
-      const fireldValue2 = formGroup.get(field2)?.value;
+      const fieldValue1 = formGroup.get(field1)?.value;
+      const fieldValue2 = formGroup.get(field2)?.value;
 
-      if (fireldValue1 !== fireldValue2) {
+      if (fieldValue1 !== fieldValue2) {
         formGroup.get(field2)?.setErrors({ notEqual: 'Las contraseñas no son iguales' });
         return { notEqual: 'Las contraseñas no son iguales' }
       }
@@ -33,7 +50,7 @@ export class ValidatorsService {
 
     if (!form.controls[field]) return null;
 
-    const errors = form.controls[field].errors || {}
+    const errors = form.controls[field].errors || {};
 
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -45,6 +62,9 @@ export class ValidatorsService {
 
         case 'pattern':
           return 'Introduzca un e-mail válido';
+
+        case 'taken':
+          return 'No se permiten espacios en blanco';
 
         case 'notEqual':
           return 'La contraseña no coincide';

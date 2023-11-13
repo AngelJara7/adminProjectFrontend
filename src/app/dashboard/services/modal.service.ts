@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,8 @@ export class ModalService {
 
   private _modalProjectFormStatus: boolean = false;
   private _modalImgStatus: boolean = false;
+
+  public newImg: EventEmitter<string> = new EventEmitter<string>();
 
   get modalProjectFormStatus() {
     return this._modalProjectFormStatus;

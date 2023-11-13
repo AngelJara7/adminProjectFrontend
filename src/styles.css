@@ -112,6 +112,7 @@ a:hover {
   font-family: var(--second-font);
   font-size: 2rem;
   font-weight: 700;
+  letter-spacing: .3px;
   color: var(--dark-secondary-color);
   margin: 0;
 }
@@ -193,6 +194,11 @@ shared-alert {
   padding: 1rem 2rem;
 }
 
+.form__field textarea {
+  resize: none;
+  height: 10rem;
+}
+
 .form__field input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   border-radius: 4px;
@@ -202,7 +208,7 @@ shared-alert {
 }
 
 .form__field input:focus,
-.form__field textarea:focus {
+textarea:focus {
   border: none;
   outline: 1.5px solid var(--primary-color);
 }
@@ -291,13 +297,15 @@ hr {
 /** ALertas para campos de formularios invalidos **/
 .error__field input[type="text"],
 .error__field input[type="email"],
-.error__field input[type="password"] {
+.error__field input[type="password"],
+.error__field textarea {
   border: 1px solid var(--error-color);
 }
 
 .error__field input[type="text"]:focus,
 .error__field input[type="email"]:focus,
-.error__field input[type="password"]:focus {
+.error__field input[type="password"]:focus,
+.error__field textarea:focus {
   outline: 1px solid var(--error-color);
 }
 

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ValidatorsService } from './validators.service';
+import { ValidatorsService } from './services/validators.service';
 
 describe('ValidatorsService', () => {
   let service: ValidatorsService;

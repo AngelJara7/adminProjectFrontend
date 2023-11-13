@@ -4,6 +4,7 @@
 }
 
 .modal__img {
+  position: relative;
   max-width: 100%;
   background-color: white;
   border-radius: 3px;
@@ -55,6 +56,7 @@
   color: var(--light-secondary-color);
   margin: 1rem 0;
   position: absolute;
+  top: 0;
 }
 
 .input__img {

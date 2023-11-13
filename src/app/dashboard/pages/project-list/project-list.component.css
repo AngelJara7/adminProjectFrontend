@@ -1,26 +1,29 @@
 
 .projects {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   padding: 1rem;
+  position: absolute;
+  top: 5.5rem;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3rem;
 }
 
-.header {
+.projects__header {
   width: 100%;
   padding: 2rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.header h2 {
+.projects__header h2 {
   font-size: 2.5rem;
 }
 
-.header button {
+.projects__header button {
   height: 4rem;
   padding: 1rem 2.5rem;
   font-family: var(--second-font);
@@ -33,35 +36,35 @@
   transition: all 300ms;
 }
 
-.header button:hover {
+.projects__header button:hover {
   background-color: var(--dark-primary-color);
   cursor: pointer;
 }
 
-.header button:active {
+.projects__header button:active {
   background-color: var(--light-primary-color);
   cursor: pointer;
 }
 
-.search-project {
+.projects__search {
   width: 100%;
   max-width: 40rem;
   align-self: start;
 }
 
-.field-project {
+.search__field {
   width: 100%;
   height: 5rem;
   border: 1px solid var(--secondary-color);
 }
 
-.field-project .fa-2xl {
+.search__field .fa-2xl {
   color: var(--secondary-color);
   padding-left: 1rem;
   position: absolute;
 }
 
-.field-project input {
+.search__field input {
   width: 100%;
   height: 100%;
   border: none;
@@ -74,11 +77,11 @@
   transition: all 300ms;
 }
 
-.field-project input:hover {
+.search__field input:hover {
   background-color: rgba(225, 225, 225, .4);
 }
 
-.field-project input:focus {
+.search__field input:focus {
   background-color: transparent;
   outline: 1px solid var(--primary-color);
 }
@@ -89,60 +92,60 @@
 
 /** Listado de proyectos **/
 
-.list-projects {
+.projects__list {
   width: 100%;
   height: 100%;
   padding: 0 1rem;
   overflow: auto;
 }
 
-.table-projects {
+.list__table {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   border-collapse: collapse;
   font-family: var(--second-font);
   font-size: 1.5rem;
   color: var(--secondary-color);
 }
 
-.table-header tr th,
-.info td {
+.table__header tr th,
+.info__row td {
   padding: 1rem;
   text-align: start;
   height: 5rem;
 }
 
-.info:hover {
+.info__row:hover {
   transition: all 300ms;
   background-color: rgba(225, 225, 225, .4);
 }
 
-.info td {
+.info__row td {
   min-width: 14rem;
 }
 
-.table-info {
+.table__info {
   border-top: 2px solid var(--light-secondary-color);
   border-bottom: 2px solid var(--light-secondary-color);
 }
 
-.info--link a {
+.info__row--link a {
   color: var(--primary-color);
   transition: all 300ms;
 }
 
-.info--link a:hover {
+.info__row--link a:hover {
   cursor: pointer;
   text-decoration: underline;
   color: var(--dark-primary-color);
 }
 
-.info--actions {
+.info__row--actions {
   min-width: 5rem!important;
   padding: 0!important;
 }
 
-.info--actions div {
+.info__row--actions div {
   width: 100%;
   height: 90%;
   text-align: center;
@@ -152,9 +155,30 @@
   transition: all 300ms;
 }
 
-.info--actions div:hover {
+.info__row--actions div:hover {
   background-color: var(--light-secondary-color);
   border-radius: 2px;
+}
+
+.list__empty {
+  width: 100%;
+  max-height: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.list__empty img {
+  width: 35rem;
+}
+
+.list__empty b {
+  text-align: center;
+  text-wrap: wrap;
+  font-family: var(--second-font);
+  font-size: 2rem;
+  color: var(--secondary-color);
 }
 
 @media(min-width: 768px) {
@@ -163,21 +187,21 @@
     padding: 2rem;
   }
 
-  .header {
+  .projects__header {
     padding: 2rem 1rem;
   }
 
 }
 
 @media(min-width: 998px) {
-  .info--actions {
+  .info__row--actions {
     min-width: 3.5rem!important;
   }
 
 }
 
 @media(min-width: 1200px) {
-  .info--actions {
+  .info__row--actions {
     min-width: 3rem!important;
   }
 

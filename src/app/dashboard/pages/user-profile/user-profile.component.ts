@@ -1,21 +1,20 @@
 import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SocketService } from 'src/app/dashboard/services/socket.service';
+import { ModalService } from '../../services/modal.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
-  selector: 'shared-nav-bar',
-  templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  selector: 'user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class NavBarComponent {
+export class UserProfileComponent {
 
   private userService = inject(AuthService);
-  private router = inject(Router);
+  private modalService = inject(ModalService);
   private socket = inject(SocketService);
 
-  public viewOptionsProfile: boolean = false;
   public user = computed(() => this.userService.currentUser());
   public img: string = '';
 
@@ -26,15 +25,7 @@ export class NavBarComponent {
       this.userService.checkAuthStatus().subscribe(() => this.img = `http://localhost:4000/${this.user()?.foto}`
       )
     });
-  }
 
-  viewProfile() {
-    this.viewOptionsProfile = !this.viewOptionsProfile;
-  }
-
-  logout() {
-    this.userService.logout();
-    this.router.navigateByUrl('/auth/login');
   }
 
   loadImg() {
@@ -43,9 +34,7 @@ export class NavBarComponent {
     : this.img = `http://localhost:4000/${this.user()?.foto}`;
   }
 
-  navigateUserProfile() {
-    this.viewOptionsProfile = !this.viewOptionsProfile;
-    this.router.navigateByUrl(`/dashboard/user/${this.user()?._id}`);
+  viewModalImg() {
+    this.modalService.modalImgStatus = true;
   }
-
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
 import { ModalService } from '../../services/modal.service';
-import { ValidatorsService } from 'src/app/shared/validators.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { ProjectService } from '../../services/project.service';
 import { SocketService } from '../../services/socket.service';
 
@@ -20,11 +20,14 @@ export class ModalProjectFormComponent implements OnDestroy {
   private socket = inject(SocketService);
 
   public modalService = inject(ModalService);
+
   public projectForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
-    clave: ['', [Validators.required]],
+    clave: ['', [Validators.required], [this.validatorsServices]],
   });
+
+  public isLoading: boolean = false;
 
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
@@ -49,19 +52,31 @@ export class ModalProjectFormComponent implements OnDestroy {
   }
 
   addProject() {
+    this.isLoading = true;
+
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
         next: res => {
-          this.message.set(res);
-          this.statusRes = AlertStatus.success;
+          this.addProjectSuccess(res, AlertStatus.success);
           this.projectForm.reset();
           this.socket.addProject();
+          this.hideModal();
         },
         error: error => {
-          this.message.set(error);
-          this.statusRes = AlertStatus.error;
+          this.addProjectSuccess(error, AlertStatus.error);
         }
       });
+  }
+
+  addProjectSuccess(res: string, status: AlertStatus) {
+
+    this.isLoading = false;
+
+    this.message.set(res);
+
+    status === AlertStatus.success
+    ? this.statusRes = AlertStatus.success
+    : this.statusRes = AlertStatus.error;
   }
 
 }

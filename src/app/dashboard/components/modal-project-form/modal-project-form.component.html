@@ -23,8 +23,6 @@
 
     <div class="form modal__form">
 
-      <!-- <h1>Crear Proyecto</h1> -->
-
       <form autocomplete="off"
             [formGroup]="projectForm"
             (ngSubmit)="addProject()"
@@ -43,7 +41,8 @@
 
             </div>
 
-            <div class="form__field">
+            <div class="form__field"
+                [ngClass]="{ 'error__field': isValidField('descripcion') }">
 
               <textarea cols="30" rows="5"
                         placeholder="Descripción"
@@ -56,20 +55,8 @@
 
             </div>
 
-            <!-- <div class="form__field">
-
-              <input type="text"
-                    placeholder="Fecha de creación"
-                    onfocus="(this.type = 'date')"
-                    formControlName="fecha">
-
-              <span *ngIf="isValidField('fecha')">
-                {{ getFieldError('fecha') }}
-              </span>
-
-            </div> -->
-
-            <div class="form__field">
+            <div class="form__field"
+                [ngClass]="{ 'error__field': isValidField('clave') }">
 
               <input type="text"
                     placeholder="Clave"
@@ -85,7 +72,7 @@
 
               <input type="submit"
                     value="Crear Proyecto"
-                    [disabled]="projectForm.invalid">
+                    [disabled]="projectForm.invalid || isLoading">
             </div>
 
           </form>

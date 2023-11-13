@@ -2,7 +2,7 @@ import { Component, Output, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ValidatorsService } from 'src/app/shared/validators.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
@@ -16,16 +16,17 @@ export class RegisterPageComponent {
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
   private authService = inject(AuthService);
-  private router = inject(Router);
 
   public registerForm: FormGroup = this.fb.group({
-    nombre: ['angelpeluso7', [Validators.required]],
-    email: ['angelpeluso7@correo.com', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
-    password: ['angelpeluso7', [Validators.required, Validators.minLength(8)]],
-    password2: ['angelpeluso7', [Validators.required]]
+    nombre: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    password2: ['', [Validators.required]]
   }, {
     validators: [ this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2') ]
   });
+
+  public isLoading: boolean = false;
 
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
@@ -41,9 +42,8 @@ export class RegisterPageComponent {
   }
 
   register() {
+    this.isLoading = true;
     const { password2, ...userCredentials } = this.registerForm.value;
-
-    // if (this.registerForm.valid) console.log('VALUE: ',this.registerForm.value);
 
     this.authService.register(userCredentials)
       .subscribe({
@@ -53,10 +53,12 @@ export class RegisterPageComponent {
           this.registerForm.reset();
         },
         error: (error) => {
+          this.isLoading = false;
           this.message.set(`Error: ${error}`);
           this.statusRes = AlertStatus.error;
-        }
-      });
+        },
+        complete: () => this.isLoading = false
+      },);
   }
 
 }

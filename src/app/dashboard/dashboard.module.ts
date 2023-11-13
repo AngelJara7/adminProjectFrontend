@@ -8,6 +8,8 @@ import { ModalProjectFormComponent } from './components/modal-project-form/modal
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalImgComponent } from './components/modal-img/modal-img.component';
 import { SharedModule } from '../shared/shared.module';
+import { LoadingComponent } from './components/loading/loading.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { SharedModule } from '../shared/shared.module';
     DashboardLayoutComponent,
     ProjectListComponent,
     ModalProjectFormComponent,
-    ModalImgComponent
+    ModalImgComponent,
+    LoadingComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,

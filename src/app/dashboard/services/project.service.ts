@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, delay, map, throwError } from 'rxjs';
 import { Project } from '../models/project.model';
-import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'

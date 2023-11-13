@@ -1,0 +1,67 @@
+
+<div class="profile">
+
+  <div class="profile__user">
+
+    <h2>Editar perfil</h2>
+
+    <div class="profile__info">
+
+      <div class="info__img">
+
+        <div class="img__image" [ngClass]="{ 'no-image': !user()?.foto }">
+
+          <img [src]="img" alt="foto de perfil">
+
+          <div class="img__modal">
+            <button (click)="viewModalImg()">
+              <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
+            </button>
+            <p>Cambiar foto de perfil</p>
+          </div>
+
+        </div>
+
+        <div class="description">
+
+          <b>Foto de perfil</b>
+
+          <p>Tu foto de perfil es visible para cualquier usuario</p>
+
+        </div>
+
+      </div>
+
+      <div class="info__data">
+
+        <form class="data">
+
+          <p>Acerca de ti</p>
+
+          <div>
+
+            <label for="">Nombre usuario:</label>
+
+            <input type="text" [value]="user()?.nombre">
+
+          </div>
+
+          <p>Contacto</p>
+
+          <div>
+
+            <label for="">Dirección de correo electrónico:</label>
+
+            <input type="text" [value]="user()?.email">
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
