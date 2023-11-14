@@ -141,10 +141,13 @@ export class AuthService {
       )
   }
 
-  uploadImg(file: File): Observable<string> {
+  uploadImg(file: File | undefined): Observable<string> {
     const url = `${this.baseUrl}/upload-img`;
     const fd = new FormData();
-    fd.append('image', file);
+
+    if(file) {
+      fd.append('image', file);
+    }
 
     return this.http.put<string>(url, fd, this.headers)
       .pipe(

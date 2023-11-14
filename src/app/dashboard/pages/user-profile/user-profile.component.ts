@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, Output, computed, inject } from '@angular/core';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from '../../services/modal.service';
@@ -18,17 +18,20 @@ export class UserProfileComponent {
   public user = computed(() => this.userService.currentUser());
   public img: string = '';
 
+  @Output() titleModalAlert = 'Eliminar foto de perfil';
+  @Output() messageModalAlert = '¿Seguro?';
+
   constructor() {
     this.loadImg();
 
     this.socket.io.on('img loaded', () => {
-      this.userService.checkAuthStatus().subscribe(() => this.img = `http://localhost:4000/${this.user()?.foto}`
-      )
+      this.userService.checkAuthStatus().subscribe(() => this.loadImg())
     });
 
   }
 
   loadImg() {
+    
     !this.user()?.foto
     ? this.img = '../../../../assets/img/user_circle.svg'
     : this.img = `http://localhost:4000/${this.user()?.foto}`;
@@ -36,5 +39,9 @@ export class UserProfileComponent {
 
   viewModalImg() {
     this.modalService.modalImgStatus = true;
+  }
+
+  viewModalAlert() {
+    this.modalService.modalAlertStatus = true;
   }
 }

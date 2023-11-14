@@ -9,6 +9,7 @@ export class ModalService {
 
   private _modalProjectFormStatus: boolean = false;
   private _modalImgStatus: boolean = false;
+  private _modalAlertStatus: boolean = false;
 
   public newImg: EventEmitter<string> = new EventEmitter<string>();
 
@@ -26,6 +27,14 @@ export class ModalService {
 
   set modalImgStatus(status: boolean) {
     this._modalImgStatus = status;
+  }
+
+  get modalAlertStatus() {
+    return this._modalAlertStatus;
+  }
+
+  set modalAlertStatus(status: boolean) {
+    this._modalAlertStatus = status;
   }
 
 }

@@ -20,7 +20,7 @@
           <div class="container__img" (click)="imgInput.click()" [ngClass]="{ 'no-img': !selectdImg }">
 
             <img [src]="selectdImg || '../../../../assets/img/upload-img.svg'" alt="">
-            
+
             <p *ngIf="!selectdImg">click para cargar imagen</p>
 
           </div>
@@ -42,7 +42,7 @@
 
           <button class="modal__actions--load"
                   (click)="uploadImg()"
-                  [disabled]="!selectdImg">
+                  [disabled]="!selectdImg || isLoading">
             Cargar
           </button>
 

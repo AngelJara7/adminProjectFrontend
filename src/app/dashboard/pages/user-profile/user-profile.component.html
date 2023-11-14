@@ -14,10 +14,21 @@
           <img [src]="img" alt="foto de perfil">
 
           <div class="img__modal">
-            <button (click)="viewModalImg()">
-              <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
-            </button>
-            <p>Cambiar foto de perfil</p>
+
+            <div>
+              <button (click)="viewModalImg()">
+                <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
+              </button>
+              <p>Cambiar</p>
+            </div>
+
+            <div *ngIf="user()?.foto">
+              <button (click)="viewModalAlert()">
+                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+              </button>
+              <p>Eliminar</p>
+            </div>
+
           </div>
 
         </div>
@@ -65,3 +76,8 @@
   </div>
 
 </div>
+
+<modal-alert
+  [titleModalAlert]="titleModalAlert"
+  [messageModalAlert]="messageModalAlert"
+></modal-alert>

@@ -1,0 +1,28 @@
+
+<section class="modal" [class.view--modal]="modalService.modalAlertStatus">
+
+  <div class="modal__container">
+
+    <h3>{{ titleModalAlert }}</h3>
+
+    <p>{{ messageModalAlert }}</p>
+
+    <div class="actions">
+      <button class="action__btn action__btn--cancel"
+              [disabled]="isLoading"
+              (click)="hideModal()">
+        Cancelar
+      </button>
+
+      <button class="action__btn action__btn--delete"
+              [disabled]="isLoading"
+              (click)="deleteImgProfile()">
+        Eliminar
+      </button>
+
+
+    </div>
+
+  </div>
+
+</section>

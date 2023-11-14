@@ -23,8 +23,7 @@ export class NavBarComponent {
     this.loadImg();
 
     this.socket.io.on('img loaded', () => {
-      this.userService.checkAuthStatus().subscribe(() => this.img = `http://localhost:4000/${this.user()?.foto}`
-      )
+      this.userService.checkAuthStatus().subscribe(() => this.loadImg())
     });
   }
 
