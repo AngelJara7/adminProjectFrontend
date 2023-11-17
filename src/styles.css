@@ -90,6 +90,7 @@ a:hover {
   display: flex;
   opacity: 0;
   pointer-events: none;
+  z-index: 1;
   transition: opacity .3s .6s;
   --transform: translateX(100vw);
   --transition: transform .4s;
@@ -140,6 +141,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: auto;
 }
 
 .container__img {
@@ -176,15 +178,18 @@ shared-alert {
   color: var(--light-secondary-color)
 }
 
-.form__field {
+.form__field,
+.form__submit {
   width: 100%;
   height: max-content;
 }
 
 .form__field input,
+.form__submit input,
 .form__field textarea {
   width: 100%;
   height: 5rem;
+  border-radius: 3px;
   font-family: var(--second-font);
   font-size: 1.5rem;
   font-weight: 400;
@@ -213,7 +218,7 @@ textarea:focus {
   outline: 1.5px solid var(--primary-color);
 }
 
-.form__field input[type="submit"] {
+.form__submit input {
   border: none;
   outline: none;
   margin-bottom: 1rem;
@@ -222,16 +227,16 @@ textarea:focus {
   transition: all 500ms;
 }
 
-.form__field input[type="submit"]:hover {
+.form__submit input:hover {
   background-color: var(--dark-primary-color);
   cursor: pointer;
 }
 
-.form__field input[type="submit"]:active {
+.form__submit input:active {
   background-color: var(--light-primary-color);
 }
 
-.form__field input[type="submit"]:disabled {
+.form__submit input:disabled {
   background-color: var(--light-primary-color);
   cursor: initial;
 }
@@ -299,14 +304,14 @@ hr {
 .error__field input[type="email"],
 .error__field input[type="password"],
 .error__field textarea {
-  border: 1px solid var(--error-color);
+  border: 1px solid var(--error-color)!important;
 }
 
 .error__field input[type="text"]:focus,
 .error__field input[type="email"]:focus,
 .error__field input[type="password"]:focus,
 .error__field textarea:focus {
-  outline: 1px solid var(--error-color);
+  outline: 1px solid var(--error-color)!important;
 }
 
 /** Puntos de quiebre para diferentes dispositivos **/

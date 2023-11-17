@@ -47,7 +47,7 @@ export class ForgetPasswordComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          this.message.set(error);
+          this.message.set(error.error);
           this.statusRes = AlertStatus.error;
         },
         complete: () => this.isLoading = false

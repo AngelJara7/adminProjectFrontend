@@ -29,6 +29,7 @@
 
 .clear__img:hover {
   background-color: var(--light-secondary-color);
+  cursor: pointer;
 }
 
 .container__img {
@@ -38,6 +39,10 @@
   align-items: center;
   border: 2px dashed var(--light-secondary-color);
   position: relative;
+}
+
+.container__img img:hover {
+  cursor: pointer;
 }
 
 .container__img img {

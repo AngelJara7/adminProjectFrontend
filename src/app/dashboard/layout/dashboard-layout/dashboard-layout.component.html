@@ -4,12 +4,21 @@
 
 
 </div> -->
-<shared-nav-bar></shared-nav-bar>
 
-<router-outlet></router-outlet>
+<div class="dashboard">
+
+  <shared-nav-bar></shared-nav-bar>
+
+  <div class="dashboard__content">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+</div>
 
 <modal-project-form></modal-project-form>
 
-<modal-img-component></modal-img-component>
+<modal-photo-component></modal-photo-component>
 
-<!-- <modal-alert></modal-alert> -->
+<!-- <shared-toast-notification *ngIf="modalService.toastNotificationStatus"></shared-toast-notification> -->

@@ -47,4 +47,8 @@ export class NavBarComponent {
     this.router.navigateByUrl(`/dashboard/user/${this.user()?._id}`);
   }
 
+  navigateProjects() {
+    this.router.navigateByUrl('/dashboard/projects');
+  }
+
 }

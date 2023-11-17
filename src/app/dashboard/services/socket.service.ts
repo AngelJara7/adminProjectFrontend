@@ -11,17 +11,15 @@ export class SocketService {
     autoConnect: true
   });
 
-  constructor() {}
-
   loadProjects(user: string) {
     this.io.emit('load projects', user);
   }
 
-  addProject() {
-    this.io.emit('create project');
+  project(type: string) {
+    this.io.emit('project', type);
   }
 
-  loadImg() {
-    this.io.emit('load img');
+  uploadProfilePhoto(type: string) {
+    this.io.emit('load img', type);
   }
 }

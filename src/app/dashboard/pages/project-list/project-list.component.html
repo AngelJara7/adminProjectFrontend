@@ -15,7 +15,10 @@
 
     <div class="search__field">
 
-      <input type="text" placeholder="Buscar proyecto">
+      <input type="text"
+            placeholder="Buscar proyecto"
+            (keyup)="setProjectBySearch(inputProjectName.value)"
+            #inputProjectName>
 
     </div>
 
@@ -33,7 +36,7 @@
           <th>Descripción</th>
           <th>Administrador</th>
           <th></th>
-          <th></th>
+          <!-- <th></th> -->
         </tr>
 
       </thead>
@@ -55,18 +58,18 @@
           </td>
 
           <td class="info__row--actions">
-            <div>
+            <button (click)="viewModalAlert(project)">
               <i class="fa-solid fa-trash fa-lg"></i>
-            </div>
+            </button>
           </td>
 
-          <td class="info__row--actions">
-            <div>
+          <!-- <td class="info__row--actions">
+            <button>
               <i class="fa-solid fa-gear fa-lg"></i>
-            </div>
-          </td>
-        </tr>
+            </button>
+          </td> -->
 
+        </tr>
       </tbody>
 
     </table>
@@ -84,3 +87,10 @@
   </div>
 
 </div>
+
+<shared-toast-notification
+
+  [toastNotification]="toastNotification"/>
+
+<modal-alert [modalAlert]="modalAlert"/>
+

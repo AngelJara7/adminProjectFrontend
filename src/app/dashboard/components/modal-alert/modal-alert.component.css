@@ -13,6 +13,7 @@
 
 .modal__container p {
   padding: 0 0 1rem;
+  line-height: 2rem;
 }
 
 .modal__container div {

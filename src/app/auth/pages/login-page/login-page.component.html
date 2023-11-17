@@ -42,10 +42,12 @@
 
             <span><a routerLink="/auth/forget-password">Olvidaste tu contraseña?</a></span>
 
-            <div class="form__field">
+            <div class="form__submit">
+
               <input type="submit"
                     value="Iniciar sesión"
                     [disabled]="loginForm.invalid || isLoading">
+
             </div>
 
           </form>

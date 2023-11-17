@@ -1,58 +1,125 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, computed, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, Subscription, debounceTime } from 'rxjs';
+
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Router } from '@angular/router';
+import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
+import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'dashboard-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css']
 })
-export class ProjectListComponent {
+export class ProjectListComponent implements OnInit, OnDestroy {
 
   private projectService = inject(ProjectService);
-  private modalService = inject(ModalService);
+  public modalService = inject(ModalService);
   private socket = inject(SocketService);
   private userService = inject(AuthService);
   private router = inject(Router);
+
+  private debouncer: Subject<string> = new Subject<string>();
+  private debouncerSuscription: Subscription;
 
   public projects: Project[] = [];
   public viewModal: boolean = false;
   public loadingProjects: boolean = false;
   public currentUser = computed(() => this.userService.currentUser());
 
-  constructor() {
-    this.getProjects();
-    this.loadingProjects = true;
+  @Output() toastNotification: StatusToastNotification | undefined;
 
-    this.socket.io.on('project created', () => {
-      this.getProjects();
+  @Output() modalAlert: ModalAlert | undefined;
+
+  constructor() {
+    this.getProjects('');
+
+    if (this.currentUser()?._id) this.socket.loadProjects(this.currentUser()!._id);
+
+    this.socket.io.on('project created', (type) => {
+      this.getProjects('');
+      this.toastNotificationType(type);
     });
 
-    if (this.currentUser()?._id) {
-      this.socket.loadProjects(this.currentUser()!._id);
+    this.debouncerSuscription = this.debouncer
+      .pipe( debounceTime(500) )
+      .subscribe( value => this.searchProject(value) );
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.debouncerSuscription.unsubscribe();
+  }
+
+  getProjects(project: string) {
+    this.loadingProjects = true;
+
+    this.projectService.getProjects(project)
+      .subscribe({
+        next: resp => this.projects = resp,
+        error: () => this.loadingProjects = false,
+        complete: () => this.loadingProjects = false
+      });
+  }
+
+  toastNotificationType(type: string) {
+    this.modalService.toastNotificationStatus = true;
+    switch (type) {
+
+      case 'add':
+        this.toastNotification = {
+          title: 'Proyecto creado con éxito',
+          status: AlertStatus.success
+        };
+        return;
+
+      case 'delete':
+        this.toastNotification = {
+          title: 'Proyecto eliminado de forma permanente',
+          status: AlertStatus.success
+        };
+        return;
+
+      case 'error':
+        this.toastNotification = {
+          title: 'Se ha producido un error',
+          message: 'No se ha podido eliminar el proyecto. Intentelo de nuevo.',
+          status: AlertStatus.error
+        };
+        return;
     }
   }
 
-  getProjects() {
-    this.projectService.getProjects()
-      .subscribe({
-        next: resp => {
-          this.projects = resp;
-          this.loadingProjects = false;
-        },
-        error: (error) => {
-          console.log('Algo salio mal', error);
-          this.loadingProjects = false;
-        },
-      });
+  setProjectBySearch(inputValue: string) {
+    this.debouncer.next(inputValue);
+  }
+
+  searchProject(project: string) {
+    this.getProjects(project);
+  }
+
+  setAlert(project: string) {
+    this.modalAlert = {
+      type: ModalAlertType.project,
+      title: 'Eliminar Proyecto',
+      message: `Todas la tareas vinculadas a este proyecto serán eliminadas junto con el mismo de forma permanente. ¿Desea eliminar el proyecto '${project}'?`
+    };
   }
 
   viewModalProjectForm() {
     this.modalService.modalProjectFormStatus = true;
+  }
+
+  viewModalAlert(project: Project) {
+    this.setAlert(project.nombre);
+    this.modalService.id.emit(project._id);
+    this.modalService.modalAlertStatus = true;
   }
 
   navigateUserProfile(id: string) {

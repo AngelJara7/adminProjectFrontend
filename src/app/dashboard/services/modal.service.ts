@@ -1,4 +1,7 @@
+import { ModalAlertType } from './../interfaces/modal-alert.enum';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Project } from '../models/project.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +11,13 @@ export class ModalService {
   constructor() { }
 
   private _modalProjectFormStatus: boolean = false;
-  private _modalImgStatus: boolean = false;
+  private _modalPhotoStatus: boolean = false;
   private _modalAlertStatus: boolean = false;
+  private _toastNotificationStatus: boolean = false;
 
-  public newImg: EventEmitter<string> = new EventEmitter<string>();
+  public id: EventEmitter<string> = new EventEmitter<string>();
+
+  // public projectIdToDelete: EventEmitter<string> = new EventEmitter<string>();
 
   get modalProjectFormStatus() {
     return this._modalProjectFormStatus;
@@ -21,12 +27,12 @@ export class ModalService {
     this._modalProjectFormStatus = status;
   }
 
-  get modalImgStatus() {
-    return this._modalImgStatus;
+  get modalPhotoStatus() {
+    return this._modalPhotoStatus;
   }
 
-  set modalImgStatus(status: boolean) {
-    this._modalImgStatus = status;
+  set modalPhotoStatus(status: boolean) {
+    this._modalPhotoStatus = status;
   }
 
   get modalAlertStatus() {
@@ -35,6 +41,20 @@ export class ModalService {
 
   set modalAlertStatus(status: boolean) {
     this._modalAlertStatus = status;
+  }
+
+  get toastNotificationStatus() {
+    return this._toastNotificationStatus;
+  }
+
+  set toastNotificationStatus(status: boolean) {
+    this._toastNotificationStatus = status;
+  }
+
+  hideToastNotification() {
+    setTimeout(() => {
+      this.toastNotificationStatus = false;
+    }, 7000);
   }
 
 }

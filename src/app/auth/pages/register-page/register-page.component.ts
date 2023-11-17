@@ -54,7 +54,7 @@ export class RegisterPageComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          this.message.set(`Error: ${error}`);
+          this.message.set(`Error: ${error.error}`);
           this.statusRes = AlertStatus.error;
         },
         complete: () => this.isLoading = false

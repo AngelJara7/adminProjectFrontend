@@ -27,22 +27,36 @@ export class ProjectService {
     }
   }
 
-  getProjects(): Observable<Project[]> {
-    const url = `${this.baseUrl}/projects`;
+  getProjects(project: string): Observable<Project[]> {
+    const url = `${this.baseUrl}/projects/?project=${project}`;
 
     return this.http.get<Project[]>(url, this.headers)
       .pipe(
+        // delay(1000),
         map((resp) => resp),
         catchError(err => throwError(() => err.error
         ))
       );
   }
 
-  addProject(project: { nombre: string, descripcion: string, fecha: Date, clave: string }):Observable<string> {
+  addProject(project: { nombre: string, descripcion: string, clave: string }):Observable<string> {
     const url = `${this.baseUrl}/projects`;
 
     return this.http.post<string>(url, project, this.headers)
       .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError(err => throwError(() => err.error))
+      );
+  }
+
+  deleteProject(id: string): Observable<string> {
+    const url = `${this.baseUrl}/projects/${id}`;
+
+    return this.http.delete<string>(url, this.headers)
+      .pipe(
+        // delay(3000),
         map((res) => {
           return res;
         }),

@@ -11,23 +11,19 @@
 
         <div class="img__image" [ngClass]="{ 'no-image': !user()?.foto }">
 
-          <img [src]="img" alt="foto de perfil">
+          <img [src]="photo" alt="foto de perfil">
 
           <div class="img__modal">
 
-            <div>
-              <button (click)="viewModalImg()">
-                <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
-              </button>
-              <p>Cambiar</p>
-            </div>
+            <button (click)="viewModalPhoto()">
+              <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
+              Cambiar
+            </button>
 
-            <div *ngIf="user()?.foto">
-              <button (click)="viewModalAlert()">
-                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
-              </button>
-              <p>Eliminar</p>
-            </div>
+            <button *ngIf="user()?.foto" (click)="viewModalAlert()">
+              <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+              Eliminar
+            </button>
 
           </div>
 
@@ -45,25 +41,54 @@
 
       <div class="info__data">
 
-        <form class="data">
+        <form class="data"
+              (ngSubmit)="saveChanges()"
+              [formGroup]="userForm">
 
-          <p>Acerca de ti</p>
+          <p>Informacion personal</p>
 
-          <div>
+          <div class="form__field"
+              [ngClass]="{ 'error__field': isValidField('nombre') }">
 
-            <label for="">Nombre usuario:</label>
+            <label for="nombre">Nombre usuario:</label>
 
-            <input type="text" [value]="user()?.nombre">
+            <input type="text"
+                  id="nombre"
+                  placeholder="Nombre"
+                  formControlName="nombre"
+                  (keyup)="verifyChangesInForm()">
+
+            <span *ngIf="isValidField('nombre')">
+              {{ getErrorField('nombre') }}
+            </span>
 
           </div>
 
-          <p>Contacto</p>
 
-          <div>
+          <!-- <p>Contacto</p> -->
 
-            <label for="">Dirección de correo electrónico:</label>
+          <div class="form__field"
+              [ngClass]="{ 'error__field': isValidField('email') }">
 
-            <input type="text" [value]="user()?.email">
+            <label for="email">Dirección de correo electrónico:</label>
+
+            <input type="email"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="email"
+                  (keyup)="verifyChangesInForm()">
+
+            <span *ngIf="isValidField('email')">
+              {{ getErrorField('email') }}
+            </span>
+
+          </div>
+
+          <div class="form__submit">
+
+            <input type="submit"
+                  value="Guardar Cambios"
+                  [disabled]="userForm.invalid || !hasDataChanged">
 
           </div>
 
@@ -77,7 +102,8 @@
 
 </div>
 
-<modal-alert
-  [titleModalAlert]="titleModalAlert"
-  [messageModalAlert]="messageModalAlert"
-></modal-alert>
+<shared-toast-notification
+
+[toastNotification]="toastNotification"/>
+
+<modal-alert [modalAlert]="modalAlert"/>

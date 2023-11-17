@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
@@ -12,14 +12,17 @@ import { SocketService } from '../../services/socket.service';
   templateUrl: './modal-project-form.component.html',
   styleUrls: ['./modal-project-form.component.css']
 })
-export class ModalProjectFormComponent implements OnDestroy {
+export class ModalProjectFormComponent {
 
-  private fb = inject(FormBuilder);
   private projectService = inject(ProjectService);
   private validatorsServices = inject(ValidatorsService);
   private socket = inject(SocketService);
 
   public modalService = inject(ModalService);
+
+  private fb = inject(FormBuilder);
+
+  public isLoading: boolean = false;
 
   public projectForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
@@ -27,20 +30,13 @@ export class ModalProjectFormComponent implements OnDestroy {
     clave: ['', [Validators.required], [this.validatorsServices]],
   });
 
-  public isLoading: boolean = false;
-
   @Output() statusRes: string = AlertStatus.checking;
   @Output() message = signal<string>('');
 
-  ngOnDestroy(): void {
-    this.projectForm.reset();
-    this.statusRes = AlertStatus.checking;
-    this.message.set('');
-  }
-
   hideModal() {
+    this.projectForm.reset();
     this.modalService.modalProjectFormStatus = false;
-    this.ngOnDestroy();
+    this.modalService.hideToastNotification();
   }
 
   isValidField(field: string) {
@@ -56,27 +52,19 @@ export class ModalProjectFormComponent implements OnDestroy {
 
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
-        next: res => {
-          this.addProjectSuccess(res, AlertStatus.success);
-          this.projectForm.reset();
-          this.socket.addProject();
+        next: () => {
+          this.socket.project('add');
           this.hideModal();
         },
-        error: error => {
-          this.addProjectSuccess(error, AlertStatus.error);
-        }
+        error: error => this.addProjectError(error),
+        complete: () => this.isLoading = false
       });
   }
 
-  addProjectSuccess(res: string, status: AlertStatus) {
-
+  addProjectError(res: string) {
     this.isLoading = false;
-
     this.message.set(res);
-
-    status === AlertStatus.success
-    ? this.statusRes = AlertStatus.success
-    : this.statusRes = AlertStatus.error;
+    this.statusRes = AlertStatus.error;
   }
 
 }

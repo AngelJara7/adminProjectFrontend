@@ -1,5 +1,5 @@
  <section class="modal"
-      [class.view--modal]="modalService.modalImgStatus">
+      [class.view--modal]="modalService.modalPhotoStatus">
 
       <div class="modal__container">
 
@@ -8,6 +8,11 @@
           <h3>Cambiar foto de perfil</h3>
 
         </div>
+
+        <shared-alert *ngIf="message()"
+                [message]="message"
+                [statusRes]="'error'">
+        </shared-alert>
 
         <div class="modal__img">
 
@@ -21,7 +26,7 @@
 
             <img [src]="selectdImg || '../../../../assets/img/upload-img.svg'" alt="">
 
-            <p *ngIf="!selectdImg">click para cargar imagen</p>
+            <p>click para seleccionar imagen</p>
 
           </div>
 

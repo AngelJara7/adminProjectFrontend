@@ -6,6 +6,7 @@ export class User {
     public _id: string,
     public token?: string,
     public password?: string,
-    public verificada?: boolean
+    public verificada?: boolean,
+    public foto?: string
   ) {}
 }

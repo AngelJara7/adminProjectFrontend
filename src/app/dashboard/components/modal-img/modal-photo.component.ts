@@ -1,30 +1,32 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
+import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
-  selector: 'modal-img-component',
-  templateUrl: './modal-img.component.html',
-  styleUrls: ['./modal-img.component.css']
+  selector: 'modal-photo-component',
+  templateUrl: './modal-photo.component.html',
+  styleUrls: ['./modal-photo.component.css']
 })
-export class ModalImgComponent implements OnDestroy {
+export class ModalPhotoComponent {
 
   private authService = inject(AuthService);
   private socket = inject(SocketService);
 
   public modalService = inject(ModalService);
+
   public selectdImg: any;
   public image: any;
   public isLoading: boolean = false;
 
-  ngOnDestroy(): void {
-    this.clearImg();
-  }
+  @Output() statusRes: string = AlertStatus.checking;
+  @Output() message = signal<string>('');
 
   hideModal() {
-    this.modalService.modalImgStatus = false;
-    this.ngOnDestroy();
+    this.clearImg();
+    this.modalService.modalPhotoStatus = false;
+    this.modalService.hideToastNotification();
   }
 
   clearImg() {
@@ -50,30 +52,19 @@ export class ModalImgComponent implements OnDestroy {
 
     this.authService.uploadImg(this.image)
       .subscribe({
-        next: res => {
-          this.clearImg();
-          this.socket.loadImg();
+        next: () => {
+          this.socket.uploadProfilePhoto('add');
           this.hideModal();
         },
-        error: err => {
-          this.isLoading = false;
-          console.log({err});
-        },
-        complete: () => {
-          this.isLoading = false
-        }
+        error: err => this.addProjectError(err.error),
+        complete: () => this.isLoading = false
       });
   }
 
-  addProjectSuccess(res: string) {
-
+  addProjectError(res: string) {
     this.isLoading = false;
-
-    // this.message.set(res);
-
-    // status === AlertStatus.success
-    // ? this.statusRes = AlertStatus.success
-    // : this.statusRes = AlertStatus.error;
+    this.message.set(res);
+    this.statusRes = AlertStatus.error;
   }
 
 }

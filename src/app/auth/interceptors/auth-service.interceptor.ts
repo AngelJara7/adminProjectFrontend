@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -18,8 +18,9 @@ export class AuthServiceInterceptor implements HttpInterceptor {
     const reqClone = request.clone();
 
     return next.handle(reqClone).pipe(
+      map(res => res),
       catchError(err => throwError(() => {
-
+        console.log({err});
         switch (err.status) {
           case 500:
             this.router.navigateByUrl('/server-internal-error');
@@ -35,16 +36,10 @@ export class AuthServiceInterceptor implements HttpInterceptor {
 
           case 403:
             // this.router.navigateByUrl('/not-found');
-            return err.error;
+            return err;
 
           case 400:
-            return err.error;
-
-          case 200:
-            return err.error;
-
-          // default:
-          //   return err.error;
+            return err;
         }
       }))
     );

@@ -5,6 +5,7 @@ import { ServerInternalErrorPageComponent } from './pages/server-internal-error-
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SharedAlertComponent } from './components/alert/alert.component';
+import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
 
 
 
@@ -14,13 +15,15 @@ import { SharedAlertComponent } from './components/alert/alert.component';
     ServerInternalErrorPageComponent,
     SideBarComponent,
     NavBarComponent,
-    SharedAlertComponent
+    SharedAlertComponent,
+    ToastNotificationComponent
   ],
   exports: [
     NotFoundPageComponent,
     SideBarComponent,
     NavBarComponent,
-    SharedAlertComponent
+    SharedAlertComponent,
+    ToastNotificationComponent
   ],
   imports: [
     CommonModule
