@@ -364,7 +364,7 @@ hr {
     .form--reset-password
     .form--forget-password,
     shared-alert {
-        width: 40rem;
+        max-width: 40rem;
     }
 
     .container__img {
@@ -394,7 +394,7 @@ hr {
     .form--reset-password
     .form--forget-password,
     shared-alert {
-        width: 45rem;
+        max-width: 45rem;
     }
 
     .container__img img {

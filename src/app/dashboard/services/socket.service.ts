@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
+import { StatusToastNotification } from '../interfaces/status-toast-notification.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,11 @@ export class SocketService {
     this.io.emit('load projects', user);
   }
 
-  project(type: string) {
-    this.io.emit('project', type);
+  project(statusToastNotification: StatusToastNotification) {
+    this.io.emit('project', statusToastNotification);
   }
 
-  uploadProfilePhoto(type: string) {
-    this.io.emit('load img', type);
+  editProfile(statusToastNotification: StatusToastNotification) {
+    this.io.emit('edit profile', statusToastNotification);
   }
 }

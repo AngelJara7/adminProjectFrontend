@@ -18,10 +18,11 @@ import { AlertStatus } from 'src/app/shared/interfaces';
 export class ProjectListComponent implements OnInit, OnDestroy {
 
   private projectService = inject(ProjectService);
-  public modalService = inject(ModalService);
   private socket = inject(SocketService);
   private userService = inject(AuthService);
   private router = inject(Router);
+
+  public modalService = inject(ModalService);
 
   private debouncer: Subject<string> = new Subject<string>();
   private debouncerSuscription: Subscription;
@@ -40,9 +41,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
     if (this.currentUser()?._id) this.socket.loadProjects(this.currentUser()!._id);
 
-    this.socket.io.on('project created', (type) => {
+    this.socket.io.on('project created', (toastNotification) => {
       this.getProjects('');
-      this.toastNotificationType(type);
+      this.setToastNotification(toastNotification);
     });
 
     this.debouncerSuscription = this.debouncer
@@ -68,32 +69,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       });
   }
 
-  toastNotificationType(type: string) {
+  setToastNotification(toastNotification: StatusToastNotification) {
+    this.toastNotification = toastNotification;
     this.modalService.toastNotificationStatus = true;
-    switch (type) {
-
-      case 'add':
-        this.toastNotification = {
-          title: 'Proyecto creado con éxito',
-          status: AlertStatus.success
-        };
-        return;
-
-      case 'delete':
-        this.toastNotification = {
-          title: 'Proyecto eliminado de forma permanente',
-          status: AlertStatus.success
-        };
-        return;
-
-      case 'error':
-        this.toastNotification = {
-          title: 'Se ha producido un error',
-          message: 'No se ha podido eliminar el proyecto. Intentelo de nuevo.',
-          status: AlertStatus.error
-        };
-        return;
-    }
+    this.modalService.hideToastNotification();
   }
 
   setProjectBySearch(inputValue: string) {

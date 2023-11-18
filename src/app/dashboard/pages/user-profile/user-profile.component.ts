@@ -1,4 +1,4 @@
-import { Component, Output, computed, inject } from '@angular/core';
+import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -7,6 +7,8 @@ import { SocketService } from '../../services/socket.service';
 import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
 import { AlertStatus } from 'src/app/shared/interfaces';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { User } from '../../models/user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'user-profile',
@@ -19,82 +21,61 @@ export class UserProfileComponent {
   private validatorsService = inject(ValidatorsService);
   private userService = inject(AuthService);
   private socket = inject(SocketService);
+  private activatedRoute = inject(ActivatedRoute);
 
   public modalService = inject(ModalService);
 
-  public user = computed(() => this.userService.currentUser());
+  public user = signal<User|null>(null);
   public photo: string = '';
+  public isTheUserLogged: boolean = false;
   public hasDataChanged: boolean = false;
 
   public userForm: FormGroup;
-  // = this.fb.group({
-  //   nombre: [this.user()?.nombre, [Validators.required]],
-  //   email: [this.user()?.email, [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
-  // });
 
   @Output() toastNotification: StatusToastNotification | undefined;
   @Output() modalAlert: ModalAlert | undefined;
 
   constructor() {
-    console.log(this.user());
-    this.loadPhoto();
 
     this.userForm = this.fb.group({
-      nombre: ['', [Validators.required]],
+      _id: ['', Validators.required],
+      nombre: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
     });
 
     this.loadUser();
 
-    this.socket.io.on('img loaded', type => {
+    this.user()!._id === this.activatedRoute.snapshot.params['id']
+    ? this.isTheUserLogged = true
+    : this.isTheUserLogged = false;
+
+    this.socket.io.on('edited profile', toastNotification => {
 
       this.userService.checkAuthStatus().subscribe(() => {
-        this.loadPhoto();
+        this.loadUser();
       });
 
-      this.toastNotificationType(type);
+      this.setToastNotification(toastNotification);
     });
   }
 
-  loadPhoto() {
+  loadUser() {
+    this.user.set(this.userService.currentUser());
+
+    if (!this.user()) return;
+
+    this.userForm.setValue({ _id: this.user()?._id, nombre: this.user()?.nombre, email: this.user()?.email });
+
     !this.user()?.foto
     ? this.photo = '../../../../assets/img/user_circle.svg'
     : this.photo = `http://localhost:4000/${this.user()?.foto}`;
+
   }
 
-  loadUser() {
-    if (!this.user()) return;
-
-    this.userForm.setValue({ nombre: this.user()?.nombre, email: this.user()?.email });
-  }
-
-  toastNotificationType(type: string) {
+  setToastNotification(toastNotification: StatusToastNotification) {
+    this.toastNotification = toastNotification;
     this.modalService.toastNotificationStatus = true;
-
-    switch (type) {
-
-      case 'add':
-        this.toastNotification = {
-          title: 'Foto de perfil actualizada',
-          status: AlertStatus.success
-        }
-        return;
-
-      case 'delete':
-        this.toastNotification = {
-          title: 'Foto de perfil eliminada',
-          status: AlertStatus.success
-        }
-        return;
-
-      case 'error':
-        this.toastNotification = {
-          title: 'Se ha producido un error',
-          message: 'No se ha podido eliminar la foto de perfil. Intentalo de nuevo.',
-          status: AlertStatus.error
-        }
-        return;
-    }
+    this.modalService.hideToastNotification();
   }
 
   setAlert() {
@@ -133,8 +114,29 @@ export class UserProfileComponent {
     }
   }
 
-  saveChanges() {
+  editProfile() {
+    this.hasDataChanged = false;
 
+    if (this.userForm.invalid) return;
+
+    this.userService.editProfile(this.userForm.value)
+      .subscribe({
+        next: res => {
+          this.socket.editProfile({
+            title: res,
+            status: AlertStatus.success
+          });
+        },
+        error: error => {
+          this.socket.editProfile({
+            title: 'Error al actualizar perfil',
+            message: error,
+            status: AlertStatus.error
+          });
+
+          this.loadUser();
+        }
+      });
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ModalService } from '../../services/modal.service';
@@ -8,8 +8,6 @@ import { ModalAlert } from '../../interfaces/modal-alert.interface';
 import { ModalAlertType } from '../../interfaces';
 import { ProjectService } from '../../services/project.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
-import { Project } from '../../models/project.model';
-import { User } from '../../models/user.model';
 
 @Component({
   selector: 'modal-alert',
@@ -37,7 +35,7 @@ export class ModalAlertComponent {
   hideModal() {
     this.modalAlert = undefined;
     this.modalService.modalAlertStatus = false;
-    this.modalService.hideToastNotification();
+    // this.modalService.hideToastNotification();
   }
 
   typeAlert() {
@@ -64,8 +62,12 @@ export class ModalAlertComponent {
 
     this.userService.uploadImg(undefined)
       .subscribe({
-        next: () => {
-          this.socket.uploadProfilePhoto('delete');
+        next: res => {
+          this.socket.editProfile({
+            title: res,
+            status: AlertStatus.success
+          });
+
           this.hideModal();
         },
         error: () => this.isLoading = false,
@@ -76,18 +78,29 @@ export class ModalAlertComponent {
   deleteProject() {
     this.projectService.deleteProject(this.id)
       .subscribe({
-        next: () => {
-          this.setProjectResponseStatus('delete');
+        next: res => {
+          this.socket.project({
+            title: res,
+            status: AlertStatus.success
+          });
+
+          this.hideModal();
         },
-        error: () => {
-          this.setProjectResponseStatus('error');
+        error: error => {
+          this.socket.project({
+            title: 'Se ha producido un error ',
+            message: error,
+            status: AlertStatus.success
+          });
+
+          this.hideModal();
         }
       });
   }
 
-  setProjectResponseStatus(type: string) {
-    this.socket.project(type);
-    this.hideModal();
-  }
+  // setProjectResponseStatus(type: string) {
+  //   this.socket.project(type);
+  //   this.hideModal();
+  // }
 
 }

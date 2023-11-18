@@ -52,8 +52,12 @@ export class ModalPhotoComponent {
 
     this.authService.uploadImg(this.image)
       .subscribe({
-        next: () => {
-          this.socket.uploadProfilePhoto('add');
+        next: res => {
+          this.socket.editProfile({
+            title: res,
+            status: AlertStatus.success
+          });
+
           this.hideModal();
         },
         error: err => this.addProjectError(err.error),

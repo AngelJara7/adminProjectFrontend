@@ -13,7 +13,7 @@
 
           <img [src]="photo" alt="foto de perfil">
 
-          <div class="img__modal">
+          <div class="img__modal" *ngIf="isTheUserLogged">
 
             <button (click)="viewModalPhoto()">
               <i class="fa-solid fa-camera" style="color: #ffffff;"></i>
@@ -29,7 +29,7 @@
 
         </div>
 
-        <div class="description">
+        <div class="description" *ngIf="isTheUserLogged">
 
           <b>Foto de perfil</b>
 
@@ -42,7 +42,7 @@
       <div class="info__data">
 
         <form class="data"
-              (ngSubmit)="saveChanges()"
+              (ngSubmit)="editProfile()"
               [formGroup]="userForm">
 
           <p>Informacion personal</p>
@@ -56,7 +56,8 @@
                   id="nombre"
                   placeholder="Nombre"
                   formControlName="nombre"
-                  (keyup)="verifyChangesInForm()">
+                  (keyup)="verifyChangesInForm()"
+                  [readOnly]="!isTheUserLogged">
 
             <span *ngIf="isValidField('nombre')">
               {{ getErrorField('nombre') }}
@@ -76,7 +77,8 @@
                   id="email"
                   placeholder="Email"
                   formControlName="email"
-                  (keyup)="verifyChangesInForm()">
+                  (keyup)="verifyChangesInForm()"
+                  [readOnly]="!isTheUserLogged">
 
             <span *ngIf="isValidField('email')">
               {{ getErrorField('email') }}
@@ -88,7 +90,8 @@
 
             <input type="submit"
                   value="Guardar Cambios"
-                  [disabled]="userForm.invalid || !hasDataChanged">
+                  [disabled]="userForm.invalid || !hasDataChanged"
+                  *ngIf="isTheUserLogged">
 
           </div>
 

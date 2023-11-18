@@ -52,8 +52,12 @@ export class ModalProjectFormComponent {
 
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
-        next: () => {
-          this.socket.project('add');
+        next: res => {
+          this.socket.project({
+            title: res,
+            status: AlertStatus.success
+          });
+
           this.hideModal();
         },
         error: error => this.addProjectError(error),

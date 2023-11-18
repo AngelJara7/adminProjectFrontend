@@ -141,6 +141,16 @@ export class AuthService {
       )
   }
 
+  editProfile(user: User): Observable<string> {
+    const url = `${this.baseUrl}/profile`;
+
+    return this.http.put<string>(url, user, this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err.error))
+      );
+  }
+
   uploadImg(file: File | undefined): Observable<string> {
     const url = `${this.baseUrl}/upload-img`;
     const fd = new FormData();

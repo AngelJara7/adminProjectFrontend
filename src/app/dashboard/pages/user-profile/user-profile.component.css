@@ -162,13 +162,20 @@
   transition: all .3s;
 }
 
-.form__field input[type="text"]:hover {
+.form__field input:hover {
   background-color: var(--light-secondary-color);
 }
 
 .form__field input:focus {
   background-color: transparent;
   outline: 1.5px solid var(--primary-color);
+}
+
+.form__field input:read-only:hover {
+  background-color: transparent;
+}
+.form__field input:read-only:focus {
+  outline: none;
 }
 
 .form__submit input {

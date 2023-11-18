@@ -1,5 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/auth/interfaces';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SocketService } from 'src/app/dashboard/services/socket.service';
@@ -16,15 +17,26 @@ export class NavBarComponent {
   private socket = inject(SocketService);
 
   public viewOptionsProfile: boolean = false;
-  public user = computed(() => this.userService.currentUser());
+  public user = signal<User|null>(null);
   public img: string = '';
 
   constructor() {
-    this.loadImg();
+    this.loadUser();
 
-    this.socket.io.on('img loaded', () => {
-      this.userService.checkAuthStatus().subscribe(() => this.loadImg())
+    this.socket.io.on('edited profile', () => {
+      this.userService.checkAuthStatus().subscribe(() => this.loadUser());
     });
+
+  }
+
+  loadUser() {
+    this.user.set(this.userService.currentUser());
+
+    if (!this.user()) return;
+
+    !this.user()?.foto
+    ? this.img = '../../../../assets/img/user_circle.svg'
+    : this.img = `http://localhost:4000/${this.user()?.foto}`;
   }
 
   viewProfile() {
@@ -34,12 +46,6 @@ export class NavBarComponent {
   logout() {
     this.userService.logout();
     this.router.navigateByUrl('/auth/login');
-  }
-
-  loadImg() {
-    !this.user()?.foto
-    ? this.img = '../../../../assets/img/user_circle.svg'
-    : this.img = `http://localhost:4000/${this.user()?.foto}`;
   }
 
   navigateUserProfile() {
