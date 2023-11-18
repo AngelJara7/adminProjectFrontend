@@ -1,14 +1,14 @@
 import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
-import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
-import { AlertStatus } from 'src/app/shared/interfaces';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { User } from '../../models/user.model';
-import { ActivatedRoute } from '@angular/router';
+import { AlertStatus } from 'src/app/shared/interfaces';
+import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
 
 @Component({
   selector: 'user-profile',
@@ -49,17 +49,13 @@ export class UserProfileComponent {
     ? this.isTheUserLogged = true
     : this.isTheUserLogged = false;
 
-    this.socket.io.on('edited profile', toastNotification => {
-
-      this.userService.checkAuthStatus().subscribe(() => {
-        this.loadUser();
-      });
-
-      this.setToastNotification(toastNotification);
+    this.socket.io.on('edited profile', () => {
+      this.userService.checkAuthStatus().subscribe(() => this.loadUser());
     });
   }
 
   loadUser() {
+
     this.user.set(this.userService.currentUser());
 
     if (!this.user()) return;
@@ -70,12 +66,6 @@ export class UserProfileComponent {
     ? this.photo = '../../../../assets/img/user_circle.svg'
     : this.photo = `http://localhost:4000/${this.user()?.foto}`;
 
-  }
-
-  setToastNotification(toastNotification: StatusToastNotification) {
-    this.toastNotification = toastNotification;
-    this.modalService.toastNotificationStatus = true;
-    this.modalService.hideToastNotification();
   }
 
   setAlert() {
@@ -122,14 +112,15 @@ export class UserProfileComponent {
     this.userService.editProfile(this.userForm.value)
       .subscribe({
         next: res => {
-          this.socket.editProfile({
+          this.socket.editProfile();
+          this.modalService.toasNotification.emit({
             title: res,
             status: AlertStatus.success
           });
         },
         error: error => {
-          this.socket.editProfile({
-            title: 'Error al actualizar perfil',
+          this.modalService.toasNotification.emit({
+            title: 'Se ha producido un error',
             message: error,
             status: AlertStatus.error
           });

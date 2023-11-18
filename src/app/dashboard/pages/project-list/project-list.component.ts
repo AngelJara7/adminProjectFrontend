@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit, Output, computed, inject } from '@angular
 import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProjectService } from '../../services/project.service';
-import { Project } from '../../models/project.model';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Project } from '../../models/project.model';
 import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
-import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'dashboard-project-list',
@@ -41,10 +40,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
     if (this.currentUser()?._id) this.socket.loadProjects(this.currentUser()!._id);
 
-    this.socket.io.on('project created', (toastNotification) => {
-      this.getProjects('');
-      this.setToastNotification(toastNotification);
-    });
+    this.socket.io.on('edited project', () => this.getProjects(''));
 
     this.debouncerSuscription = this.debouncer
       .pipe( debounceTime(500) )
@@ -67,12 +63,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         error: () => this.loadingProjects = false,
         complete: () => this.loadingProjects = false
       });
-  }
-
-  setToastNotification(toastNotification: StatusToastNotification) {
-    this.toastNotification = toastNotification;
-    this.modalService.toastNotificationStatus = true;
-    this.modalService.hideToastNotification();
   }
 
   setProjectBySearch(inputValue: string) {

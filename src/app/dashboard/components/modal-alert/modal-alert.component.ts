@@ -1,12 +1,12 @@
 import { Component, Input, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { ModalService } from '../../services/modal.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { ProjectService } from '../../services/project.service';
+import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
 import { ModalAlert } from '../../interfaces/modal-alert.interface';
 import { ModalAlertType } from '../../interfaces';
-import { ProjectService } from '../../services/project.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
@@ -35,7 +35,6 @@ export class ModalAlertComponent {
   hideModal() {
     this.modalAlert = undefined;
     this.modalService.modalAlertStatus = false;
-    // this.modalService.hideToastNotification();
   }
 
   typeAlert() {
@@ -63,7 +62,8 @@ export class ModalAlertComponent {
     this.userService.uploadImg(undefined)
       .subscribe({
         next: res => {
-          this.socket.editProfile({
+          this.socket.editProfile();
+          this.modalService.toasNotification.emit({
             title: res,
             status: AlertStatus.success
           });
@@ -79,7 +79,8 @@ export class ModalAlertComponent {
     this.projectService.deleteProject(this.id)
       .subscribe({
         next: res => {
-          this.socket.project({
+          this.socket.editingProjects();
+          this.modalService.toasNotification.emit({
             title: res,
             status: AlertStatus.success
           });
@@ -87,7 +88,8 @@ export class ModalAlertComponent {
           this.hideModal();
         },
         error: error => {
-          this.socket.project({
+          this.socket.editingProjects();
+          this.modalService.toasNotification.emit({
             title: 'Se ha producido un error ',
             message: error,
             status: AlertStatus.success

@@ -1,4 +1,5 @@
 import { Component, Output, inject, signal } from '@angular/core';
+
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
@@ -53,7 +54,8 @@ export class ModalPhotoComponent {
     this.authService.uploadImg(this.image)
       .subscribe({
         next: res => {
-          this.socket.editProfile({
+          this.socket.editProfile();
+          this.modalService.toasNotification.emit({
             title: res,
             status: AlertStatus.success
           });

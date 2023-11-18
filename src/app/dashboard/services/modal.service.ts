@@ -2,6 +2,7 @@ import { ModalAlertType } from './../interfaces/modal-alert.enum';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Project } from '../models/project.model';
 import { User } from '../models/user.model';
+import { StatusToastNotification } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ModalService {
 
   public id: EventEmitter<string> = new EventEmitter<string>();
 
-  // public projectIdToDelete: EventEmitter<string> = new EventEmitter<string>();
+  public toasNotification: EventEmitter<StatusToastNotification> = new EventEmitter<StatusToastNotification>();
 
   get modalProjectFormStatus() {
     return this._modalProjectFormStatus;

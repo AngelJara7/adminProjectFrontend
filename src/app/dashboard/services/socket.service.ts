@@ -16,11 +16,11 @@ export class SocketService {
     this.io.emit('load projects', user);
   }
 
-  project(statusToastNotification: StatusToastNotification) {
-    this.io.emit('project', statusToastNotification);
+  editingProjects() {
+    this.io.emit('editing projects');
   }
 
-  editProfile(statusToastNotification: StatusToastNotification) {
-    this.io.emit('edit profile', statusToastNotification);
+  editProfile() {
+    this.io.emit('edit profile');
   }
 }

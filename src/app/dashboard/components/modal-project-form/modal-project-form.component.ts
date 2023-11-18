@@ -1,11 +1,11 @@
 import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
-import { ModalService } from '../../services/modal.service';
-import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { ProjectService } from '../../services/project.service';
+import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
 
 @Component({
   selector: 'modal-project-form',
@@ -53,7 +53,8 @@ export class ModalProjectFormComponent {
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
         next: res => {
-          this.socket.project({
+          this.socket.editingProjects();
+          this.modalService.toasNotification.emit({
             title: res,
             status: AlertStatus.success
           });
