@@ -151,6 +151,17 @@ export class AuthService {
       );
   }
 
+  updatePassword(currentPassword: string, newPassword: string): Observable<string> {
+    const url = `${this.baseUrl}/update-password`;
+    const body = { currentPassword, newPassword };
+
+    return this.http.put<string>(url, body, this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err.error))
+      );
+  }
+
   uploadImg(file: File | undefined): Observable<string> {
     const url = `${this.baseUrl}/upload-img`;
     const fd = new FormData();

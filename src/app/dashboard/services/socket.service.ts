@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
-import { StatusToastNotification } from '../interfaces/status-toast-notification.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -27,7 +27,6 @@ export class ModalPhotoComponent {
   hideModal() {
     this.clearImg();
     this.modalService.modalPhotoStatus = false;
-    this.modalService.hideToastNotification();
   }
 
   clearImg() {

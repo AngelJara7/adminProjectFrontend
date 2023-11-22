@@ -1,21 +1,21 @@
 
   <ul class="notifications" [class.show]="modalService.toastNotificationStatus" >
 
-    <li class="toast">
+    <li #notifications class="toast"  *ngFor="let toast of bodyNotification; let i = index">
 
-      <i *ngIf="toastNotification?.status === alertStatus.success" class="fa-solid fa-circle-check" style="color: #0ABF30;"></i>
+      <i *ngIf="toast?.status === alertStatus.success" class="fa-solid fa-circle-check" style="color: #0ABF30;"></i>
 
-      <i *ngIf="toastNotification?.status === alertStatus.error"  class="fa-solid fa-circle-exclamation" style="color: #e94e42;"></i>
+      <i *ngIf="toast?.status === alertStatus.error"  class="fa-solid fa-circle-exclamation" style="color: #e94e42;"></i>
 
       <div>
-        <b>{{ toastNotification?.title }}</b>
+        <b>{{ toast?.title }}</b>
 
-        <p *ngIf="toastNotification?.message">
-          {{ toastNotification?.message }}
+        <p *ngIf="toast?.message">
+          {{ toast?.message }}
         </p>
       </div>
 
-      <i class="fa-solid fa-xmark" (click)="closeNotification()"></i>
+      <i class="fa-solid fa-xmark" (click)="closeNotification(i)"></i>
 
     </li>
 

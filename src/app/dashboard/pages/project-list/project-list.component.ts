@@ -7,7 +7,7 @@ import { ProjectService } from '../../services/project.service';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
 import { Project } from '../../models/project.model';
-import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
+import { ModalAlert, ModalAlertType } from '../../interfaces';
 
 @Component({
   selector: 'dashboard-project-list',
@@ -30,8 +30,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   public viewModal: boolean = false;
   public loadingProjects: boolean = false;
   public currentUser = computed(() => this.userService.currentUser());
-
-  @Output() toastNotification: StatusToastNotification | undefined;
 
   @Output() modalAlert: ModalAlert | undefined;
 

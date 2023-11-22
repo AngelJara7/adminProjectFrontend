@@ -13,24 +13,38 @@
 }
 
 .title {
-  width: 24rem;
+  width: max-content;
   height: 100%;
   background-color: var(--secondary-color);
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.title h1,
-.title h1 span {
-  font-family: var(--main-font);
-  font-size: 2.1rem;
-  font-weight: 400;
-  color: white;
+.title > span,
+.title > span img {
+  width: 3rem;
 }
 
-.title h1 span {
-  color: var(--primary-color);
+.title h1 {
+  height: 3.5rem;
+  font-family: var(--main-font);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: white;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 2px solid;
+  border-image: linear-gradient(45deg, var(--dark-primary-color), var(--primary-color)) 1;
+  margin: 0;
+}
+
+.title h1 span,
+.title h1 span img {
+  height: 2.2rem;
+  display: inline-block;
 }
 
 .menu {
@@ -99,6 +113,10 @@
   animation: view ease-in-out 300ms;
 }
 
+.profile__account {
+  margin: 0.5rem 0;
+}
+
 @keyframes view {
   0% {
     opacity: 0%;
@@ -119,6 +137,7 @@
 
 .profile__account > button {
   width: 100%;
+  height: 4rem;
   background-color: transparent;
   text-align: start;
   font-family: var(--second-font);
@@ -127,7 +146,6 @@
   letter-spacing: .3px;
   color: var(--secondary-color);
   padding: 1rem 2rem;
-  margin: .5rem 0;
   border: none;
 }
 
@@ -138,15 +156,15 @@
 
 .profile__account hr {
   border: .5px solid var(--light-secondary-color);
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .account__info {
   padding: 1.5rem 2rem;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  gap: 2rem;
+  justify-content: start;
+  gap: 1rem;
 }
 
 .account__info img {
@@ -172,4 +190,15 @@
 .user__info p {
   margin: 0;
   font-size: 1.3rem;
+}
+@media(min-width: 768px) {
+
+  .title > span {
+    display: none;
+  }
+
+  .title h1 {
+    display: flex;
+  }
+
 }

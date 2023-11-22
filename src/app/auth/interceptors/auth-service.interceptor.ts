@@ -20,7 +20,7 @@ export class AuthServiceInterceptor implements HttpInterceptor {
     return next.handle(reqClone).pipe(
       map(res => res),
       catchError(err => throwError(() => {
-        console.log({err});
+        
         switch (err.status) {
           case 500:
             this.router.navigateByUrl('/server-internal-error');

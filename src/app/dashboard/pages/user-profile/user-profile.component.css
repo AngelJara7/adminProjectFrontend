@@ -150,11 +150,7 @@
   font-family: var(--second-font);
   font-size: 1.4rem;
   padding: 2rem 0 .5rem 0;
-  color: var(--light-secondary-color);
-}
-
-.form__field label {
-  font-weight: bolder;
+  color: var(--secondary-color);
 }
 
 .form__field input {

@@ -36,7 +36,6 @@ export class ModalProjectFormComponent {
   hideModal() {
     this.projectForm.reset();
     this.modalService.modalProjectFormStatus = false;
-    this.modalService.hideToastNotification();
   }
 
   isValidField(field: string) {

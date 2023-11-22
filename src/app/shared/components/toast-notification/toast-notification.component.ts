@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, QueryList, Renderer2, ViewChildren, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AlertStatus } from '../../interfaces';
@@ -18,52 +18,49 @@ export class ToastNotificationComponent {
 
   private toastNotification$!: Subscription;
 
-  public toastNotification: StatusToastNotification | undefined;
+  public bodyNotification: StatusToastNotification[] = [];
+  public interval: any;
 
-  @ViewChild("toastContainer") toastContainer!: ElementRef;
+  @ViewChildren("notifications") notifications!: QueryList<ElementRef>;
 
   constructor() {
 
     this.toastNotification$ = this.toastNotification$ = this.modalService.toasNotification.subscribe(notification => this.setToastNotification(notification));
   }
 
-  setToastNotification(toastNotification: StatusToastNotification) {
-    this.toastNotification = toastNotification;
+  setToastNotification(toastNotification?: StatusToastNotification) {
 
-    // this.renderer.addClass(this.toastContainer.nativeElement, 'show');
+    this.bodyNotification.unshift(toastNotification!);
     this.modalService.toastNotificationStatus = true;
-    console.log(this.modalService.toastNotificationStatus);
-    // this.createNewNotification();
-    this.modalService.hideToastNotification();
+
+    clearInterval(this.interval);
+    this.clearNotifications();
   }
 
-  createNewNotification() {
-    const notification: HTMLElement = this.renderer.createElement('li');
-    this.renderer.addClass(notification, 'toast');
-    const icon = this.toastNotification?.status === this.alertStatus.success
-              ? '<i class="fa-solid fa-circle-check" style="color: #0ABF30;"></i>'
-              : '<i class="fa-solid fa-circle-exclamation" style="color: #e94e42;"></i>';
+  clearNotifications() {
 
-    notification.innerHTML = `
-      ${icon}
+    this.interval = setInterval(() => {
+      this.closeNotification(0);
 
-      <div>
-        <b>${this.toastNotification?.title}</b>
+    }, 10000);
 
-        <p *ngIf="${this.toastNotification?.message}">
-          ${this.toastNotification?.message}
-        </p>
-      </div>
-
-      <i class="fa-solid fa-xmark" (click)="${this.closeNotification()}"></i>`;
-
-    this.renderer.appendChild(this.toastContainer.nativeElement, notification);
-
-
-    console.log('NOTIFY',this.toastNotification);
   }
 
-  closeNotification() {
-    this.modalService.toastNotificationStatus = false;
+  closeNotification(index: number) {
+
+    this.renderer.addClass(this.notifications.get(index)?.nativeElement, 'hide');
+
+    const removeNotification = setTimeout(() => {
+
+      this.bodyNotification.splice(index, 1);
+
+      if (this.bodyNotification.length === 0) {
+        clearTimeout(removeNotification);
+        clearInterval(this.interval);
+        this.modalService.toastNotificationStatus = false;
+      }
+
+    }, 1000);
+
   }
 }

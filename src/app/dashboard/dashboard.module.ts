@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { LoadingComponent } from './components/loading/loading.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ModalAlertComponent } from './components/modal-alert/modal-alert.compon
     ModalPhotoComponent,
     LoadingComponent,
     UserProfileComponent,
-    ModalAlertComponent
+    ModalAlertComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

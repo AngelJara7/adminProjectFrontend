@@ -8,7 +8,7 @@ import { SocketService } from '../../services/socket.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { User } from '../../models/user.model';
 import { AlertStatus } from 'src/app/shared/interfaces';
-import { ModalAlert, ModalAlertType, StatusToastNotification } from '../../interfaces';
+import { ModalAlert, ModalAlertType } from '../../interfaces';
 
 @Component({
   selector: 'user-profile',
@@ -22,8 +22,7 @@ export class UserProfileComponent {
   private userService = inject(AuthService);
   private socket = inject(SocketService);
   private activatedRoute = inject(ActivatedRoute);
-
-  public modalService = inject(ModalService);
+  private modalService = inject(ModalService);
 
   public user = signal<User|null>(null);
   public photo: string = '';
@@ -32,7 +31,6 @@ export class UserProfileComponent {
 
   public userForm: FormGroup;
 
-  @Output() toastNotification: StatusToastNotification | undefined;
   @Output() modalAlert: ModalAlert | undefined;
 
   constructor() {

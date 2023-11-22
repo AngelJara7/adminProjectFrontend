@@ -52,10 +52,4 @@ export class ModalService {
     this._toastNotificationStatus = status;
   }
 
-  hideToastNotification() {
-    setTimeout(() => {
-      this.toastNotificationStatus = false;
-    }, 7000);
-  }
-
 }

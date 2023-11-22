@@ -48,13 +48,18 @@ export class NavBarComponent {
     this.router.navigateByUrl('/auth/login');
   }
 
+  navigateProjects() {
+    this.router.navigateByUrl('/dashboard/projects');
+  }
+
   navigateUserProfile() {
     this.viewOptionsProfile = !this.viewOptionsProfile;
     this.router.navigateByUrl(`/dashboard/user/${this.user()?._id}`);
   }
 
-  navigateProjects() {
-    this.router.navigateByUrl('/dashboard/projects');
+  navigateChangePassword() {
+    this.viewOptionsProfile = !this.viewOptionsProfile;
+    this.router.navigateByUrl('/dashboard/change-password');
   }
 
 }

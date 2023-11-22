@@ -4,13 +4,18 @@
   margin: 0;
   padding: 0;
   left: 3rem;
-  bottom: 5rem;
+  top: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   border-radius: 3px;
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s .6s;
-  --transform: translateX(-100vw);
-  --transition: transform .4s;
+  transform: translateX(-100vw);
+  transition: transform .4s;
+  /* --transform: translateX(-100vw);
+  --transition: transform .4s; */
 }
 
 .toast {
@@ -25,8 +30,28 @@
   border-radius: 3px;
   box-shadow: 0px 0px 2px rgba(56, 89, 101, 0.4);
   background-color: var(--white);
-  transform: var(--transform);
-  transition: var(--transition);
+  /* transition: display .3s .6s; */
+  transform: translateX(0);
+  transition: transform .5s .5s;
+  /* transition: transform .4s; */
+  /* transform: var(--transform);
+  transition: var(--transition); */
+  /* animation: show .4s ease-in-out; */
+}
+
+@keyframes show {
+  0% {
+    transform: translateX(-100%);
+  }
+  40% {
+    transform: translateX(-70%);
+  }
+  80% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
 /* .toast::before {
@@ -71,6 +96,35 @@
   opacity: 1;
   pointer-events: unset;
   transition: opacity .3s;
-  --transform: translateX(0);
-  --transition: transform .4s .4s;
+  transform: translateX(0);
+  transition: .4s .4s;
+  /* --transform: translateX(0);
+  --transition: transform .4s .4s; */
+}
+
+.show__toast {
+  transition: display .3s;
+  transform: translateX(0);
+  transition: transform .4s .8s;
+  display: flex;
+}
+
+.toast.hide {
+  transform: translateX(-50vw);
+  transition: transform .5s .5s;
+  /* animation: hide_toast .4s ease-in-out; */
+}
+@keyframes hide_toast {
+  0% {
+    transform: translateX(0%);
+  }
+  40% {
+    transform: translateX(-30%);
+  }
+  80% {
+    transform: translateX(-70%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
