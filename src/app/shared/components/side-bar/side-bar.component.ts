@@ -1,22 +1,47 @@
-import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { Project } from 'src/app/dashboard/models/project.model';
+import { ProjectService } from 'src/app/shared/services/project.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'shared-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SideBarComponent {
+export class SideBarComponent implements OnDestroy {
 
-  private authService = inject(AuthService);
+  private projectService = inject(ProjectService);
+  private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
-  public currentUser = computed(() => this.authService.currentUser());
+  public subscription$: Subscription;
+  public project: Project | undefined;
+  public nombre: string = '';
 
-  logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('/auth/login');
+  constructor() {
+
+    this.subscription$ = this.activatedRoute.parent!.params.subscribe(
+      params => {
+        this.nombre = params['nombre'];
+
+        this.projectService.getProject(this.nombre)
+          .subscribe({
+            next: res => {
+              console.log({res});
+              this.project = res;
+            },
+            error: () => {
+              this,this.router.navigateByUrl('/dashboard/projects');
+            }
+          });
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+      this.subscription$.unsubscribe();
   }
 
 }

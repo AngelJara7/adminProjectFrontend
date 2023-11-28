@@ -21,6 +21,9 @@
 
     --main-font: 'Oswald';
     --second-font: 'Lato';
+
+    --height-nav-bar: 5.5rem;
+    --width-side-bar: 25rem;
 }
 
 html {

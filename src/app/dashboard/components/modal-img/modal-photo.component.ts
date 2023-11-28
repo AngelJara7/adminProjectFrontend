@@ -1,8 +1,8 @@
 import { Component, Output, inject, signal } from '@angular/core';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ModalService } from '../../services/modal.service';
-import { SocketService } from '../../services/socket.service';
+import { ModalService } from '../../../shared/services/modal.service';
+import { SocketService } from '../../../shared/services/socket.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({

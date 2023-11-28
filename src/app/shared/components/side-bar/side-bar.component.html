@@ -1,18 +1,47 @@
 <aside class="sidebar">
 
-  <div class="header__project">
+  <div class="sidebar__header">
 
     <div class="header__img">
       <img src="../../../../assets/img/puesta-en-marcha.svg" alt="logo proyecto">
     </div>
 
     <div class="header__description">
-      <h2>Título de Proyecto</h2>
-      <p>Descipción de proyecto</p>
+      <h2>{{ project?.nombre }}</h2>
+      <p>{{ project?.descripcion | slice:0:20 }}</p>
     </div>
 
   </div>
 
-  <button (click)="logout()">Cerrar sesión</button>
+  <div class="sidebar__menu">
+
+    <p>Planificación</p>
+
+    <span class="menu__item"
+          [routerLink]="['tablero']"
+          routerLinkActive="active">
+
+      <i class="fa-solid fa-table-columns"></i>
+      <a>Tablero</a>
+
+    </span>
+
+  </div>
+
+  <hr>
+
+  <div class="sidebar__menu">
+
+    <span class="menu__item"
+          [routerLink]="['settings']"
+          routerLinkActive="active">
+
+      <i class="fa-solid fa-gear"></i>
+
+      <a>{{ 'Configuración de proyecto' | slice:0:20 }}</a>
+
+    </span>
+
+  </div>
 
 </aside>

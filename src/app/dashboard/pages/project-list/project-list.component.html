@@ -46,15 +46,15 @@
         <tr class="info__row" *ngFor="let project of projects">
 
           <td class="info__row--link">
-            <a>{{ project.nombre }}</a>
+            <a (click)="navigateProject(project)">{{ project.nombre }}</a>
           </td>
 
           <td>{{ project.clave }}</td>
 
           <td>{{ project.descripcion | slice:0:20 }}...</td>
 
-          <td class="info__row--link" (click)="navigateUserProfile(project.usuario!._id)">
-            <a>{{ project.usuario?.nombre }}</a>
+          <td class="info__row--link">
+            <a (click)="navigateUserProfile(project.usuario!._id)">{{ project.usuario?.nombre }}</a>
           </td>
 
           <td class="info__row--actions">
@@ -87,7 +87,7 @@
   </div>
 
 </div>
-<!-- 
+<!--
 <shared-toast-notification
 
   [toastNotification]="toastNotification"/> -->

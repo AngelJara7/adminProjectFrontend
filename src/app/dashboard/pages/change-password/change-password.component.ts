@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
-import { ModalService } from '../../services/modal.service';
+import { ModalService } from '../../../shared/services/modal.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({

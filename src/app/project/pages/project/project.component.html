@@ -1,0 +1,54 @@
+
+<div class="project">
+
+  <div class="project__header">
+
+    <nav class="project__breadcrumbs">
+      <ol>
+        <li>
+          <a routerLink="/dashboard/proyectos">Proyectos</a>
+        </li>
+
+        <li>
+          <a>{{ project?.nombre }}</a>
+        </li>
+      </ol>
+    </nav>
+
+    <div class="project__title">
+      <h1>Tablero {{ project?.nombre }}</h1>
+    </div>
+
+    <div class="project__tools">
+      <div class="search__field">
+
+        <input type="text"
+              placeholder="Buscar proyecto"
+              (keyup)="setProjectBySearch(inputTaskName.value)"
+              #inputTaskName>
+
+      </div>
+
+      <div class="project__collaborators">
+
+        <div class="collaborators__item admin">
+          <img [src]="imgUser" alt="perfil de usuario">
+        </div>
+
+        <div class="collaborators__item collaborators" *ngIf="project?.colaboradores">
+          <span>{{ project?.colaboradores?.length }}</span>
+        </div>
+
+        <div class="collaborators__item add__collaborator">
+          <button>
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

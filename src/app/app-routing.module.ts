@@ -21,10 +21,6 @@ const routes: Routes = [
     path: 'server-internal-error',
     component: ServerInternalErrorPageComponent
   }, {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  }, {
     path: '**',
     redirectTo: 'not-found'
   }

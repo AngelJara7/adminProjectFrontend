@@ -2,9 +2,9 @@ import { Component, Input, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ProjectService } from '../../services/project.service';
-import { ModalService } from '../../services/modal.service';
-import { SocketService } from '../../services/socket.service';
+import { ProjectService } from '../../../shared/services/project.service';
+import { ModalService } from '../../../shared/services/modal.service';
+import { SocketService } from '../../../shared/services/socket.service';
 import { ModalAlert } from '../../interfaces/modal-alert.interface';
 import { ModalAlertType } from '../../interfaces';
 import { AlertStatus } from 'src/app/shared/interfaces';

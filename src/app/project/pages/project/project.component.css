@@ -1,0 +1,136 @@
+
+.project {
+  position: relative;
+  left: var(--width-side-bar);
+  width: calc(100% - var(--width-side-bar));
+  height: 100%;
+}
+
+.project__header {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.project__breadcrumbs {
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  letter-spacing: .3px;
+}
+
+.project__breadcrumbs ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.project__breadcrumbs ol li:first-child::after {
+  content: '/';
+  color: var(--secondary-color);
+  padding: .5rem;
+}
+
+.project__title h1 {
+  font-size: 2.5rem;
+}
+
+.project__tools {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.search__field {
+  width: 100%;
+  max-width: 40rem;
+  height: 5rem;
+}
+
+.search__field input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--secondary-color);
+  border-radius: 3px;
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--dark-secondary-color);
+  letter-spacing: .3px;
+  padding: 0 2rem;
+  transition: all 300ms;
+}
+
+.search__field input:hover {
+  background-color: rgba(225, 225, 225, .4);
+}
+
+.search__field input:focus {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  outline: 1px solid var(--primary-color);
+}
+
+::placeholder {
+  color: var(--light-secondary-color);
+}
+
+.project__collaborators {
+  display: flex;
+}
+
+.project__collaborators .admin {
+  width: max-content;
+}
+
+.project__collaborators .collaborators__item {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background-color: var(--light-secondary-color);
+}
+
+.project__collaborators .admin img,
+.collaborators,
+.add__collaborator button {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  object-fit: cover;
+}
+
+.project__collaborators .collaborators {
+  position: relative;
+  left: -1rem;
+}
+
+.project__collaborators .collaborators,
+.add__collaborator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-secondary-color);
+}
+
+.project__collaborators .collaborators span {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.project__collaborators button {
+  border: none;
+}
+
+.project__collaborators .add__collaborator button {
+  font-size: 2rem;
+  color: var(--dark-secondary-color);
+  transition: all .3s;
+}
+
+.project__collaborators .add__collaborator button:hover {
+  cursor: pointer;
+  background-color: var(--light-secondary-color);
+}

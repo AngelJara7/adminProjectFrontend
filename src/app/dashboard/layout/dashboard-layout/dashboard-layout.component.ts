@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ModalService } from '../../services/modal.service';
+import { ModalService } from '../../../shared/services/modal.service';
 
 @Component({
   templateUrl: './dashboard-layout.component.html',

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ModalService } from '../../services/modal.service';
-import { SocketService } from '../../services/socket.service';
+import { ModalService } from '../../../shared/services/modal.service';
+import { SocketService } from '../../../shared/services/socket.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { User } from '../../models/user.model';
 import { AlertStatus } from 'src/app/shared/interfaces';

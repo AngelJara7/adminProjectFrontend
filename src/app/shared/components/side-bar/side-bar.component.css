@@ -1,56 +1,110 @@
 
 .sidebar {
-  width: 22rem;
-  height: 100%;
-  position: absolute;
-  top: 0;
+  width: var(--width-side-bar);
+  height: calc(100% - var(--height-nav-bar));
+  position: fixed;
+  /* top: 5.5rem; */
   left: 0;
   padding: 1rem;
-  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--white);
+  border-right: 2px solid var(--light-secondary-color);
 }
 
-.header__project {
+.sidebar__header {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
   margin: 2rem 0;
+  padding: 0 1rem;
   gap: 1rem;
 }
 
 .header__img {
-  /* width: 30%; */
-  padding: 1rem;
+  padding: .5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary-color);
+  background-color: var(--dark-primary-color);
   border-radius: 5px;
 }
 
 .header__img img {
-  width: 2.5rem;
+  width: 2rem;
   object-fit: contain;
 }
 
-.header__description {
-  width: 70%;
-}
-
 .header__description h2 {
-  font-family: var(--main-font);
   font-size: 1.8rem;
-  color: white;
-  letter-spacing: .8px;
-  margin: 0;
 }
 
 .header__description p {
-  font-family: var(--second-font);
-  font-size: 1.3rem;
-  font-weight: 300;
-  color: white;
-  letter-spacing: .3px;
+  font-size: 1.2rem;
   margin: 0;
 }
 
+.sidebar__menu {
+  margin: 1rem 0;
+}
+
+.sidebar__menu p {
+  font-weight: 700;
+}
+
+.menu__item {
+  width: 100%;
+  height: 4rem;
+  position: relative;
+  padding: 0 2rem;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all .3s;
+}
+
+.menu__item i {
+  font-size: 2rem;
+}
+
+.menu__item a {
+  color: var(--secondary-color);
+}
+
+.menu__item a:hover {
+  text-decoration: none;
+  color: none;
+}
+
+.menu__item:hover {
+  background-color: var(--light-secondary-color);
+  cursor: pointer;
+}
+
+hr {
+  width: 100%;
+  height: 2px;
+  background-color: var(--light-secondary-color);
+}
+
+.active {
+  background-color: var(--light-secondary-color);
+  color: var(--primary-color);
+}
+
+.active a {
+  color: var(--primary-color);
+}
+
+.active::after {
+  content: '';
+  width: 5px;
+  height: 2rem;
+  background-color: var(--primary-color);
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  border-radius: 0 3px 3px 0;
+}

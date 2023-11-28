@@ -4,6 +4,11 @@ interface _UserProject {
   email: string
 }
 
+interface _Collaborators {
+  _id: string,
+  rol: string
+}
+
 export class Project {
   constructor(
     public nombre: string,
@@ -12,6 +17,7 @@ export class Project {
     public _id: string,
     public usuario?: _UserProject,
     public columas?: [],
+    public colaboradores?: _Collaborators[],
     public clave?: string
   ) {}
 }

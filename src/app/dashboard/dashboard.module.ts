@@ -12,6 +12,8 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ProjectComponent } from '../project/pages/project/project.component';
+import { SettingsProjectComponent } from '../project/pages/settings-project/settings-project.component';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     LoadingComponent,
     UserProfileComponent,
     ModalAlertComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ProjectComponent,
+    SettingsProjectComponent
   ],
   imports: [
     CommonModule,

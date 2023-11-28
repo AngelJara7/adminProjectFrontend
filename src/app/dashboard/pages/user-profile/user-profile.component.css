@@ -159,7 +159,7 @@
 }
 
 .form__field input:hover {
-  background-color: var(--light-secondary-color);
+  background-color: rgba(225, 225, 225, .4);
 }
 
 .form__field input:focus {

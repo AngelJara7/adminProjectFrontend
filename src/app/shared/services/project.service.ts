@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, delay, map, throwError } from 'rxjs';
-import { Project } from '../models/project.model';
+import { Project } from '../../dashboard/models/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,18 @@ export class ProjectService {
     const url = `${this.baseUrl}/projects/?project=${project}`;
 
     return this.http.get<Project[]>(url, this.headers)
+      .pipe(
+        // delay(1000),
+        map((resp) => resp),
+        catchError(err => throwError(() => err.error
+        ))
+      );
+  }
+
+  getProject(project: string): Observable<Project> {
+    const url = `${this.baseUrl}/projects/${project}`;
+
+    return this.http.get<Project>(url, this.headers)
       .pipe(
         // delay(1000),
         map((resp) => resp),

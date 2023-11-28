@@ -6,6 +6,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SharedAlertComponent } from './components/alert/alert.component';
 import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -26,7 +27,8 @@ import { ToastNotificationComponent } from './components/toast-notification/toas
     ToastNotificationComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class SharedModule { }

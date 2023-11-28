@@ -2,7 +2,7 @@ import { Component, ElementRef, QueryList, Renderer2, ViewChildren, inject } fro
 import { Subscription } from 'rxjs';
 
 import { AlertStatus } from '../../interfaces';
-import { ModalService } from 'src/app/dashboard/services/modal.service';
+import { ModalService } from 'src/app/shared/services/modal.service';
 import { StatusToastNotification } from 'src/app/dashboard/interfaces';
 
 @Component({

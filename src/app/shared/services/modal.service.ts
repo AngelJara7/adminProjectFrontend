@@ -1,8 +1,8 @@
-import { ModalAlertType } from './../interfaces/modal-alert.enum';
+import { ModalAlertType } from '../../dashboard/interfaces/modal-alert.enum';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Project } from '../models/project.model';
-import { User } from '../models/user.model';
-import { StatusToastNotification } from '../interfaces';
+import { Project } from '../../dashboard/models/project.model';
+import { User } from '../../dashboard/models/user.model';
+import { StatusToastNotification } from '../../dashboard/interfaces';
 
 @Injectable({
   providedIn: 'root'

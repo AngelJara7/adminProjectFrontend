@@ -1,9 +1,9 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/auth/interfaces';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { SocketService } from 'src/app/dashboard/services/socket.service';
+import { SocketService } from 'src/app/shared/services/socket.service';
 
 @Component({
   selector: 'shared-nav-bar',

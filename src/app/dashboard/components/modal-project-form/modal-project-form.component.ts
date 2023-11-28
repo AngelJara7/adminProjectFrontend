@@ -1,9 +1,9 @@
 import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ProjectService } from '../../services/project.service';
-import { ModalService } from '../../services/modal.service';
-import { SocketService } from '../../services/socket.service';
+import { ProjectService } from '../../../shared/services/project.service';
+import { ModalService } from '../../../shared/services/modal.service';
+import { SocketService } from '../../../shared/services/socket.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
 

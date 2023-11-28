@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { ProjectService } from '../../services/project.service';
-import { ModalService } from '../../services/modal.service';
-import { SocketService } from '../../services/socket.service';
+import { ProjectService } from '../../../shared/services/project.service';
+import { ModalService } from '../../../shared/services/modal.service';
+import { SocketService } from '../../../shared/services/socket.service';
 import { Project } from '../../models/project.model';
 import { ModalAlert, ModalAlertType } from '../../interfaces';
 
@@ -87,6 +87,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.setAlert(project.nombre);
     this.modalService.id.emit(project._id);
     this.modalService.modalAlertStatus = true;
+  }
+
+  navigateProject(project: Project) {
+    this.router.navigateByUrl(`/dashboard/project/${project.nombre}/tablero`);
   }
 
   navigateUserProfile(id: string) {
