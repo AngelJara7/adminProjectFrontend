@@ -6,6 +6,6 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './not-found-page.component.html',
   styleUrls: ['./not-found-page.component.css']
 })
-export class NotFoundPageComponent {
+export class SharedNotFoundPageComponent {
 
 }

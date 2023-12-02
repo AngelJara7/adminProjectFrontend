@@ -1,7 +1,7 @@
 import { Component, OnDestroy, Output, inject } from '@angular/core';
 import { ProjectService } from '../../../shared/services/project.service';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../../../dashboard/models/project.model';
+import { Project } from '../../../shared/models/project.model';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Project } from 'src/app/dashboard/models/project.model';
+import { Project } from 'src/app/shared/models/project.model';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { Subscription } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SideBarComponent implements OnDestroy {
+export class SharedSideBarComponent implements OnDestroy {
 
   private projectService = inject(ProjectService);
   private activatedRoute = inject(ActivatedRoute);
@@ -28,13 +28,8 @@ export class SideBarComponent implements OnDestroy {
 
         this.projectService.getProject(this.nombre)
           .subscribe({
-            next: res => {
-              console.log({res});
-              this.project = res;
-            },
-            error: () => {
-              this,this.router.navigateByUrl('/dashboard/projects');
-            }
+            next: res => this.project = res,
+            error: () => this.router.navigateByUrl('/dashboard/projects')
           });
       }
     );

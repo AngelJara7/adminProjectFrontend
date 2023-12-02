@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'auth-confirm-account-page',
@@ -26,5 +26,5 @@ export class ConfirmAccountPageComponent {
         error: () => this.router.navigateByUrl('/not-found')
       });
     }
-    
+
 }

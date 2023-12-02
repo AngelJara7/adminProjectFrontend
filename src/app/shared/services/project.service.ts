@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, delay, map, throwError } from 'rxjs';
-import { Project } from '../../dashboard/models/project.model';
+import { Project } from '../models/project.model';
+import { User } from 'src/app/auth/interfaces';
+import { Collaborators } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,10 @@ export class ProjectService {
   // todo: crear variable de entorno de ruta (url backend)
   private readonly baseUrl: string = 'http://localhost:4000/api';
   private http = inject(HttpClient);
+
+  public _currentProject = signal<Project|null>(null);
+
+  public currentProject = computed(() => this._currentProject());
 
   constructor() { }
 
@@ -44,8 +50,11 @@ export class ProjectService {
 
     return this.http.get<Project>(url, this.headers)
       .pipe(
-        // delay(1000),
-        map((resp) => resp),
+        // delay(2000),
+        map((res) => {
+          this._currentProject.set(res);
+          return res;
+        }),
         catchError(err => throwError(() => err.error
         ))
       );
@@ -75,6 +84,48 @@ export class ProjectService {
         catchError(err => throwError(() => {
           return err;
         }))
+      );
+  }
+
+  searchCollaborator(email: string):Observable<User[]> {
+    const url = `${this.baseUrl}/projects/collaborators`;
+
+    return this.http.post<User[]>(url, {email}, this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err))
+      );
+  }
+
+  addCollaborator(colaborador: Collaborators, idProject: string): Observable<string> {
+    const url = `${this.baseUrl}/projects/collaborators/${idProject}`;
+
+    return this.http.post<string>(url, colaborador, this.headers)
+      .pipe(
+        map(res => res
+        ),
+        catchError(err => throwError(() => err))
+      );
+  }
+
+  updateCollaborator(colaborador: Collaborators, idProject: string):Observable<string> {
+    const url = `${this.baseUrl}/projects/collaborators/${idProject}`;
+
+    return this.http.put<string>(url, colaborador, this.headers)
+      .pipe(
+        map(res =>  res),
+        catchError(err => throwError(() => err))
+      );
+  }
+
+  deleteColaborator(colaborador: Collaborators, idProject: string): Observable<string> {
+    const url = `${this.baseUrl}/projects/delete-collaborator/${idProject}`;
+
+    return this.http.post<string>(url, colaborador, this.headers)
+      .pipe(
+        map(res => res,
+        ),
+        catchError(err => throwError(() => err))
       );
   }
 

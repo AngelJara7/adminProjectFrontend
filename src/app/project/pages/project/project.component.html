@@ -1,33 +1,32 @@
 
-<div class="project">
+<div class="project" *ngIf="project">
 
   <div class="project__header">
 
-    <nav class="project__breadcrumbs">
-      <ol>
-        <li>
-          <a routerLink="/dashboard/proyectos">Proyectos</a>
-        </li>
+    <shared-breadcrumbs [crumbs]="breadcrumbs"/>
 
-        <li>
-          <a>{{ project?.nombre }}</a>
-        </li>
-      </ol>
-    </nav>
+    <div class="project__title header__title">
+      <h2>Tablero {{ project.nombre }}</h2>
 
-    <div class="project__title">
-      <h1>Tablero {{ project?.nombre }}</h1>
+      <button>
+        Crear tarea
+      </button>
     </div>
 
     <div class="project__tools">
-      <div class="search__field">
+      <shared-search-box
+          (onDebounce)="searchTask($event)"
+          [initialValue]="initialValue"
+          placeholder="Buscar tarea">
+      </shared-search-box>
+      <!-- <div class="search__field">
 
         <input type="text"
               placeholder="Buscar proyecto"
               (keyup)="setProjectBySearch(inputTaskName.value)"
               #inputTaskName>
 
-      </div>
+      </div> -->
 
       <div class="project__collaborators">
 
@@ -35,12 +34,21 @@
           <img [src]="imgUser" alt="perfil de usuario">
         </div>
 
-        <div class="collaborators__item collaborators" *ngIf="project?.colaboradores">
-          <span>{{ project?.colaboradores?.length }}</span>
+        <!-- <div class="collaborators"> -->
+
+          <div *ngFor="let colaboradores of project?.colaboradores?.slice(0, 5)" class="collaborators__item img__collaborators">
+            <img [src]="setProfileCollaborator(colaboradores.usuario.foto)">
+          </div>
+
+        <!-- </div> -->
+
+
+        <div class="collaborators__item total__collaborators" *ngIf="project?.colaboradores!.length > 5">
+          <span>+{{ project.colaboradores.length }}</span>
         </div>
 
         <div class="collaborators__item add__collaborator">
-          <button>
+          <button (click)="viewModalAddCollaborator()">
             <i class="fa-solid fa-user-plus"></i>
           </button>
         </div>

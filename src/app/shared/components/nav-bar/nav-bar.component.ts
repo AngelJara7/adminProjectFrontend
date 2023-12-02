@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/auth/interfaces';
 
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SocketService } from 'src/app/shared/services/socket.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
+export class SharedNavBarComponent {
 
   private userService = inject(AuthService);
   private router = inject(Router);

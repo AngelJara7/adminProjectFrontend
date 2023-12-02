@@ -3,14 +3,14 @@ import { Subscription } from 'rxjs';
 
 import { AlertStatus } from '../../interfaces';
 import { ModalService } from 'src/app/shared/services/modal.service';
-import { StatusToastNotification } from 'src/app/dashboard/interfaces';
+import { StatusToastNotification } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'shared-toast-notification',
   templateUrl: './toast-notification.component.html',
   styleUrls: ['./toast-notification.component.css']
 })
-export class ToastNotificationComponent {
+export class SharedToastNotificationComponent {
 
   private renderer = inject(Renderer2);
   public modalService = inject(ModalService);
@@ -25,7 +25,7 @@ export class ToastNotificationComponent {
 
   constructor() {
 
-    this.toastNotification$ = this.toastNotification$ = this.modalService.toasNotification.subscribe(notification => this.setToastNotification(notification));
+    this.toastNotification$ = this.toastNotification$ = this.modalService.toastNotification.subscribe(notification => this.setToastNotification(notification));
   }
 
   setToastNotification(toastNotification?: StatusToastNotification) {
@@ -41,7 +41,6 @@ export class ToastNotificationComponent {
 
     this.interval = setInterval(() => {
       this.closeNotification(0);
-
     }, 10000);
 
   }

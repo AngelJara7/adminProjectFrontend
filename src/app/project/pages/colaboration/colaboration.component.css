@@ -1,0 +1,28 @@
+
+.colaborators__table {
+  height: auto;
+}
+
+select {
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 3px;
+  height: 4rem;
+  padding: 0 1rem;
+}
+
+select:hover {
+  background-color: rgba(225, 225, 225, .4);
+  cursor: pointer;
+}
+
+select:focus {
+  border: none;
+  outline: 1.5px solid var(--primary-color);
+}
+
+select:disabled {
+  cursor: initial;
+}

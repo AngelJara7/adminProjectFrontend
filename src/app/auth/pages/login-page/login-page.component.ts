@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({

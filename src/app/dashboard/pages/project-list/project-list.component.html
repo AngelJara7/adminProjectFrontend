@@ -1,7 +1,7 @@
 
 <div class="projects">
 
-  <div class="projects__header">
+  <div class="projects__header header__title">
 
     <h2>Proyectos</h2>
 
@@ -12,21 +12,26 @@
   </div>
 
   <div class="projects__search">
+    <shared-search-box
+          (onDebounce)="searchProject($event)"
+          [initialValue]="initialValue"
+          placeholder="Buscar proyecto">
+      </shared-search-box>
 
-    <div class="search__field">
+    <!-- <div class="search__field">
 
       <input type="text"
             placeholder="Buscar proyecto"
             (keyup)="setProjectBySearch(inputProjectName.value)"
             #inputProjectName>
 
-    </div>
+    </div> -->
 
   </div>
 
-  <div class="projects__list">
+  <div class="table__container projects__table">
 
-    <table class="list__table" *ngIf="!loadingProjects && projects.length > 0">
+    <table class="table__list" *ngIf="!loadingProjects && projects.length > 0">
 
       <thead class="table__header">
 
@@ -46,15 +51,15 @@
         <tr class="info__row" *ngFor="let project of projects">
 
           <td class="info__row--link">
-            <a (click)="navigateProject(project)">{{ project.nombre }}</a>
+            <a routerLink="/dashboard/projects/{{project.nombre}}/board">{{ project.nombre }}</a>
           </td>
 
           <td>{{ project.clave }}</td>
 
-          <td>{{ project.descripcion | slice:0:20 }}...</td>
+          <td>{{ project.descripcion }}</td>
 
           <td class="info__row--link">
-            <a (click)="navigateUserProfile(project.usuario!._id)">{{ project.usuario?.nombre }}</a>
+            <a routerLink="/dashboard/user/{{project.usuario._id}}">{{ project.usuario.nombre }}</a>
           </td>
 
           <td class="info__row--actions">
@@ -82,15 +87,11 @@
 
     </div>
 
-    <loading *ngIf="loadingProjects"></loading>
+    <shared-loading *ngIf="loadingProjects"></shared-loading>
 
   </div>
 
 </div>
-<!--
-<shared-toast-notification
 
-  [toastNotification]="toastNotification"/> -->
-
-<modal-alert [modalAlert]="modalAlert"/>
+<shared-modal-alert [modalAlert]="modalAlert"/>
 

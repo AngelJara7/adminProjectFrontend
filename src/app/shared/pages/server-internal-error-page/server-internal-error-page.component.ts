@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './server-internal-error-page.component.html',
   styleUrls: ['./server-internal-error-page.component.css']
 })
-export class ServerInternalErrorPageComponent {
+export class SharedServerInternalErrorPageComponent {
 
 }

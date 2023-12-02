@@ -1,6 +1,9 @@
  <section class="modal"
       [class.view--modal]="modalService.modalPhotoStatus">
 
+      <div class="modal__bg" (click)="hideModal()">
+      </div>
+
       <div class="modal__container">
 
         <div class="modal__header">
@@ -39,15 +42,17 @@
 
         </div>
 
-        <div class="modal__actions">
+        <div class="modal__actions modal__actions--modal-photo">
 
-          <button class="modal__actions--cancel" (click)="hideModal()">
+          <button class="action__btn action__btn--cancel"
+                  [disabled]="isLoading"
+                  (click)="hideModal()">
             Cancelar
           </button>
 
-          <button class="modal__actions--load"
-                  (click)="uploadImg()"
+          <button class="action__btn action__btn--load"
                   [disabled]="!selectdImg || isLoading">
+                  (click)="uploadImg()"
             Cargar
           </button>
 

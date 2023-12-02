@@ -1,13 +1,22 @@
 
 <section class="modal" [class.view--modal]="modalService.modalAlertStatus">
 
+  <div class="modal__bg" (click)="hideModal()">
+  </div>
+
   <div class="modal__container">
 
-    <h3>{{ modalAlert?.title }}</h3>
+    <div class="modal__header">
+      
+      <h3>{{ modalAlert?.title }}</h3>
+
+    </div>
+
 
     <p>{{ modalAlert?.message }}</p>
 
-    <div class="actions">
+    <div class="modal__actions modal__actions--modal-alert">
+
       <button class="action__btn action__btn--cancel"
               [disabled]="isLoading"
               (click)="hideModal()">

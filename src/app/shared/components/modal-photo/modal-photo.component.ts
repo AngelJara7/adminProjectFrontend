@@ -1,16 +1,16 @@
 import { Component, Output, inject, signal } from '@angular/core';
 
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { ModalService } from '../../../shared/services/modal.service';
-import { SocketService } from '../../../shared/services/socket.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { ModalService } from '../../services/modal.service';
+import { SocketService } from '../../services/socket.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({
-  selector: 'modal-photo-component',
+  selector: 'shared-modal-photo-component',
   templateUrl: './modal-photo.component.html',
   styleUrls: ['./modal-photo.component.css']
 })
-export class ModalPhotoComponent {
+export class SharedModalPhotoComponent {
 
   private authService = inject(AuthService);
   private socket = inject(SocketService);
@@ -54,7 +54,7 @@ export class ModalPhotoComponent {
       .subscribe({
         next: res => {
           this.socket.editProfile();
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: res,
             status: AlertStatus.success
           });

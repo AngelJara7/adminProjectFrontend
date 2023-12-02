@@ -1,18 +1,18 @@
 import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { ProjectService } from '../../../shared/services/project.service';
-import { ModalService } from '../../../shared/services/modal.service';
-import { SocketService } from '../../../shared/services/socket.service';
+import { ProjectService } from '../../services/project.service';
+import { ModalService } from '../../services/modal.service';
+import { SocketService } from '../../services/socket.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
-import { AlertStatus } from './../../../shared/interfaces/alert-status.enum';
+import { AlertStatus } from '../../interfaces/alert-status.enum';
 
 @Component({
-  selector: 'modal-project-form',
+  selector: 'shared-modal-project-form',
   templateUrl: './modal-project-form.component.html',
   styleUrls: ['./modal-project-form.component.css']
 })
-export class ModalProjectFormComponent {
+export class SharedModalProjectFormComponent {
 
   private projectService = inject(ProjectService);
   private validatorsServices = inject(ValidatorsService);
@@ -53,7 +53,7 @@ export class ModalProjectFormComponent {
       .subscribe({
         next: res => {
           this.socket.editingProjects();
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: res,
             status: AlertStatus.success
           });

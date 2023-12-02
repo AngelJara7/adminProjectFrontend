@@ -1,35 +1,29 @@
-import { Component, OnDestroy, OnInit, Output, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject, Subscription, debounceTime } from 'rxjs';
+import { Component, OnDestroy, Output, computed, inject } from '@angular/core';
 
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProjectService } from '../../../shared/services/project.service';
 import { ModalService } from '../../../shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
-import { Project } from '../../models/project.model';
-import { ModalAlert, ModalAlertType } from '../../interfaces';
+import { Project } from '../../../shared/models/project.model';
+import { ModalAlert, ModalAlertType } from '../../../shared/interfaces';
 
 @Component({
   selector: 'dashboard-project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css']
 })
-export class ProjectListComponent implements OnInit, OnDestroy {
+export class ProjectListComponent implements OnDestroy {
 
   private projectService = inject(ProjectService);
   private socket = inject(SocketService);
   private userService = inject(AuthService);
-  private router = inject(Router);
 
   public modalService = inject(ModalService);
 
-  private debouncer: Subject<string> = new Subject<string>();
-  private debouncerSuscription: Subscription;
-
   public projects: Project[] = [];
-  public viewModal: boolean = false;
   public loadingProjects: boolean = false;
   public currentUser = computed(() => this.userService.currentUser());
+  public initialValue: string = '';
 
   @Output() modalAlert: ModalAlert | undefined;
 
@@ -38,18 +32,12 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
     if (this.currentUser()?._id) this.socket.loadProjects(this.currentUser()!._id);
 
-    this.socket.io.on('edited project', () => this.getProjects(''));
-
-    this.debouncerSuscription = this.debouncer
-      .pipe( debounceTime(500) )
-      .subscribe( value => this.searchProject(value) );
-  }
-
-  ngOnInit(): void {
+    this.socket.io.on('edited projects', () => this.getProjects(''));
   }
 
   ngOnDestroy(): void {
-    this.debouncerSuscription.unsubscribe();
+    this.modalService.modalProjectFormStatus = false;
+    this.modalService.modalAlertStatus = false;
   }
 
   getProjects(project: string) {
@@ -61,10 +49,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         error: () => this.loadingProjects = false,
         complete: () => this.loadingProjects = false
       });
-  }
-
-  setProjectBySearch(inputValue: string) {
-    this.debouncer.next(inputValue);
   }
 
   searchProject(project: string) {
@@ -87,14 +71,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.setAlert(project.nombre);
     this.modalService.id.emit(project._id);
     this.modalService.modalAlertStatus = true;
-  }
-
-  navigateProject(project: Project) {
-    this.router.navigateByUrl(`/dashboard/project/${project.nombre}/tablero`);
-  }
-
-  navigateUserProfile(id: string) {
-    this.router.navigateByUrl(`/dashboard/user/${id}`);
   }
 
 }

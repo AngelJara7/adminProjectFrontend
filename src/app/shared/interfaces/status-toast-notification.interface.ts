@@ -1,4 +1,5 @@
-import { AlertStatus } from "src/app/shared/interfaces";
+import { AlertStatus } from "./alert-status.enum";
+
 
 export interface StatusToastNotification {
   title: string,

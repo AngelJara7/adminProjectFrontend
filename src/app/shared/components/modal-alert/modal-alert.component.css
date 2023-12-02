@@ -1,0 +1,20 @@
+
+.modal__container p {
+  padding: 1rem 0;
+  line-height: 2rem;
+}
+
+.action__btn--delete {
+  background-color: var(--error-color);
+  color: var(--white);
+}
+
+.action__btn--delete:hover {
+  background-color: #C81407;
+  cursor: pointer;
+}
+
+.action__btn--delete:disabled {
+  background-color: #e6938d;
+  cursor: initial;
+}

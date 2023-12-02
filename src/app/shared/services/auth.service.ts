@@ -1,8 +1,8 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, delay, map, of, throwError } from 'rxjs';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
 
-import { AuthStatus, CheckTokenResponse, LoginResponse, User } from '../interfaces';
+import { AuthStatus, CheckTokenResponse, LoginResponse, User } from '../../auth/interfaces';
 
 @Injectable({providedIn: 'root'})
 

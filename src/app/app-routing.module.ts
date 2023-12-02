@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { notAuthenticatedGuard } from './auth/guard/not-authenticated.guard';
 import { AuthenticatedGuard } from './auth/guard/authenticated.guard';
-import { NotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
-import { ServerInternalErrorPageComponent } from './shared/pages/server-internal-error-page/server-internal-error-page.component';
+import { SharedNotFoundPageComponent } from './shared/pages/not-found-page/not-found-page.component';
+import { SharedServerInternalErrorPageComponent } from './shared/pages/server-internal-error-page/server-internal-error-page.component';
 
 const routes: Routes = [
   {
@@ -16,10 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }, {
     path: 'not-found',
-    component: NotFoundPageComponent
+    component: SharedNotFoundPageComponent
   }, {
     path: 'server-internal-error',
-    component: ServerInternalErrorPageComponent
+    component: SharedServerInternalErrorPageComponent
   }, {
     path: '**',
     redirectTo: 'not-found'

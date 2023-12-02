@@ -1,0 +1,23 @@
+
+.project__breadcrumbs {
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  letter-spacing: .3px;
+}
+
+.project__breadcrumbs ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.project__breadcrumbs ol li::after {
+  content: '/';
+  color: var(--secondary-color);
+  padding: .5rem;
+}
+
+.project__breadcrumbs ol li:last-child::after {
+  all: unset;
+}

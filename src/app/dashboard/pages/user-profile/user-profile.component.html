@@ -3,7 +3,7 @@
 
   <div class="profile__user">
 
-    <h2>Editar perfil</h2>
+    <h2>{{ isTheUserLogged ? 'Editar perfil' : 'Perfil de usuario' }}</h2>
 
     <div class="profile__info">
 
@@ -104,9 +104,9 @@
   </div>
 
 </div>
-<!-- 
+<!--
 <shared-toast-notification
 
 [toastNotification]="toastNotification"/> -->
 
-<modal-alert [modalAlert]="modalAlert"/>
+<shared-modal-alert [modalAlert]="modalAlert"/>

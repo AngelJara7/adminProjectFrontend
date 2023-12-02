@@ -1,0 +1,70 @@
+
+<section class="modal"
+      [class.view--modal]="modalService.modalAddCollaboratorStatus">
+
+      <div class="modal__bg" (click)="hideModal()">
+      </div>
+
+      <div class="modal__container">
+
+        <div class="modal__header">
+
+          <h3>Añadir colaboradores a {{ project()?.nombre }}</h3>
+
+        </div>
+
+        <div class="form modal__form">
+
+          <span>Buscar usuario por email</span>
+
+          <form [formGroup]="collaboratorForm">
+            <shared-search-box
+              (onDebounce)="searchUser($event)"
+              [initialValue]="initialValue"
+              placeholder="Email">
+
+            </shared-search-box>
+
+            <div class="result__search"
+                *ngIf="users.length !== 0">
+
+              <div class="result" *ngFor="let user of users"
+                  (click)="userSelected(user)">
+
+                <span>{{ user.email }}</span>
+
+              </div>
+
+            </div>
+
+            <select name="rol" id="rol" formControlName="rol">
+
+              <option *ngFor="let rol of rols"
+                    value="{{ rol }}">
+                {{ rol }}
+              </option>
+
+            </select>
+
+            <div class="modal__actions modal__actions--modal-add-collaborator">
+
+              <button class="action__btn action__btn--cancel"
+                      (click)="hideModal()">
+                Cancelar
+              </button>
+
+              <button class="action__btn action__btn--add"
+                      (click)="addCollaborator()"
+                      [disabled]="!initialValue || isLoading">
+                Agregar
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+</section>

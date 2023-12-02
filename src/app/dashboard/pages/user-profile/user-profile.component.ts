@@ -1,21 +1,21 @@
-import { Component, Output, inject, signal } from '@angular/core';
+import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ModalService } from '../../../shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
-import { User } from '../../models/user.model';
+import { User } from '../../../shared/models/user.model';
 import { AlertStatus } from 'src/app/shared/interfaces';
-import { ModalAlert, ModalAlertType } from '../../interfaces';
+import { ModalAlert, ModalAlertType } from '../../../shared/interfaces';
 
 @Component({
   selector: 'user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnDestroy {
 
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
@@ -50,6 +50,10 @@ export class UserProfileComponent {
     this.socket.io.on('edited profile', () => {
       this.userService.checkAuthStatus().subscribe(() => this.loadUser());
     });
+  }
+  ngOnDestroy(): void {
+    this.modalService.modalPhotoStatus = false;
+    this.modalService.modalAlertStatus = false;
   }
 
   loadUser() {
@@ -111,13 +115,13 @@ export class UserProfileComponent {
       .subscribe({
         next: res => {
           this.socket.editProfile();
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: res,
             status: AlertStatus.success
           });
         },
         error: error => {
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: 'Se ha producido un error',
             message: error,
             status: AlertStatus.error

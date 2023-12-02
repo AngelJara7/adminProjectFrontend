@@ -1,0 +1,7 @@
+
+<nav class="project__breadcrumbs">
+  <ol>
+    <li *ngFor="let crumb of crumbs">
+      <a routerLink="{{ crumb.link }}">{{ crumb.title }}</a>
+  </ol>
+</nav>

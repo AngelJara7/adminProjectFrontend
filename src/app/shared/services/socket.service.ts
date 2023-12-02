@@ -22,4 +22,8 @@ export class SocketService {
   editProfile() {
     this.io.emit('edit profile');
   }
+
+  editingCollaborators() {
+    this.io.emit('editing collaborators');
+  }
 }

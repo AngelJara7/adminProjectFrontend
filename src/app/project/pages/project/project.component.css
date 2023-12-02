@@ -1,46 +1,13 @@
 
-.project {
-  position: relative;
-  left: var(--width-side-bar);
-  width: calc(100% - var(--width-side-bar));
-  height: 100%;
-}
-
-.project__header {
-  padding: 2rem 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.project__breadcrumbs {
-  font-family: var(--second-font);
-  font-size: 1.5rem;
-  letter-spacing: .3px;
-}
-
-.project__breadcrumbs ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-}
-
-.project__breadcrumbs ol li:first-child::after {
-  content: '/';
-  color: var(--secondary-color);
-  padding: .5rem;
-}
-
-.project__title h1 {
-  font-size: 2.5rem;
-}
-
 .project__tools {
   display: flex;
   align-items: center;
   gap: 2rem;
   margin-top: 1rem;
+}
+
+shared-search-box {
+  width: 100%;
 }
 
 .search__field {
@@ -79,35 +46,29 @@
 
 .project__collaborators {
   display: flex;
+  gap: 1rem;
 }
 
-.project__collaborators .admin {
-  width: max-content;
-}
-
-.project__collaborators .collaborators__item {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 50%;
-  background-color: var(--light-secondary-color);
-}
-
-.project__collaborators .admin img,
-.collaborators,
+.collaborators__item,
+.collaborators__item img,
 .add__collaborator button {
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
-  border: 2px solid var(--white);
+}
+
+.admin img,
+.img__collaborators img {
+  border-radius: 50%;
   object-fit: cover;
+  border: 1px solid var(--white);
 }
 
-.project__collaborators .collaborators {
-  position: relative;
-  left: -1rem;
+.img__collaborators, .total__collaborators {
+  margin-left: -2rem;
 }
 
-.project__collaborators .collaborators,
+.total__collaborators,
 .add__collaborator {
   display: flex;
   align-items: center;
@@ -115,22 +76,22 @@
   background-color: var(--light-secondary-color);
 }
 
-.project__collaborators .collaborators span {
-  font-size: 2rem;
+.total__collaborators span {
+  font-size: 1.5rem;
   font-weight: 400;
 }
 
-.project__collaborators button {
+.add__collaborator button {
   border: none;
 }
 
-.project__collaborators .add__collaborator button {
-  font-size: 2rem;
+.add__collaborator button {
+  font-size: 1.5rem;
   color: var(--dark-secondary-color);
   transition: all .3s;
 }
 
-.project__collaborators .add__collaborator button:hover {
+.add__collaborator button:hover {
   cursor: pointer;
   background-color: var(--light-secondary-color);
 }

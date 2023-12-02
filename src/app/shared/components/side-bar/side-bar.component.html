@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<aside class="sidebar" *ngIf="project">
 
   <div class="sidebar__header">
 
@@ -7,8 +7,8 @@
     </div>
 
     <div class="header__description">
-      <h2>{{ project?.nombre }}</h2>
-      <p>{{ project?.descripcion | slice:0:20 }}</p>
+      <h2>{{ project.nombre }}</h2>
+      <p>{{ project.descripcion }}</p>
     </div>
 
   </div>
@@ -18,7 +18,7 @@
     <p>Planificación</p>
 
     <span class="menu__item"
-          [routerLink]="['tablero']"
+          routerLink="board"
           routerLinkActive="active">
 
       <i class="fa-solid fa-table-columns"></i>
@@ -32,13 +32,30 @@
 
   <div class="sidebar__menu">
 
+    <p>Colaboración</p>
+
     <span class="menu__item"
-          [routerLink]="['settings']"
+          routerLink="colaboration"
+          routerLinkActive="active">
+
+      <i class="fa-solid fa-table-columns"></i>
+      <a>Equipo</a>
+
+    </span>
+
+  </div>
+
+  <hr>
+
+  <div class="sidebar__menu">
+
+    <span class="menu__item"
+          routerLink="settings"
           routerLinkActive="active">
 
       <i class="fa-solid fa-gear"></i>
 
-      <a>{{ 'Configuración de proyecto' | slice:0:20 }}</a>
+      <a>Configuración de proyecto</a>
 
     </span>
 

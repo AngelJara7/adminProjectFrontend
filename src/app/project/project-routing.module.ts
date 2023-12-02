@@ -3,14 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectLayoutComponent } from './layout/project-layout/project-layout.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { SettingsProjectComponent } from './pages/settings-project/settings-project.component';
+import { ColaborationComponent } from './pages/colaboration/colaboration.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ProjectLayoutComponent,
     children: [
-      { path: 'tablero', component: ProjectComponent },
+      { path: 'board', component: ProjectComponent },
+      { path: 'colaboration', component: ColaborationComponent },
       { path: 'settings', component: SettingsProjectComponent },
+      { path: '**', redirectTo: 'board' }
     ]
   }
 ];

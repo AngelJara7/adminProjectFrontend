@@ -1,0 +1,79 @@
+
+<div class="project" *ngIf="project">
+
+  <div class="project__header">
+
+    <shared-breadcrumbs [crumbs]="breadcrumbs"/>
+
+    <div class="project__title header__title">
+
+      <h2>Equipo de {{ project.nombre }}</h2>
+
+      <button [disabled]="" (click)="viewModalAddCollaborator()">
+        Agregar personas
+      </button>
+    </div>
+
+    <shared-search-box
+            (onDebounce)="searchColaborators($event)"
+            [initialValue]="initialValue"
+            placeholder="Buscar por nombre o email">
+        </shared-search-box>
+  </div>
+
+
+  <div class="table__container colaborators__table">
+
+    <table class="table__list" *ngIf="colaboradores">
+
+      <thead class="table__header">
+
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Función</th>
+          <th>Acción</th>
+        </tr>
+
+      </thead>
+
+      <tbody class="table__info">
+
+        <tr class="info__row" *ngFor="let colaborador of colaboradores">
+
+          <td>
+            {{ colaborador.usuario.nombre }}
+          </td>
+
+          <td>{{ colaborador.usuario.email }}</td>
+
+          <td>
+            <select [disabled]="project.usuario._id === colaborador.usuario._id"
+            (change)="updateRolCollaborator(select, colaborador, project._id)"
+            #select>
+              <option *ngFor="let rol of rols"
+                      value="{{ rol }}"
+                      [selected]="colaborador.rol === rol">
+                      {{ rol }}
+              </option>
+            </select>
+          </td>
+
+          <td class="info__row--actions">
+            <button (click)="viewModalAlert(colaborador, project)">
+              <i class="fa-solid fa-trash fa-lg"></i>
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<shared-modal-alert
+  [modalAlert]="modalAlert"
+  [colaborador]="colaborador"/>

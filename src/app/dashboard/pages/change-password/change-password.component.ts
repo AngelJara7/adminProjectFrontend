@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { ModalService } from '../../../shared/services/modal.service';
 import { AlertStatus } from 'src/app/shared/interfaces';
@@ -44,14 +44,14 @@ export class ChangePasswordComponent {
     this.userService.updatePassword(currentPassword, newPassword)
       .subscribe({
         next: res => {
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: res,
             status: AlertStatus.success
           });
         },
         error: error => {
           this.isLoading = false;
-          this.modalService.toasNotification.emit({
+          this.modalService.toastNotification.emit({
             title: 'Se ha producido un error',
             message: error,
             status: AlertStatus.error
