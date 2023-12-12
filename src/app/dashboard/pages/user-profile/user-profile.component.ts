@@ -9,6 +9,7 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { User } from '../../../shared/models/user.model';
 import { AlertStatus } from 'src/app/shared/interfaces';
 import { ModalAlert, ModalAlertType } from '../../../shared/interfaces';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'user-profile',
@@ -65,8 +66,8 @@ export class UserProfileComponent implements OnDestroy {
     this.userForm.setValue({ _id: this.user()?._id, nombre: this.user()?.nombre, email: this.user()?.email });
 
     !this.user()?.foto
-    ? this.photo = '../../../../assets/img/user_circle.svg'
-    : this.photo = `http://localhost:4000/${this.user()?.foto}`;
+    ? this.photo = environment.path_no_img
+    : this.photo = `${environment.base_url}/${this.user()?.foto}`;
 
   }
 

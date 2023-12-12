@@ -1,8 +1,8 @@
 import { Component, OnDestroy, Output, inject } from '@angular/core';
 import { ProjectService } from '../../../shared/services/project.service';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from '../../../shared/models/project.model';
 import { Subscription } from 'rxjs';
+import { Project } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-settings-project',
@@ -23,19 +23,17 @@ export class SettingsProjectComponent implements OnDestroy {
     this.subcription$ = this.activatedRoute.parent!.params.subscribe(
       params => {
         this.nombre = params['nombre'];
-
-        this.projectService.getProject(this.nombre)
-          .subscribe({
-            next: res => {
-              console.log({res});
-              this.project = res;
-            },
-            error: error => {
-              console.log({error});
-            }
-          });
+        this.loadProject();
       }
     );
+  }
+
+  loadProject() {
+
+    this.projectService.getProject(this.nombre)
+      .subscribe({
+        next: res => this.project = res,
+      });
   }
 
   ngOnDestroy(): void {

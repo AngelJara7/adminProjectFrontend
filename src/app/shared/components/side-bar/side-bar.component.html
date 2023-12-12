@@ -1,64 +1,65 @@
-<aside class="sidebar" *ngIf="project">
 
-  <div class="sidebar__header">
+  <aside class="sidebar" *ngIf="project">
 
-    <div class="header__img">
-      <img src="../../../../assets/img/puesta-en-marcha.svg" alt="logo proyecto">
+    <div class="sidebar__header">
+
+      <div class="header__img">
+        <img src="../../../../assets/img/puesta-en-marcha.svg" alt="logo proyecto">
+      </div>
+
+      <div class="header__description">
+        <h2>{{ project.nombre }}</h2>
+        <p>{{ project.descripcion }}</p>
+      </div>
+
     </div>
 
-    <div class="header__description">
-      <h2>{{ project.nombre }}</h2>
-      <p>{{ project.descripcion }}</p>
+    <div class="sidebar__menu">
+
+      <p>Planificación</p>
+
+      <span class="menu__item"
+            routerLink="board"
+            routerLinkActive="active">
+
+        <i class="fa-solid fa-table-columns"></i>
+        <a>Tablero</a>
+
+      </span>
+
     </div>
 
-  </div>
+    <hr>
 
-  <div class="sidebar__menu">
+    <div class="sidebar__menu">
 
-    <p>Planificación</p>
+      <p>Colaboración</p>
 
-    <span class="menu__item"
-          routerLink="board"
-          routerLinkActive="active">
+      <span class="menu__item"
+            routerLink="colaboration"
+            routerLinkActive="active">
 
-      <i class="fa-solid fa-table-columns"></i>
-      <a>Tablero</a>
+        <i class="fa-solid fa-people-group"></i>
+        <a>Equipo</a>
 
-    </span>
+      </span>
 
-  </div>
+    </div>
 
-  <hr>
+    <hr>
 
-  <div class="sidebar__menu">
+    <div class="sidebar__menu">
 
-    <p>Colaboración</p>
+      <span class="menu__item"
+            routerLink="settings"
+            routerLinkActive="active">
 
-    <span class="menu__item"
-          routerLink="colaboration"
-          routerLinkActive="active">
+        <i class="fa-solid fa-gear"></i>
 
-      <i class="fa-solid fa-table-columns"></i>
-      <a>Equipo</a>
+        <a>Configuración de proyecto</a>
 
-    </span>
+      </span>
 
-  </div>
+    </div>
 
-  <hr>
-
-  <div class="sidebar__menu">
-
-    <span class="menu__item"
-          routerLink="settings"
-          routerLinkActive="active">
-
-      <i class="fa-solid fa-gear"></i>
-
-      <a>Configuración de proyecto</a>
-
-    </span>
-
-  </div>
-
-</aside>
+  </aside>

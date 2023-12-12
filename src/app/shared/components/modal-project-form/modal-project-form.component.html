@@ -32,7 +32,10 @@
             <div class="form__field"
                 [ngClass]="{ 'error__field': isValidField('nombre') }">
 
+              <label for="nombre">Nombre</label>
+
               <input type="text"
+                    id="nombre"
                     placeholder="Nombre"
                     formControlName="nombre">
 
@@ -45,7 +48,10 @@
             <div class="form__field"
                 [ngClass]="{ 'error__field': isValidField('descripcion') }">
 
+              <label for="descripcion">Descripción</label>
+
               <textarea cols="30" rows="5"
+                        id="descripcion"
                         placeholder="Descripción"
                         formControlName="descripcion">
               </textarea>
@@ -59,7 +65,10 @@
             <div class="form__field"
                 [ngClass]="{ 'error__field': isValidField('clave') }">
 
+              <label for="clave">Clave</label>
+
               <input type="text"
+                    id="clave"
                     placeholder="Clave"
                     formControlName="clave">
 

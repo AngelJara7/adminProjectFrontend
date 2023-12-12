@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Project } from 'src/app/shared/models/project.model';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { Subscription } from 'rxjs';
+import { Project } from '../../models';
 
 @Component({
   selector: 'shared-side-bar',

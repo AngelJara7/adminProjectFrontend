@@ -1,41 +1,69 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, OnDestroy, Output, computed, inject } from '@angular/core';
 
 import { ModalService } from '../../services/modal.service';
 import { ProjectService } from '../../services/project.service';
-import { User } from 'src/app/auth/interfaces';
+
 import { AlertStatus } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidatorsService } from '../../services/validators.service';
+import { Subject, Subscription, debounceTime } from 'rxjs';
+import { User } from '../../models';
 
 @Component({
   selector: 'shared-modal-add-collaborator',
   templateUrl: './modal-add-collaborator.component.html',
   styleUrls: ['./modal-add-collaborator.component.css']
 })
-export class SharedModalAddCollaboratorComponent {
+export class SharedModalAddCollaboratorComponent implements OnDestroy {
 
   private projectService = inject(ProjectService);
   private socketService = inject(SocketService);
+  private validatorsService = inject(ValidatorsService);
   private fb = inject(FormBuilder);
+
+  private debouncer: Subject<string> = new Subject<string>();
+  private debouncerSuscription?: Subscription;
 
   public modalService = inject(ModalService);
 
   public project = computed(() => this.projectService._currentProject());
   public users: User[] = [];
-  public initialValue: string = '';
   public isLoading: boolean = false;
   public rols = ['Administrador', 'Colaborador'];
-  public collaboratorForm: FormGroup = this.fb.group({
-    usuario: [this.initialValue],
-    rol: ['Administrador', Validators.required]
-  });
+  public collaboratorForm!: FormGroup;
 
-  constructor() { }
+  constructor() {
+    this.loadCollaboratorForm();
+
+    this.debouncerSuscription = this.debouncer
+      .pipe(
+        debounceTime(500),
+      )
+      .subscribe(value => this.searchUser(value)
+      );
+  }
+  ngOnDestroy(): void {
+    this.debouncerSuscription?.unsubscribe();
+  }
+
+  loadCollaboratorForm() {
+    this.collaboratorForm = this.fb.group({
+      email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+      rol: ['Administrador', Validators.required]
+    });
+  }
+
+  onKeyPress(field: string) {
+    this.debouncer.next(
+      this.collaboratorForm.controls[field].value
+    );
+  }
 
   searchUser(email: string) {
+    console.log(email);
     if (email === '') {
       this.users = [];
-      this.initialValue = email;
       return;
     }
 
@@ -46,17 +74,14 @@ export class SharedModalAddCollaboratorComponent {
   }
 
   userSelected(user: User) {
-    this.initialValue = user.email;
     const { email } = user;
-    this.collaboratorForm.controls['usuario'].setValue({
-      email
-    });
+    this.collaboratorForm.controls['email'].setValue(email);
     this.users = [];
   }
 
   addCollaborator() {
 
-    if (this.initialValue === '' && !this.project) return;
+    if (this.collaboratorForm.invalid && !this.project) return;
 
     this.isLoading = true;
 
@@ -82,10 +107,15 @@ export class SharedModalAddCollaboratorComponent {
   }
 
   hideModal() {
-    this.users = [];
-    this.initialValue = '';
+    this.loadCollaboratorForm();
     this.isLoading = false;
+    this.users = [];
     this.modalService.modalAddCollaboratorStatus = false;
   }
 
+  hideResult() {
+    this.loadCollaboratorForm();
+    this.isLoading = false;
+    this.users = [];
+  }
 }

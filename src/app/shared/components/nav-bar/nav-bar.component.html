@@ -21,13 +21,13 @@
 
     <div class="tools__profile">
 
-      <button (click)="viewProfile()">
+      <button (click)="viewProfile($event)" #button>
 
-        <img [src]="img" alt="">
+        <img [src]="img" alt="Perfil de usuario" #imgElement>
 
       </button>
 
-      <div class="profile__options" [class.view__options]="!viewOptionsProfile">
+      <div class="profile__options" [class.view__options]="!viewOptionsProfile" (clickOutside)="close($event)" #profileUser>
 
         <div class="profile__account">
 

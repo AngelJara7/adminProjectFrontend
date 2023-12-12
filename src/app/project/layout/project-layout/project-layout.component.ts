@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-project-layout',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class ProjectLayoutComponent {
 
+  public modalService = inject(ModalService);
 }

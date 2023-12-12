@@ -1,7 +1,4 @@
-import { ModalAlertType } from '../interfaces/modal-alert.enum';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Project } from '../models/project.model';
-import { User } from '../models/user.model';
 import { StatusToastNotification } from '../interfaces';
 
 @Injectable({
@@ -11,30 +8,24 @@ export class ModalService {
 
   constructor() { }
 
-  private _modalProjectFormStatus: boolean = false;
-  private _modalPhotoStatus: boolean = false;
-  private _modalAlertStatus: boolean = false;
-  private _toastNotificationStatus: boolean = false;
   private _modalAddCollaboratorStatus: boolean = false;
+  private _modalAlertStatus: boolean = false;
+  private _modalDeleteColumn: boolean = false;
+  private _modalPhotoStatus: boolean = false;
+  private _modalProjectFormStatus: boolean = false;
+  private _toastNotificationStatus: boolean = false;
+  private _viewNewSharedColumnCard: boolean = false;
 
   public id: EventEmitter<string> = new EventEmitter<string>();
 
   public toastNotification: EventEmitter<StatusToastNotification> = new EventEmitter<StatusToastNotification>();
 
-  get modalProjectFormStatus() {
-    return this._modalProjectFormStatus;
+  get modalAddCollaboratorStatus() {
+    return this._modalAddCollaboratorStatus;
   }
 
-  set modalProjectFormStatus(status: boolean) {
-    this._modalProjectFormStatus = status;
-  }
-
-  get modalPhotoStatus() {
-    return this._modalPhotoStatus;
-  }
-
-  set modalPhotoStatus(status: boolean) {
-    this._modalPhotoStatus = status;
+  set modalAddCollaboratorStatus(status: boolean) {
+    this._modalAddCollaboratorStatus = status;
   }
 
   get modalAlertStatus() {
@@ -45,6 +36,30 @@ export class ModalService {
     this._modalAlertStatus = status;
   }
 
+  get modalDeleteColumn() {
+    return this._modalDeleteColumn;
+  }
+
+  set modalDeleteColumn(status: boolean) {
+    this._modalDeleteColumn = status;
+  }
+
+  get modalPhotoStatus() {
+    return this._modalPhotoStatus;
+  }
+
+  set modalPhotoStatus(status: boolean) {
+    this._modalPhotoStatus = status;
+  }
+
+  get modalProjectFormStatus() {
+    return this._modalProjectFormStatus;
+  }
+
+  set modalProjectFormStatus(status: boolean) {
+    this._modalProjectFormStatus = status;
+  }
+
   get toastNotificationStatus() {
     return this._toastNotificationStatus;
   }
@@ -53,12 +68,12 @@ export class ModalService {
     this._toastNotificationStatus = status;
   }
 
-  get modalAddCollaboratorStatus() {
-    return this._modalAddCollaboratorStatus;
+  get viewNewSharedColumnCard() {
+    return this._viewNewSharedColumnCard;
   }
 
-  set modalAddCollaboratorStatus(status: boolean) {
-    this._modalAddCollaboratorStatus = status;
+  set viewNewSharedColumnCard(status: boolean) {
+    this._viewNewSharedColumnCard = status;
   }
 
 }

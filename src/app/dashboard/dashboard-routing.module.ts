@@ -12,10 +12,10 @@ const routes: Routes = [
     // component: ProjectListComponent
     children: [
       { path: 'projects', component: ProjectListComponent },
-      { path: 'projects/:nombre', loadChildren: () => import('../project/project.module').then(m => m.ProjectModule) },
+      { path: 'adp/projects/:nombre', loadChildren: () => import('../project/project.module').then(m => m.ProjectModule) },
       { path: 'user/:id', component: UserProfileComponent },
       { path: 'change-password', component: ChangePasswordComponent },
-      { path: '**', redirectTo: 'projects' }
+      { path: '**', pathMatch: 'full', redirectTo: 'projects' }
     ]
   }
 ];

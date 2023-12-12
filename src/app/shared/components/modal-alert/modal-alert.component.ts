@@ -28,7 +28,7 @@ export class SharedModalAlertComponent {
   public id: string = '';
 
   @Input() modalAlert: ModalAlert | undefined;
-  @Input() colaborador?: Collaborators | undefined;
+  @Input() colaborador: Collaborators | undefined;
 
   constructor() {
     this._deleteModel = this._deleteModel = this.modalService.id.subscribe(id => this.id = id);

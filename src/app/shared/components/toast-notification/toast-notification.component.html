@@ -1,7 +1,8 @@
 
   <ul class="notifications" [class.show]="modalService.toastNotificationStatus" >
 
-    <li #notifications class="toast"  *ngFor="let toast of bodyNotification; let i = index">
+    <li #notifications class="toast"
+        *ngFor="let toast of bodyNotification; let i = index">
 
       <i *ngIf="toast?.status === alertStatus.success" class="fa-solid fa-circle-check" style="color: #0ABF30;"></i>
 

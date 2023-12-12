@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/auth/interfaces';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
+import { environment } from 'src/environments/environment';
+import { User } from '../../models';
 
 @Component({
   selector: 'shared-nav-bar',
@@ -20,6 +21,9 @@ export class SharedNavBarComponent {
   public user = signal<User|null>(null);
   public img: string = '';
 
+  @ViewChild('profileUser') profileUser!: ElementRef;
+  @ViewChild('button') button!: ElementRef;
+
   constructor() {
     this.loadUser();
 
@@ -35,12 +39,13 @@ export class SharedNavBarComponent {
     if (!this.user()) return;
 
     !this.user()?.foto
-    ? this.img = '../../../../assets/img/user_circle.svg'
-    : this.img = `http://localhost:4000/${this.user()?.foto}`;
+    ? this.img = environment.path_no_img
+    : this.img = `${environment.base_url}/${this.user()?.foto}`;
   }
 
-  viewProfile() {
-    this.viewOptionsProfile = !this.viewOptionsProfile;
+  viewProfile(event: any) {
+    // this.viewOptionsProfile = !this.viewOptionsProfile;
+    // this.close(event);
   }
 
   logout() {
@@ -60,6 +65,15 @@ export class SharedNavBarComponent {
   navigateChangePassword() {
     this.viewOptionsProfile = !this.viewOptionsProfile;
     this.router.navigateByUrl('/dashboard/change-password');
+  }
+
+  close(event: any) {
+
+    if (event.target === this.button.nativeElement || event.target === this.button.nativeElement.lastChild) {
+      this.viewOptionsProfile = !this.viewOptionsProfile;
+    } else {
+      this.viewOptionsProfile = false;
+    }
   }
 
 }

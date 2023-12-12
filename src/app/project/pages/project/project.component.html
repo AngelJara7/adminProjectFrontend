@@ -19,14 +19,6 @@
           [initialValue]="initialValue"
           placeholder="Buscar tarea">
       </shared-search-box>
-      <!-- <div class="search__field">
-
-        <input type="text"
-              placeholder="Buscar proyecto"
-              (keyup)="setProjectBySearch(inputTaskName.value)"
-              #inputTaskName>
-
-      </div> -->
 
       <div class="project__collaborators">
 
@@ -34,16 +26,13 @@
           <img [src]="imgUser" alt="perfil de usuario">
         </div>
 
-        <!-- <div class="collaborators"> -->
+        <div class="collaborators__item img__collaborators"
+            *ngFor="let colaboradores of project?.colaboradores?.slice(0, 5)">
+          <img [src]="setProfileCollaborator(colaboradores.usuario.foto)">
+        </div>
 
-          <div *ngFor="let colaboradores of project?.colaboradores?.slice(0, 5)" class="collaborators__item img__collaborators">
-            <img [src]="setProfileCollaborator(colaboradores.usuario.foto)">
-          </div>
-
-        <!-- </div> -->
-
-
-        <div class="collaborators__item total__collaborators" *ngIf="project?.colaboradores!.length > 5">
+        <div class="collaborators__item total__collaborators"
+            *ngIf="project?.colaboradores!.length > 5">
           <span>+{{ project.colaboradores.length }}</span>
         </div>
 
@@ -59,4 +48,32 @@
 
   </div>
 
+  <div class="project__board">
+
+    <div *ngFor="let columna of project.columnas">
+      <shared-column-card
+        [column]="columna"
+        [project]="project">
+      </shared-column-card>
+    </div>
+
+    <div *ngIf="modalService.viewNewSharedColumnCard">
+
+      <shared-column-card
+      [project]="project">
+      </shared-column-card>
+
+    </div>
+
+    <button *ngIf="!modalService.viewNewSharedColumnCard"
+            (click)="newColumn()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+
+  </div>
+
 </div>
+
+<modal-delete-column
+  [project]="project">
+</modal-delete-column>

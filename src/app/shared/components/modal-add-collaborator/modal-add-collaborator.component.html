@@ -9,24 +9,42 @@
 
         <div class="modal__header">
 
-          <h3>Añadir colaboradores a {{ project()?.nombre }}</h3>
+          <h3>Añadir colaborador a {{ project()?.nombre }}</h3>
+
+          <button class="modal__close" (click)="hideModal()">
+            Cerrar
+          </button>
 
         </div>
 
         <div class="form modal__form">
 
-          <span>Buscar usuario por email</span>
+          <form [formGroup]="collaboratorForm"
+                autocomplete="off"
+                (ngSubmit)="addCollaborator()">
 
-          <form [formGroup]="collaboratorForm">
-            <shared-search-box
+            <!-- <shared-search-box
               (onDebounce)="searchUser($event)"
               [initialValue]="initialValue"
+              (onValue)="initialValue"
               placeholder="Email">
 
-            </shared-search-box>
+            </shared-search-box> -->
+
+            <div class="form__field">
+
+              <label for="email">Email</label>
+
+              <input type="text"
+                    id="email"
+                    placeholder="Buscar por email"
+                    formControlName="email"
+                    (keyup)="onKeyPress('email')">
+
+            </div>
 
             <div class="result__search"
-                *ngIf="users.length !== 0">
+                *ngIf="users.length !== 0" (clickOutside)="hideResult()">
 
               <div class="result" *ngFor="let user of users"
                   (click)="userSelected(user)">
@@ -37,27 +55,27 @@
 
             </div>
 
-            <select name="rol" id="rol" formControlName="rol">
+            <div class="form__field">
 
-              <option *ngFor="let rol of rols"
-                    value="{{ rol }}">
-                {{ rol }}
-              </option>
+              <label for="rol">Rol</label>
 
-            </select>
+              <select name="rol" id="rol" formControlName="rol">
 
-            <div class="modal__actions modal__actions--modal-add-collaborator">
+                <option *ngFor="let rol of rols"
+                      value="{{ rol }}" [selected]="rol === 'Administrador'">
+                  {{ rol }}
+                </option>
 
-              <button class="action__btn action__btn--cancel"
-                      (click)="hideModal()">
-                Cancelar
-              </button>
+              </select>
 
-              <button class="action__btn action__btn--add"
-                      (click)="addCollaborator()"
-                      [disabled]="!initialValue || isLoading">
-                Agregar
-              </button>
+            </div>
+
+
+            <div class="form__submit">
+
+              <input type="submit"
+                    value="Agregar"
+                    [disabled]="collaboratorForm.invalid || isLoading">
 
             </div>
 

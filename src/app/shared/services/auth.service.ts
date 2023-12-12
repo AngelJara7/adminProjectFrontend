@@ -2,14 +2,16 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 
-import { AuthStatus, CheckTokenResponse, LoginResponse, User } from '../../auth/interfaces';
+import { AuthStatus, CheckTokenResponse, LoginResponse } from '../../auth/interfaces';
+import { environment } from 'src/environments/environment';
+import { User } from '../models';
 
 @Injectable({providedIn: 'root'})
 
 export class AuthService {
 
   // todo: crear variable de entorno de ruta (url backend)
-  private readonly baseUrl: string = 'http://localhost:4000/api/users';
+  private readonly baseUrl = `${environment.base_url}/api/users`;
   private http = inject(HttpClient);
 
   private _currentUser = signal<User|null>(null);

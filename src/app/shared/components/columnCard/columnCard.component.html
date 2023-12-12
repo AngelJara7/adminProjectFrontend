@@ -1,0 +1,33 @@
+
+<div class="board__column">
+
+  <div class="column__header">
+
+    <form [formGroup]="columnForm" (ngSubmit)="blurFormField($event)">
+
+      <input type="text"
+            value="{{ column?.nombre }}"
+            formControlName="nombre"
+            (blur)="changeColumnName('nombre')" #nameColumn>
+
+      <button (click)="deleteColumn(column!)">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+
+    </form>
+
+  </div>
+
+  <div class="column__task" *ngFor="let tareas of column?.tareas">
+
+    <p>{{ tareas.nombre }}</p>
+
+  </div>
+
+</div>
+
+
+<!-- <modal-delete-column
+  [columnToDelete]="columnToDelete">
+
+</modal-delete-column> -->

@@ -1,13 +1,16 @@
 
 .dashboard {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+  display: grid;
+  grid-template-areas:
+    "shared-nav-bar"
+    "dashboard__content";
+  grid-template-rows: var(--height-nav-bar) 1fr;
 }
 
 .dashboard__content {
   width: 100%;
   height: calc(100vh - var(--height-nav-bar));
-  position: relative;
-  top: var(--height-nav-bar);
+   /* position: relative;
+  top: var(--height-nav-bar); */
+  overflow: hidden;
 }

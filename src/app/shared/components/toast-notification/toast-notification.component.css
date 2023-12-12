@@ -15,8 +15,6 @@
   transition: opacity .3s .6s;
   transform: translateX(-100vw);
   transition: transform .4s;
-  /* --transform: translateX(-100vw);
-  --transition: transform .4s; */
   z-index: 10;
 }
 
@@ -32,13 +30,8 @@
   border-radius: 3px;
   box-shadow: 0px 0px 2px rgba(56, 89, 101, 0.4);
   background-color: var(--white);
-  /* transition: display .3s .6s; */
-  transform: translateX(0);
-  transition: transform .5s .5s;
-  /* transition: transform .4s; */
-  /* transform: var(--transform);
-  transition: var(--transition); */
-  /* animation: show .4s ease-in-out; */
+  transform: translateX(-100vw);
+  transition: transform .5s;
 }
 
 @keyframes show {
@@ -55,17 +48,6 @@
     transform: translateX(0%);
   }
 }
-
-/* .toast::before {
-  position: absolute;
-  content: "";
-  width: 10px;
-  height: 100%;
-  top: 0px;
-  left: 0;
-  bottom: 0px;
-  background-color: var(--success-color);
-} */
 
 .toast i {
   font-size: 2rem;
@@ -100,8 +82,6 @@
   transition: opacity .3s;
   transform: translateX(0);
   transition: .4s .4s;
-  /* --transform: translateX(0);
-  --transition: transform .4s .4s; */
 }
 
 .show__toast {
@@ -113,8 +93,11 @@
 
 .toast.hide {
   transform: translateX(-100vw);
-  transition: transform .5s .5s;
-  /* animation: hide_toast .4s ease-in-out; */
+  transition: transform .4s .4s;
+}
+.toast.view {
+  transform: translateX(0);
+  transition: transform .5s;
 }
 @keyframes hide_toast {
   0% {

@@ -1,4 +1,6 @@
+import { Column, Task } from ".";
 import { Collaborators, UserProject } from "../interfaces";
+
 
 export class Project {
   constructor(
@@ -8,7 +10,8 @@ export class Project {
     public fecha: Date,
     public colaboradores: Collaborators[],
     public usuario: UserProject,
-    public columas?: [],
+    public tareas?: Task[],
+    public columnas?: Column[],
     public clave?: string
   ) {}
 }

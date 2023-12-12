@@ -1,0 +1,59 @@
+<div class="modal"
+    [class.view--modal]="modalService.modalDeleteColumn">
+
+  <div class="modal__bg" (click)="hideModal()"></div>
+
+  <div class="modal__container">
+
+    <div class="modal__header">
+
+      <h3>Eliminar columna de '{{ project?.nombre }}'</h3>
+
+    </div>
+
+    <div class="modal__content">
+
+      <p>
+        Selecione una columna para guardar las tareas que contiene la columna '{{ column?.nombre }}'.
+      </p>
+
+      <div>
+
+        <b>Esta columna se eliminará:</b>
+        <span>{{ column?.nombre }}</span>
+        
+      </div>
+
+      <div>
+
+        <b>Mover tareas existentes de '{{ column?.nombre }}' a:</b>
+
+        <select #select>
+
+          <option *ngFor="let columna of columns"
+                  [value]="columna._id">
+            {{ columna.nombre }}
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <div class="modal__actions modal__actions--modal-alert">
+
+      <button class="action__btn action__btn--cancel"
+            (click)="hideModal()">
+        Cancelar
+      </button>
+
+      <button class="action__btn action__btn--delete"
+            (click)="deleteColumn(select.value)">
+        Eliminar
+      </button>
+    </div>
+
+  </div>
+
+</div>

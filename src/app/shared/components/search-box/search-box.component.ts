@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControlName } from '@angular/forms';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 
 @Component({
@@ -14,7 +13,6 @@ export class SharedSearchBoxComponent implements OnInit, OnDestroy {
 
   @Input() public placeholder: string = '';
   @Input() public initialValue: string = '';
-  @Input() public controlName: FormControlName | undefined;
 
   @Output() public onValue = new EventEmitter<string>();
   @Output() public onDebounce = new EventEmitter<string>();
@@ -32,8 +30,7 @@ export class SharedSearchBoxComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
       )
-      .subscribe(value =>
-        this.onDebounce.emit(value)
+      .subscribe(value => this.onDebounce.emit(value)
       );
   }
 

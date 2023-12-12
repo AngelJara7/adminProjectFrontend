@@ -1,14 +1,15 @@
-import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, Output, Renderer2, ViewChild, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { ProjectService } from '../../../shared/services/project.service';
-import { Project } from 'src/app/shared/models/project.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { User } from 'src/app/auth/interfaces';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
+import { environment } from 'src/environments/environment';
 import { Breadcrumbs } from 'src/app/shared/interfaces';
+import { Project, User } from 'src/app/shared/models';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project',
@@ -18,17 +19,17 @@ import { Breadcrumbs } from 'src/app/shared/interfaces';
 export class ProjectComponent implements OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
-  private modalService = inject(ModalService);
-  private socketService = inject(SocketService);
   private projectService = inject(ProjectService);
+  private socketService = inject(SocketService);
   private userService = inject(AuthService);
+
+  public modalService = inject(ModalService);
 
   public subscription$: Subscription;
   public project: Project | undefined;
   public nombre: string = '';
   public user = signal<User|null>(null);
   public imgUser: string = '';
-
   public initialValue: string = '';
 
   @Output() breadcrumbs: Breadcrumbs[] = [];
@@ -38,8 +39,8 @@ export class ProjectComponent implements OnDestroy {
     this.user.set(this.userService.currentUser());
 
     !this.user()?.foto
-    ? this.imgUser = '../../../../assets/img/user_circle.svg'
-    : this.imgUser = `http://localhost:4000/${this.user()?.foto}`;
+    ? this.imgUser = environment.path_no_img
+    : this.imgUser = `${environment.base_url}/${this.user()?.foto}`;
 
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
       params => {
@@ -68,7 +69,7 @@ export class ProjectComponent implements OnDestroy {
           this.project = res;
 
           this.breadcrumbs = [
-            { link: '../../projects', title: 'Proyectos' },
+            { link: '/dashboard/projects', title: 'Proyectos' },
             { link: '../board', title: this.project!.nombre }
           ];
         }
@@ -80,11 +81,15 @@ export class ProjectComponent implements OnDestroy {
   }
 
   setProfileCollaborator(photo?: string): string {
-    return photo ? `http://localhost:4000/${photo}` : '../../../../assets/img/user_circle.svg';
+    return photo ? `${environment.base_url}/${photo}` : environment.path_no_img;
   }
 
   viewModalAddCollaborator() {
     this.modalService.modalAddCollaboratorStatus = true;
+  }
+
+  newColumn() {
+    this.modalService.viewNewSharedColumnCard = true;
   }
 
 }

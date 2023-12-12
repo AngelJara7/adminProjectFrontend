@@ -33,6 +33,11 @@ export class SharedToastNotificationComponent {
     this.bodyNotification.unshift(toastNotification!);
     this.modalService.toastNotificationStatus = true;
 
+    const viewToast = setTimeout(() => {
+      this.renderer.addClass(this.notifications.get(0)?.nativeElement, 'view');
+      clearTimeout(viewToast);
+    }, 500);
+
     clearInterval(this.interval);
     this.clearNotifications();
   }
@@ -46,8 +51,8 @@ export class SharedToastNotificationComponent {
   }
 
   closeNotification(index: number) {
-
-    this.renderer.addClass(this.notifications.get(index)?.nativeElement, 'hide');
+    
+    this.renderer.removeClass(this.notifications.get(index)?.nativeElement, 'view');
 
     const removeNotification = setTimeout(() => {
 

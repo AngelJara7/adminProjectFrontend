@@ -3,9 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AlertStatus, Breadcrumbs, Collaborators, ModalAlert, ModalAlertType } from 'src/app/shared/interfaces';
-import { Project } from 'src/app/shared/models/project.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-
+import { Project } from 'src/app/shared/models';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
@@ -31,7 +29,7 @@ export class ColaborationComponent implements OnDestroy {
 
   @Output() breadcrumbs: Breadcrumbs[] = [];
   @Output() modalAlert: ModalAlert | undefined;
-  @Output() colaborador?: Collaborators | undefined;
+  @Output() colaborador!: Collaborators;
 
   constructor() {
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
@@ -67,7 +65,7 @@ export class ColaborationComponent implements OnDestroy {
           });
 
           this.breadcrumbs = [
-            { link: '../../projects', title: 'Proyectos' },
+            { link: '../adp/projects', title: 'Proyectos' },
             { link: '../board', title: this.project!.nombre },
             { link: '../colaboration', title: 'Equipo' }
           ];
@@ -118,18 +116,22 @@ export class ColaborationComponent implements OnDestroy {
   }
 
   viewModalAlert(colaborator: Collaborators, project: Project) {
-    this.colaborador = colaborator;
-    this.setAlert(colaborator, project);
+    this.setAlertAndColaborator(colaborator, project);
     this.modalService.id.emit(project._id);
     this.modalService.modalAlertStatus = true;
   }
 
-  setAlert(colaborator: Collaborators, project: Project) {
+  setAlertAndColaborator(colaborator: Collaborators, project: Project) {
     this.modalAlert = {
       type: ModalAlertType.colaborator,
       title: `Eliminar a '${colaborator.usuario.nombre}' del proyecto '${project.nombre}'`,
       message: `Al confirmar esta acción esta eliminando al colaborador '${colaborator.usuario.nombre}' del proyecto y de todas las tareas de las que este es responsable. \n ¿Desea eliminar al colaborador?`
     }
+
+    this.colaborador = {
+      usuario: colaborator.usuario,
+      rol: colaborator.rol
+    };
   }
 
 }

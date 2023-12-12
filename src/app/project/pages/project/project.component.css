@@ -1,4 +1,12 @@
 
+.project {
+  padding: 0;
+}
+
+.project__header {
+  padding: 3rem 2rem;
+}
+
 .project__tools {
   display: flex;
   align-items: center;
@@ -8,6 +16,7 @@
 
 shared-search-box {
   width: 100%;
+  flex: 1;
 }
 
 .search__field {
@@ -45,6 +54,7 @@ shared-search-box {
 }
 
 .project__collaborators {
+  flex: 2;
   display: flex;
   gap: 1rem;
 }
@@ -94,4 +104,77 @@ shared-search-box {
 .add__collaborator button:hover {
   cursor: pointer;
   background-color: var(--light-secondary-color);
+}
+
+.project__board {
+  height: 100%;
+  position: relative;
+  display: flex;
+  /* flex-direction: column; */
+  padding: 0 2rem;
+  gap: 2rem;
+  overflow-x: auto;
+}
+
+/* .project__board > div {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+} */
+
+.project__board button {
+  min-width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 3px;
+  background-color: rgba(225, 225, 225, .4);
+  font-size: 2rem;
+  color: var(--secondary-color);
+  transition: all .3s;
+}
+
+.project__board button:hover {
+  cursor: pointer;
+  background-color: var(--light-secondary-color);
+}
+
+.board__column {
+  min-width: 25rem;
+  min-height: 33rem;
+  border-radius: 3px;
+  /* background-color: var(--light-secondary-color); */
+  background-color: rgba(225, 225, 225, .4);
+  padding: 1rem;
+}
+
+.column__header form {
+  width: 100%;
+  display: flex;
+  gap: .5rem;
+}
+
+.column__header form input {
+  /* width: 100%; */
+  flex: 1;
+  border: none;
+  padding: 0 .5rem;
+  font-family: var(--second-font);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  background-color: transparent;
+  border-radius: 3px;
+  transition: all .3s;
+}
+
+.column__header form input:hover {
+  /* background-color: rgba(225, 225, 225, .4); */
+  background-color: var(--light-secondary-color);
+}
+
+.column__header form input:focus {
+  border: none;
+  height: 4rem;
+  outline: 1px solid var(--primary-color);
+  background-color: var(--white);
 }

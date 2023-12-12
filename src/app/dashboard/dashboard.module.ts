@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
     DashboardRoutingModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

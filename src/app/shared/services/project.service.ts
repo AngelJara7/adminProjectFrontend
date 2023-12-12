@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, delay, map, throwError } from 'rxjs';
 import { Project } from '../models/project.model';
-import { User } from 'src/app/auth/interfaces';
 import { Collaborators } from '../interfaces';
+import { environment } from 'src/environments/environment';
+import { User } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Collaborators } from '../interfaces';
 export class ProjectService {
 
   // todo: crear variable de entorno de ruta (url backend)
-  private readonly baseUrl: string = 'http://localhost:4000/api';
+  private readonly baseUrl = `${environment.base_url}/api/projects`;
   private http = inject(HttpClient);
 
   public _currentProject = signal<Project|null>(null);
@@ -34,7 +35,7 @@ export class ProjectService {
   }
 
   getProjects(project: string): Observable<Project[]> {
-    const url = `${this.baseUrl}/projects/?project=${project}`;
+    const url = `${this.baseUrl}/?project=${project}`;
 
     return this.http.get<Project[]>(url, this.headers)
       .pipe(
@@ -46,7 +47,7 @@ export class ProjectService {
   }
 
   getProject(project: string): Observable<Project> {
-    const url = `${this.baseUrl}/projects/${project}`;
+    const url = `${this.baseUrl}/${project}`;
 
     return this.http.get<Project>(url, this.headers)
       .pipe(
@@ -61,34 +62,28 @@ export class ProjectService {
   }
 
   addProject(project: { nombre: string, descripcion: string, clave: string }):Observable<string> {
-    const url = `${this.baseUrl}/projects`;
+    const url = `${this.baseUrl}`;
 
     return this.http.post<string>(url, project, this.headers)
       .pipe(
-        map((res) => {
-          return res;
-        }),
+        map((res) => res),
         catchError(err => throwError(() => err.error))
       );
   }
 
   deleteProject(id: string): Observable<string> {
-    const url = `${this.baseUrl}/projects/${id}`;
+    const url = `${this.baseUrl}/${id}`;
 
     return this.http.delete<string>(url, this.headers)
       .pipe(
         // delay(3000),
-        map((res) => {
-          return res;
-        }),
-        catchError(err => throwError(() => {
-          return err;
-        }))
+        map((res) => res),
+        catchError(err => throwError(() => err))
       );
   }
 
   searchCollaborator(email: string):Observable<User[]> {
-    const url = `${this.baseUrl}/projects/collaborators`;
+    const url = `${this.baseUrl}/collaborators`;
 
     return this.http.post<User[]>(url, {email}, this.headers)
       .pipe(
@@ -98,18 +93,17 @@ export class ProjectService {
   }
 
   addCollaborator(colaborador: Collaborators, idProject: string): Observable<string> {
-    const url = `${this.baseUrl}/projects/collaborators/${idProject}`;
+    const url = `${this.baseUrl}/collaborators/${idProject}`;
 
     return this.http.post<string>(url, colaborador, this.headers)
       .pipe(
-        map(res => res
-        ),
+        map(res => res),
         catchError(err => throwError(() => err))
       );
   }
 
   updateCollaborator(colaborador: Collaborators, idProject: string):Observable<string> {
-    const url = `${this.baseUrl}/projects/collaborators/${idProject}`;
+    const url = `${this.baseUrl}/collaborators/${idProject}`;
 
     return this.http.put<string>(url, colaborador, this.headers)
       .pipe(
@@ -119,14 +113,44 @@ export class ProjectService {
   }
 
   deleteColaborator(colaborador: Collaborators, idProject: string): Observable<string> {
-    const url = `${this.baseUrl}/projects/delete-collaborator/${idProject}`;
+    const url = `${this.baseUrl}/delete-collaborator/${idProject}`;
 
     return this.http.post<string>(url, colaborador, this.headers)
       .pipe(
-        map(res => res,
-        ),
+        map(res => res),
         catchError(err => throwError(() => err))
       );
+  }
+
+  addColumn(nombre: string, idProject: string):Observable<string> {
+    const url = `${this.baseUrl}/columns/${idProject}`;
+
+    return this.http.post<string>(url, { nombre } , this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err))
+      );
+  }
+
+  updateColumn(nombre: string, idColumn: string, idProject: string): Observable<string> {
+    const url = `${this.baseUrl}/columns/${idColumn}/${idProject}`;
+
+    return this.http.put<string>(url, { nombre }, this.headers)
+     .pipe(
+      map(res => res),
+      catchError(err => throwError(() => err))
+     );
+  }
+
+  deleteColumn(columna: string, idColumn: string, idProject: string): Observable<string> {
+    console.log(columna, idColumn, idProject);
+    const url = `${this.baseUrl}/columns/${idColumn}/${idProject}`;
+
+    return this.http.post<string>(url, { columna }, this.headers)
+     .pipe(
+      map(res => res),
+      catchError(err => throwError(() => err))
+     );
   }
 
 }

@@ -16,9 +16,9 @@ import { SharedLoadingComponent } from './components/loading/loading.component';
 import { SharedBreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
 import { SharedAlertComponent } from './components/alert/alert.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
-
+import { ClickOutsideModule } from 'ng-click-outside';
+import { SharedColumnCardComponent } from './components/columnCard/columnCard.component';
+import { ModalDeleteColumnComponent } from './components/modalDeleteColumn/modalDeleteColumn.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +35,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedLoadingComponent,
     SharedBreadcrumbsComponent,
     SharedAlertComponent,
+    SharedColumnCardComponent,
+    ModalDeleteColumnComponent,
   ],
   exports: [
     SharedToastNotificationComponent,
@@ -50,11 +52,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedLoadingComponent,
     SharedBreadcrumbsComponent,
     SharedAlertComponent,
+    SharedColumnCardComponent,
+    ModalDeleteColumnComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ClickOutsideModule
   ]
 })
 export class SharedModule { }
