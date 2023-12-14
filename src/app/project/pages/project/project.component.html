@@ -6,7 +6,7 @@
     <shared-breadcrumbs [crumbs]="breadcrumbs"/>
 
     <div class="project__title header__title">
-      <h2>Tablero {{ project.nombre }}</h2>
+      <h1>Tablero {{ project.nombre }}</h1>
 
       <button>
         Crear tarea
@@ -23,12 +23,14 @@
       <div class="project__collaborators">
 
         <div class="collaborators__item admin">
-          <img [src]="imgUser" alt="perfil de usuario">
+          <img [src]="imgUser" alt="perfil de usuario" title="{{project.usuario.nombre}}">
         </div>
 
         <div class="collaborators__item img__collaborators"
             *ngFor="let colaboradores of project?.colaboradores?.slice(0, 5)">
-          <img [src]="setProfileCollaborator(colaboradores.usuario.foto)">
+          <img [src]="setProfileCollaborator(colaboradores.usuario.foto)"
+              alt="perfil de usuario"
+              title="{{colaboradores.usuario.nombre}}">
         </div>
 
         <div class="collaborators__item total__collaborators"
@@ -37,7 +39,7 @@
         </div>
 
         <div class="collaborators__item add__collaborator">
-          <button (click)="viewModalAddCollaborator()">
+          <button (click)="viewModalAddCollaborator()" title="Agregar personas">
             <i class="fa-solid fa-user-plus"></i>
           </button>
         </div>

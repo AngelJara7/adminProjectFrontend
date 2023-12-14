@@ -12,5 +12,5 @@
   height: calc(100vh - var(--height-nav-bar));
    /* position: relative;
   top: var(--height-nav-bar); */
-  overflow: hidden;
+  /* overflow: hidden; */
 }

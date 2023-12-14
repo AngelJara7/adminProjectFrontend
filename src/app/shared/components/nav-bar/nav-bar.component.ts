@@ -21,7 +21,7 @@ export class SharedNavBarComponent {
   public user = signal<User|null>(null);
   public img: string = '';
 
-  @ViewChild('profileUser') profileUser!: ElementRef;
+  // @ViewChild('profileUser') profileUser!: ElementRef;
   @ViewChild('button') button!: ElementRef;
 
   constructor() {

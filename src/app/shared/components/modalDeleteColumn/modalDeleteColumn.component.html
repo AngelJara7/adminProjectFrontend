@@ -21,7 +21,7 @@
 
         <b>Esta columna se eliminará:</b>
         <span>{{ column?.nombre }}</span>
-        
+
       </div>
 
       <div>
@@ -49,7 +49,8 @@
       </button>
 
       <button class="action__btn action__btn--delete"
-            (click)="deleteColumn(select.value)">
+            (click)="deleteColumn(select.value)"
+            [disabled]="isLoading">
         Eliminar
       </button>
     </div>

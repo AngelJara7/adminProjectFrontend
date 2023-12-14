@@ -26,7 +26,7 @@
   width: 3rem;
 }
 
-.title h1 {
+.title b {
   height: 3.5rem;
   font-family: var(--main-font);
   font-size: 1.6rem;
@@ -40,8 +40,8 @@
   margin: 0;
 }
 
-.title h1 span,
-.title h1 span img {
+.title b span,
+.title b span img {
   height: 2.2rem;
   display: inline-block;
 }
@@ -197,7 +197,7 @@
     display: none;
   }
 
-  .title h1 {
+  .title b {
     display: flex;
   }
 

@@ -139,11 +139,10 @@ shared-search-box {
   background-color: var(--light-secondary-color);
 }
 
-.board__column {
-  min-width: 25rem;
+/* .board__column {
+  max-width: 25rem;
   min-height: 33rem;
   border-radius: 3px;
-  /* background-color: var(--light-secondary-color); */
   background-color: rgba(225, 225, 225, .4);
   padding: 1rem;
 }
@@ -155,7 +154,6 @@ shared-search-box {
 }
 
 .column__header form input {
-  /* width: 100%; */
   flex: 1;
   border: none;
   padding: 0 .5rem;
@@ -168,7 +166,6 @@ shared-search-box {
 }
 
 .column__header form input:hover {
-  /* background-color: rgba(225, 225, 225, .4); */
   background-color: var(--light-secondary-color);
 }
 
@@ -177,4 +174,4 @@ shared-search-box {
   height: 4rem;
   outline: 1px solid var(--primary-color);
   background-color: var(--white);
-}
+} */

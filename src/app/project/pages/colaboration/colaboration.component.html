@@ -7,7 +7,7 @@
 
     <div class="project__title header__title">
 
-      <h2>Equipo de {{ project.nombre }}</h2>
+      <h1>Equipo de {{ project.nombre }}</h1>
 
       <button [disabled]="" (click)="viewModalAddCollaborator()">
         Agregar personas
@@ -60,7 +60,7 @@
           </td>
 
           <td class="info__row--actions">
-            <button (click)="viewModalAlert(colaborador, project)">
+            <button (click)="viewModalAlert(colaborador, project)" title="Eliminar colaborador">
               <i class="fa-solid fa-trash fa-lg"></i>
             </button>
           </td>

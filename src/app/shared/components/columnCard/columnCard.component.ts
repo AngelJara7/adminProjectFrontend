@@ -6,6 +6,7 @@ import { ModalService } from '../../services/modal.service';
 import { ProjectService } from '../../services/project.service';
 import { AlertStatus } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'shared-column-card',
@@ -63,7 +64,7 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.projectService.addColumn(this.columnForm.controls['nombre'].value, this.project._id)
+    this.projectService.addColumn(this.columnForm.controls['nombre'].value.toUpperCase(), this.project._id)
       .subscribe({
         next: res => this.setToastNotification(res, AlertStatus.success),
         error: err => this.setToastNotification(err.error, AlertStatus.error)
@@ -77,9 +78,9 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
     }
 
     if (this.columnForm.controls['nombre'].value === this.column?.nombre) return;
-
+    console.log(this.columnForm.controls['nombre'].value);
     this.projectService.updateColumn(
-      this.columnForm.controls['nombre'].value, this.column!._id, this.project._id
+      this.columnForm.controls['nombre'].value.toUpperCase(), this.column!._id, this.project._id
     )
       .subscribe({
         next: res => this.setToastNotification(res, AlertStatus.success),
@@ -119,6 +120,10 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
         break;
     }
 
+  }
+
+  loadPhoto(photo?: string) {
+    return photo ? `${environment.base_url}/${photo}` : `${environment.path_no_img}`;
   }
 
 }

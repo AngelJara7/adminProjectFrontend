@@ -143,7 +143,6 @@ export class ProjectService {
   }
 
   deleteColumn(columna: string, idColumn: string, idProject: string): Observable<string> {
-    console.log(columna, idColumn, idProject);
     const url = `${this.baseUrl}/columns/${idColumn}/${idProject}`;
 
     return this.http.post<string>(url, { columna }, this.headers)

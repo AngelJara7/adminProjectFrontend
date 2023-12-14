@@ -1,33 +1,65 @@
 
 <div class="board__column">
 
-  <div class="column__header">
+  <div class="column__container">
 
-    <form [formGroup]="columnForm" (ngSubmit)="blurFormField($event)">
+    <div class="column__header">
 
-      <input type="text"
-            value="{{ column?.nombre }}"
-            formControlName="nombre"
-            (blur)="changeColumnName('nombre')" #nameColumn>
+      <form [formGroup]="columnForm" (ngSubmit)="blurFormField($event)">
 
-      <button (click)="deleteColumn(column!)">
+        <input type="text"
+              value="{{ column?.nombre }}"
+              formControlName="nombre"
+              (blur)="changeColumnName('nombre')" #nameColumn>
+
+      </form>
+
+      <button (click)="deleteColumn(column!)"
+                    *ngIf="project.columnas!.length > 1"
+                    title="Eliminar columna">
         <i class="fa-solid fa-trash"></i>
       </button>
 
-    </form>
+    </div>
 
   </div>
 
-  <div class="column__task" *ngFor="let tareas of column?.tareas">
+  <div class="board__task">
 
-    <p>{{ tareas.nombre }}</p>
+    <div class="task__container"
+        *ngFor="let tarea of column?.tareas">
+
+      <div class="task__header">
+
+        <h3 title="{{tarea.nombre}}">{{ tarea.nombre }}</h3>
+
+        <button title="Eliminar {{tarea.nombre}}">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+
+      <div class="task__content">
+
+        <p>{{ tarea.descripcion }}</p>
+
+      </div>
+
+      <hr>
+
+      <div class="task__footer">
+
+        <img [src]="loadPhoto(tarea.responsable.foto)" alt="perfil de usuario" title="Responsable: {{tarea.responsable.nombre}}">
+
+        <div class="task__date" title="Fecha de vencimiento">
+          <p>Expira: </p>
+          <b>{{ tarea.vencimiento | date:'MMM d' }}</b>
+        </div>
+
+      </div>
+
+    </div>
 
   </div>
 
 </div>
-
-
-<!-- <modal-delete-column
-  [columnToDelete]="columnToDelete">
-
-</modal-delete-column> -->
