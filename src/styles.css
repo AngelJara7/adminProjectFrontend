@@ -302,7 +302,7 @@ shared-alert {
 
 .form form {
   width: 100%;
-  padding: 2rem 0;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -335,7 +335,8 @@ shared-alert {
 
 .form__field input,
 .form__submit input,
-.form__field textarea {
+.form__field textarea,
+.form__field select {
   width: 100%;
   height: 5rem;
   border-radius: 3px;
@@ -362,7 +363,8 @@ shared-alert {
 }
 
 .form__field input:focus,
-textarea:focus {
+.form__field textarea:focus,
+.form__field select:focus {
   border: none;
   outline: 1.5px solid var(--primary-color);
 }
@@ -381,11 +383,13 @@ textarea:focus {
   cursor: pointer;
 }
 
-.form__submit input:active {
+.form__submit input:active,
+.form__field select:active {
   background-color: var(--light-primary-color);
 }
 
-.form__submit input:disabled {
+.form__submit input:disabled,
+.form__field select:disabled {
   background-color: var(--light-primary-color);
   cursor: initial;
 }
@@ -452,14 +456,16 @@ hr {
 .error__field input[type="text"],
 .error__field input[type="email"],
 .error__field input[type="password"],
-.error__field textarea {
+.error__field textarea,
+.error__field select {
   border: 1px solid var(--error-color)!important;
 }
 
 .error__field input[type="text"]:focus,
 .error__field input[type="email"]:focus,
 .error__field input[type="password"]:focus,
-.error__field textarea:focus {
+.error__field textarea:focus,
+.error__field select:focus {
   outline: 1px solid var(--error-color)!important;
 }
 
@@ -469,6 +475,7 @@ hr {
   width: 100%;
   height: 100%;
   padding: 0 1rem;
+  overflow: auto;
   /* overflow-x: auto;
   overflow-y: hidden; */
 }

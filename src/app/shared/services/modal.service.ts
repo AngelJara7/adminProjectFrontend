@@ -13,6 +13,7 @@ export class ModalService {
   private _modalDeleteColumn: boolean = false;
   private _modalPhotoStatus: boolean = false;
   private _modalProjectFormStatus: boolean = false;
+  private _modalTaskFormStatus: boolean = false;
   private _toastNotificationStatus: boolean = false;
   private _viewNewSharedColumnCard: boolean = false;
 
@@ -58,6 +59,14 @@ export class ModalService {
 
   set modalProjectFormStatus(status: boolean) {
     this._modalProjectFormStatus = status;
+  }
+
+  get modalTaskFormStatus() {
+    return this._modalTaskFormStatus;
+  }
+
+  set modalTaskFormStatus(status: boolean) {
+    this._modalTaskFormStatus = status;
   }
 
   get toastNotificationStatus() {

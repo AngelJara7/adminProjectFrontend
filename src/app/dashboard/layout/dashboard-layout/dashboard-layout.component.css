@@ -10,6 +10,7 @@
 .dashboard__content {
   width: 100%;
   height: calc(100vh - var(--height-nav-bar));
+  overflow: hidden;
    /* position: relative;
   top: var(--height-nav-bar); */
   /* overflow: hidden; */

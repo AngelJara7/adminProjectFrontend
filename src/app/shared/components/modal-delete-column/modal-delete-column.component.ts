@@ -9,11 +9,11 @@ import { Subscription } from 'rxjs';
 import { AlertStatus } from '../../interfaces';
 
 @Component({
-  selector: 'modal-delete-column',
-  templateUrl: './modalDeleteColumn.component.html',
-  styleUrls: ['./modalDeleteColumn.component.css']
+  selector: 'shared-modal-delete-column',
+  templateUrl: './modal-delete-column.component.html',
+  styleUrls: ['./modal-delete-column.component.css']
 })
-export class ModalDeleteColumnComponent implements OnDestroy {
+export class SharedModalDeleteColumnComponent implements OnDestroy {
 
   private projectService = inject(ProjectService);
   private socketService = inject(SocketService);
@@ -43,7 +43,7 @@ export class ModalDeleteColumnComponent implements OnDestroy {
   }
 
   deleteColumn(columna: string) {
-    
+
     if (!this.column?._id && !this.project?._id) return;
 
     this.projectService.deleteColumn(columna, this.column!._id, this.project!._id)

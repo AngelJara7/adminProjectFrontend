@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'shared-column-card',
-  templateUrl: './columnCard.component.html',
-  styleUrls: ['./columnCard.component.css'],
+  templateUrl: './column-card.component.html',
+  styleUrls: ['./column-card.component.css'],
 })
 export class SharedColumnCardComponent implements OnInit, AfterViewInit {
 

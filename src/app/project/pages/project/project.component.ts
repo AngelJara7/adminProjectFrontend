@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, Output, Renderer2, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -9,7 +9,6 @@ import { SocketService } from '../../../shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 import { Breadcrumbs } from 'src/app/shared/interfaces';
 import { Project, User } from 'src/app/shared/models';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project',

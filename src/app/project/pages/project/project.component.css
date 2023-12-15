@@ -108,19 +108,20 @@ shared-search-box {
 
 .project__board {
   height: 100%;
-  position: relative;
+  overflow-x: auto;
   display: flex;
-  /* flex-direction: column; */
   padding: 0 2rem;
   gap: 2rem;
-  overflow-x: auto;
 }
 
-/* .project__board > div {
+.board__container {
+  height: max-content;
   position: relative;
   display: flex;
+  /* padding: 0 2rem; */
   gap: 2rem;
-} */
+  padding-bottom: 2rem;
+}
 
 .project__board button {
   min-width: 4rem;
@@ -138,40 +139,3 @@ shared-search-box {
   cursor: pointer;
   background-color: var(--light-secondary-color);
 }
-
-/* .board__column {
-  max-width: 25rem;
-  min-height: 33rem;
-  border-radius: 3px;
-  background-color: rgba(225, 225, 225, .4);
-  padding: 1rem;
-}
-
-.column__header form {
-  width: 100%;
-  display: flex;
-  gap: .5rem;
-}
-
-.column__header form input {
-  flex: 1;
-  border: none;
-  padding: 0 .5rem;
-  font-family: var(--second-font);
-  font-size: 1.5rem;
-  color: var(--secondary-color);
-  background-color: transparent;
-  border-radius: 3px;
-  transition: all .3s;
-}
-
-.column__header form input:hover {
-  background-color: var(--light-secondary-color);
-}
-
-.column__header form input:focus {
-  border: none;
-  height: 4rem;
-  outline: 1px solid var(--primary-color);
-  background-color: var(--white);
-} */

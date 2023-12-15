@@ -1,0 +1,26 @@
+
+.modal__container {
+  height: max-content;
+  max-height: 70%;
+  padding: 2rem 0;
+}
+
+.modal__header {
+  padding: 0 2rem;
+}
+.fields__container {
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding: 2rem;
+  border-top: 2px solid var(--light-secondary-color);
+  border-bottom: 2px solid var(--light-secondary-color);
+  overflow: auto;
+}
+
+.form__submit {
+  padding: 0 2rem;
+  margin: 0;
+}

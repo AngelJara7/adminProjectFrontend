@@ -52,19 +52,21 @@
 
   <div class="project__board">
 
-    <div *ngFor="let columna of project.columnas">
-      <shared-column-card
-        [column]="columna"
-        [project]="project">
-      </shared-column-card>
+    <div class="board__container">
+
+      <div *ngFor="let columna of project.columnas">
+        <shared-column-card
+          [column]="columna"
+          [project]="project">
+        </shared-column-card>
+      </div>
+
     </div>
 
     <div *ngIf="modalService.viewNewSharedColumnCard">
-
       <shared-column-card
       [project]="project">
       </shared-column-card>
-
     </div>
 
     <button *ngIf="!modalService.viewNewSharedColumnCard"
@@ -76,6 +78,10 @@
 
 </div>
 
-<modal-delete-column
+<shared-modal-task-form>
+
+</shared-modal-task-form>
+
+<shared-modal-delete-column
   [project]="project">
-</modal-delete-column>
+</shared-modal-delete-column>

@@ -107,7 +107,7 @@
   height: 1px;
   background-color: var(--light-secondary-color);
   border-radius: 3px;
-  margin: .5rem 0;
+  margin: 0;
 }
 
 .task__container h3 {
@@ -133,6 +133,7 @@
 }
 
 .task__content p {
+  font-size: 1.3rem;
   line-height: 2rem;
   margin: 0;
 }
@@ -141,6 +142,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.task__footer img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .task__date {

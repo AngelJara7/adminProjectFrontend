@@ -1,0 +1,102 @@
+
+<section class="modal"
+        [class.view--modal]="true">
+
+  <div class="modal__bg"></div>
+
+  <div class="modal__container modal__container--task__container">
+
+    <div class="modal__header">
+
+      <h3>Crear Tarea</h3>
+
+      <button class="modal__close">
+        Cerrar
+      </button>
+
+    </div>
+
+    <div class="form modal__form">
+
+      <form action="">
+
+        <div class="fields__container">
+
+          <div class="form__field">
+
+            <label for="nombre">Nombre</label>
+
+            <input type="text"
+                  id="nombre"
+                  placeholder="Nombre">
+
+            <!-- <span></span> -->
+
+          </div>
+
+          <div class="form__field">
+
+            <label for="descripcion">Descripción</label>
+
+            <textarea cols="30" rows="5"
+                      id="descripcion"
+                      placeholder="Descripción">
+            </textarea>
+
+            <!-- <span></span> -->
+
+          </div>
+
+          <div class="form__field">
+
+            <label for="vencimiento">Fecha de vencimiento</label>
+
+            <input type="date"
+                  id="vencimiento"
+                  placeholder="Vencimiento">
+
+            <!-- <span></span> -->
+
+          </div>
+
+          <div class="form__field">
+
+            <label for="columna">Columna</label>
+
+            <select id="columna">
+              <option value="" selected>Seleccione</option>
+              <option value=""></option>
+            </select>
+
+            <!-- <span></span> -->
+
+          </div>
+
+          <div class="form__field">
+
+            <label for="responsable">Responsable</label>
+
+            <select id="responsable">
+              <option value="" selected>Seleccione</option>
+              <option value=""></option>
+            </select>
+
+            <!-- <span></span> -->
+
+          </div>
+
+        </div>
+
+        <div class="form__submit">
+
+          <input type="submit"
+                value="Crear Tarea">
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
