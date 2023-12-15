@@ -27,7 +27,8 @@
   <div class="board__task">
 
     <div class="task__container"
-        *ngFor="let tarea of column?.tareas">
+        *ngFor="let tarea of column?.tareas"
+        (click)="viewModalTaskForm()">
 
       <div class="task__header">
 

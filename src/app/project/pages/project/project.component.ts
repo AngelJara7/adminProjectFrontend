@@ -83,6 +83,10 @@ export class ProjectComponent implements OnDestroy {
     return photo ? `${environment.base_url}/${photo}` : environment.path_no_img;
   }
 
+  viewModalTaskForm() {
+    this.modalService.modalTaskFormStatus = true;
+  }
+
   viewModalAddCollaborator() {
     this.modalService.modalAddCollaboratorStatus = true;
   }

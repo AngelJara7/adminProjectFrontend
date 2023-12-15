@@ -1,16 +1,17 @@
 
 <section class="modal"
-        [class.view--modal]="true">
+    [class.view--modal]="modalService.modalTaskFormStatus">
 
-  <div class="modal__bg"></div>
+    <div class="modal__bg" (click)="hideModal()"></div>
 
-  <div class="modal__container modal__container--task__container">
+  <div class="modal__container">
 
     <div class="modal__header">
 
       <h3>Crear Tarea</h3>
 
-      <button class="modal__close">
+      <button class="modal__close"
+              (click)="hideModal()">
         Cerrar
       </button>
 
@@ -30,8 +31,6 @@
                   id="nombre"
                   placeholder="Nombre">
 
-            <!-- <span></span> -->
-
           </div>
 
           <div class="form__field">
@@ -43,8 +42,6 @@
                       placeholder="Descripción">
             </textarea>
 
-            <!-- <span></span> -->
-
           </div>
 
           <div class="form__field">
@@ -54,8 +51,6 @@
             <input type="date"
                   id="vencimiento"
                   placeholder="Vencimiento">
-
-            <!-- <span></span> -->
 
           </div>
 
@@ -68,8 +63,6 @@
               <option value=""></option>
             </select>
 
-            <!-- <span></span> -->
-
           </div>
 
           <div class="form__field">
@@ -80,8 +73,6 @@
               <option value="" selected>Seleccione</option>
               <option value=""></option>
             </select>
-
-            <!-- <span></span> -->
 
           </div>
 

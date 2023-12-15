@@ -126,4 +126,8 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
     return photo ? `${environment.base_url}/${photo}` : `${environment.path_no_img}`;
   }
 
+  viewModalTaskForm() {
+    this.modalService.modalTaskFormStatus = true;
+  }
+
 }

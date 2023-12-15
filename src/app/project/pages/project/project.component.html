@@ -6,11 +6,13 @@
     <shared-breadcrumbs [crumbs]="breadcrumbs"/>
 
     <div class="project__title header__title">
+
       <h1>Tablero {{ project.nombre }}</h1>
 
-      <button>
-        Crear tarea
+      <button (click)="viewModalTaskForm()">
+        Crear Tarea
       </button>
+
     </div>
 
     <div class="project__tools">
@@ -78,10 +80,10 @@
 
 </div>
 
-<shared-modal-task-form>
-
-</shared-modal-task-form>
-
 <shared-modal-delete-column
-  [project]="project">
+[project]="project">
 </shared-modal-delete-column>
+
+<shared-modal-task-form></shared-modal-task-form>
+
+<shared-modal-add-collaborator></shared-modal-add-collaborator>
