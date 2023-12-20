@@ -25,50 +25,69 @@ export class UserProfileComponent implements OnDestroy {
   private activatedRoute = inject(ActivatedRoute);
   private modalService = inject(ModalService);
 
-  public user = signal<User|null>(null);
+  public id: string = '';
+  public user: User | undefined;
   public photo: string = '';
   public isTheUserLogged: boolean = false;
   public hasDataChanged: boolean = false;
 
-  public userForm: FormGroup;
+  public userForm: FormGroup = this.fb.group({
+    _id: ['', Validators.required],
+    nombre: ['', Validators.required],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
+  });
 
   @Output() modalAlert: ModalAlert | undefined;
 
   constructor() {
 
-    this.userForm = this.fb.group({
-      _id: ['', Validators.required],
-      nombre: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
-    });
+    const user = this.userService.currentUser();
+    this.id = this.activatedRoute.snapshot.params['id'];
+
+    if (!user) return;
+
+    if (this.id === user._id) {
+      this.isTheUserLogged = true;
+      this.loadForm(user);
+      return;
+    }
+
+    this.isTheUserLogged = false;
 
     this.loadUser();
-
-    this.user()!._id === this.activatedRoute.snapshot.params['id']
-    ? this.isTheUserLogged = true
-    : this.isTheUserLogged = false;
 
     this.socket.io.on('edited profile', () => {
       this.userService.checkAuthStatus().subscribe(() => this.loadUser());
     });
   }
+
   ngOnDestroy(): void {
+    this.userForm.reset();
     this.modalService.modalPhotoStatus = false;
     this.modalService.modalAlertStatus = false;
   }
 
   loadUser() {
 
-    this.user.set(this.userService.currentUser());
+    this.userService.searchUser(this.id)
+      .subscribe({
+        next: res => this.loadForm(res),
+        error: err => console.log({err})
+      });
 
-    if (!this.user()) return;
+  }
 
-    this.userForm.setValue({ _id: this.user()?._id, nombre: this.user()?.nombre, email: this.user()?.email });
+  loadForm(user: User) {
+    this.user = user;
+    this.userForm.setValue({
+      _id: user._id,
+      nombre: user.nombre,
+      email: user.email
+    });
 
-    !this.user()?.foto
+    !user.foto
     ? this.photo = environment.path_no_img
-    : this.photo = `${environment.base_url}/${this.user()?.foto}`;
-
+    : this.photo = `${environment.base_url}/${user.foto}`
   }
 
   setAlert() {
@@ -100,7 +119,7 @@ export class UserProfileComponent implements OnDestroy {
     const name = this.userForm.controls['nombre'].value;
     const email = this.userForm.controls['email'].value;
 
-    if (name !== this.user()?.nombre || email !== this.user()?.email) {
+    if (name !== this.user?.nombre || email !== this.user?.email) {
       this.hasDataChanged = true;
     } else {
       this.hasDataChanged = false;

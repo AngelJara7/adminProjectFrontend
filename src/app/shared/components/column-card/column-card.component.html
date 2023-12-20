@@ -26,40 +26,44 @@
 
   <div class="board__task">
 
-    <div class="task__container"
-        *ngFor="let tarea of column?.tareas"
-        (click)="viewModalTaskForm()">
+    <ng-container *ngFor="let tarea of project?.tareas">
 
-      <div class="task__header">
+      <div class="task__container"
+          *ngIf="tarea.columna === column?._id"
+          (click)="viewModalTaskForm(tarea)">
 
-        <h3 title="{{tarea.nombre}}">{{ tarea.nombre }}</h3>
+        <div class="task__header">
 
-        <button title="Eliminar {{tarea.nombre}}">
-          <i class="fa-solid fa-trash"></i>
-        </button>
+          <h3 title="{{tarea.nombre}}">{{ tarea.nombre }}</h3>
 
-      </div>
+          <button title="Eliminar {{tarea.nombre}}">
+            <i class="fa-solid fa-trash"></i>
+          </button>
 
-      <div class="task__content">
+        </div>
 
-        <p>{{ tarea.descripcion }}</p>
+        <div class="task__content">
 
-      </div>
+          <p>{{ tarea.descripcion }}</p>
 
-      <hr>
+        </div>
 
-      <div class="task__footer">
+        <hr>
 
-        <img [src]="loadPhoto(tarea.responsable.foto)" alt="perfil de usuario" title="Responsable: {{tarea.responsable.nombre}}">
+        <div class="task__footer">
 
-        <div class="task__date" title="Fecha de vencimiento">
-          <p>Expira: </p>
-          <b>{{ tarea.vencimiento | date:'MMM d' }}</b>
+          <img [src]="loadPhoto(tarea.responsable.foto)" alt="perfil de usuario" title="Responsable: {{tarea.responsable.nombre}}">
+
+          <div class="task__date" title="Fecha de vencimiento">
+            <p>Expira: </p>
+            <b>{{ formatDate(tarea.vencimiento) | date:'MMM d' }}</b>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+    </ng-container>
 
   </div>
 

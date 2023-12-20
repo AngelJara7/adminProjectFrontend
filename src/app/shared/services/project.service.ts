@@ -11,7 +11,6 @@ import { User } from '../models';
 })
 export class ProjectService {
 
-  // todo: crear variable de entorno de ruta (url backend)
   private readonly baseUrl = `${environment.base_url}/api/projects`;
   private http = inject(HttpClient);
 
@@ -40,7 +39,7 @@ export class ProjectService {
     return this.http.get<Project[]>(url, this.headers)
       .pipe(
         // delay(1000),
-        map((resp) => resp),
+        map((res) => res),
         catchError(err => throwError(() => err.error
         ))
       );

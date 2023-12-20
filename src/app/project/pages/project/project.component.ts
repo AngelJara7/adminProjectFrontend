@@ -66,7 +66,7 @@ export class ProjectComponent implements OnDestroy {
       .subscribe({
         next: res => {
           this.project = res;
-
+          
           this.breadcrumbs = [
             { link: '/dashboard/projects', title: 'Proyectos' },
             { link: '../board', title: this.project!.nombre }

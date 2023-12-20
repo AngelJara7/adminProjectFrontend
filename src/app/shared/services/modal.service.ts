@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { StatusToastNotification } from '../interfaces';
+import { Task } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class ModalService {
   public id: EventEmitter<string> = new EventEmitter<string>();
 
   public toastNotification: EventEmitter<StatusToastNotification> = new EventEmitter<StatusToastNotification>();
+
+  public currentTask: EventEmitter<Task> = new EventEmitter<Task>()
 
   get modalAddCollaboratorStatus() {
     return this._modalAddCollaboratorStatus;

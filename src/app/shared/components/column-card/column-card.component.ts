@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Column, Project } from '../../models';
+import { Column, Project, Task } from '../../models';
 import { ModalService } from '../../services/modal.service';
 import { ProjectService } from '../../services/project.service';
 import { AlertStatus } from '../../interfaces';
@@ -126,7 +126,17 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
     return photo ? `${environment.base_url}/${photo}` : `${environment.path_no_img}`;
   }
 
-  viewModalTaskForm() {
+  formatDate(dateFormat: Date | string) {
+
+    const date = new Date(dateFormat);
+
+    return date.getFullYear() + '-' +
+      ('0' + (date.getMonth() + 1)).substr(-2) + '-' +
+      ('0' + date.getUTCDate()).substr(-2);
+  }
+
+  viewModalTaskForm(task: Task) {
+    this.modalService.currentTask.emit(task);
     this.modalService.modalTaskFormStatus = true;
   }
 

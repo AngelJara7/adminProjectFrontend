@@ -10,7 +10,6 @@ import { User } from '../models';
 
 export class AuthService {
 
-  // todo: crear variable de entorno de ruta (url backend)
   private readonly baseUrl = `${environment.base_url}/api/users`;
   private http = inject(HttpClient);
 
@@ -127,6 +126,17 @@ export class AuthService {
         map((user) => user),
         catchError(() => throwError(() => null))
       );
+  }
+
+  searchUser(id: string): Observable<User> {
+    const url = `${this.baseUrl}/user/${id}`;
+    console.log(url)
+
+    return this.http.get<User>(url, this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err))
+      )
   }
 
   //* Hace uso de la solicitud de cambio de contraseña

@@ -8,7 +8,7 @@
 
     <div class="modal__header">
 
-      <h3>Crear Tarea</h3>
+      <h3>{{ currentTask ? 'Actualizar' : 'Crear' }} Tarea</h3>
 
       <button class="modal__close"
               (click)="hideModal()">
@@ -19,7 +19,9 @@
 
     <div class="form modal__form">
 
-      <form action="">
+      <form autocomplete="off"
+            [formGroup]="taskForm"
+            (ngSubmit)="saveTask()">
 
         <div class="fields__container">
 
@@ -29,7 +31,12 @@
 
             <input type="text"
                   id="nombre"
-                  placeholder="Nombre">
+                  placeholder="Nombre"
+                  formControlName="nombre">
+
+            <span *ngIf="isValidField('nombre')">
+              {{ getErrorField('nombre') }}
+            </span>
 
           </div>
 
@@ -39,8 +46,13 @@
 
             <textarea cols="30" rows="5"
                       id="descripcion"
-                      placeholder="Descripción">
+                      placeholder="Descripción"
+                      formControlName="descripcion">
             </textarea>
+
+            <span *ngIf="isValidField('descripcion')">
+              {{ getErrorField('descripcion') }}
+            </span>
 
           </div>
 
@@ -50,7 +62,12 @@
 
             <input type="date"
                   id="vencimiento"
-                  placeholder="Vencimiento">
+                  placeholder="Vencimiento"
+                  formControlName="vencimiento">
+
+            <span *ngIf="isValidField('vencimiento')">
+              {{ getErrorField('vencimiento') }}
+            </span>
 
           </div>
 
@@ -58,10 +75,22 @@
 
             <label for="columna">Columna</label>
 
-            <select id="columna">
-              <option value="" selected>Seleccione</option>
-              <option value=""></option>
+            <select id="columna"
+                    formControlName="columna">
+
+              <option value="" [selected]="!currentTask">Seleccione</option>
+
+              <option *ngFor="let columna of project?.columnas"
+                      value="{{ columna._id }}"
+                      [selected]="currentTask?.columna === columna._id">
+                {{ columna.nombre }}
+              </option>
+
             </select>
+
+            <span *ngIf="isValidField('columna')">
+              {{ getErrorField('columna') }}
+            </span>
 
           </div>
 
@@ -69,9 +98,44 @@
 
             <label for="responsable">Responsable</label>
 
-            <select id="responsable">
-              <option value="" selected>Seleccione</option>
-              <option value=""></option>
+            <select id="responsable"
+                    formControlName="responsable">
+
+              <option value="" [selected]="!currentTask">Seleccione</option>
+
+              <option *ngFor="let colaborador of project?.colaboradores"
+                      value="{{ colaborador.usuario._id }}"
+                      [selected]="currentTask?.responsable?.email === colaborador.usuario.email">
+                {{ colaborador.usuario.email }}
+              </option>
+
+              <span *ngIf="isValidField('responsable')">
+                {{ getErrorField('responsable') }}
+              </span>
+
+            </select>
+
+          </div>
+
+          <div class="form__field">
+
+            <label for="usuario">Informador</label>
+
+            <select id="usuario"
+                    formControlName="usuario">
+
+              <option value="" [selected]="!currentTask">Seleccione</option>
+
+              <option *ngFor="let colaborador of project?.colaboradores"
+                      value="{{ colaborador.usuario._id }}"
+                      [selected]="currentTask?.usuario?.email ">
+                {{ colaborador.usuario.email }}
+              </option>
+
+              <span *ngIf="isValidField('usuario')">
+                {{ getErrorField('usuario') }}
+              </span>
+
             </select>
 
           </div>
@@ -81,7 +145,7 @@
         <div class="form__submit">
 
           <input type="submit"
-                value="Crear Tarea">
+                value="{{ currentTask ? 'Actualizar' : 'Crear' }}">
         </div>
 
       </form>

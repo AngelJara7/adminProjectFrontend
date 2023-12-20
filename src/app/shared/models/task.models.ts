@@ -1,5 +1,5 @@
 import { UserProject } from "../interfaces";
-import { Column } from ".";
+import { Column, Project } from ".";
 
 export class Task {
   constructor(
@@ -7,9 +7,10 @@ export class Task {
     public nombre: string,
     public descripcion: string,
     public asignacion: Date,
-    public vencimiento: Date,
+    public vencimiento: Date | string,
     public usuario: UserProject,
     public responsable: UserProject,
-    public columna: Column,
+    public proyecto: Project,
+    public columna: string,
   ) { }
 }

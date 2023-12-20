@@ -9,7 +9,9 @@
 
       <div class="info__img">
 
-        <div class="img__image" [ngClass]="{ 'no-image': !user()?.foto }">
+        <div class="img__image"
+            [ngClass]="{ 'no-image': !user?.foto }"
+            [class.current__user__img]="!isTheUserLogged">
 
           <img [src]="photo" alt="foto de perfil">
 
@@ -20,7 +22,7 @@
               Cambiar
             </button>
 
-            <button *ngIf="user()?.foto" (click)="viewModalAlert()">
+            <button *ngIf="user?.foto" (click)="viewModalAlert()">
               <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
               Eliminar
             </button>

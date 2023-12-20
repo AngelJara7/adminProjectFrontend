@@ -25,25 +25,39 @@
       <div class="project__collaborators">
 
         <div class="collaborators__item admin">
-          <img [src]="imgUser" alt="perfil de usuario" title="{{project.usuario.nombre}}">
+
+          <img [src]="setProfileCollaborator(project.usuario.foto)"
+              alt="perfil de usuario"
+              title="{{project.usuario.nombre}}">
+
         </div>
 
         <div class="collaborators__item img__collaborators"
-            *ngFor="let colaboradores of project?.colaboradores?.slice(0, 5)">
-          <img [src]="setProfileCollaborator(colaboradores.usuario.foto)"
+            *ngFor="let colaborador of project?.colaboradores?.slice(0, 5)"
+            routerLink="/dashboard/user/{{ colaborador.usuario._id }}"
+            title="{{ colaborador.usuario.email }}">
+
+          <img [src]="setProfileCollaborator(colaborador.usuario.foto)"
               alt="perfil de usuario"
-              title="{{colaboradores.usuario.nombre}}">
+              title="{{colaborador.usuario.nombre}}">
+
         </div>
 
         <div class="collaborators__item total__collaborators"
             *ngIf="project?.colaboradores!.length > 5">
+
           <span>+{{ project.colaboradores.length }}</span>
+
         </div>
 
         <div class="collaborators__item add__collaborator">
+
           <button (click)="viewModalAddCollaborator()" title="Agregar personas">
+
             <i class="fa-solid fa-user-plus"></i>
+
           </button>
+
         </div>
 
       </div>
@@ -84,6 +98,8 @@
 [project]="project">
 </shared-modal-delete-column>
 
-<shared-modal-task-form></shared-modal-task-form>
+<shared-modal-task-form
+  [project]="project!">
+</shared-modal-task-form>
 
 <shared-modal-add-collaborator></shared-modal-add-collaborator>
