@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { AlertStatus, Breadcrumbs, Collaborators, ModalAlert, ModalAlertType } from 'src/app/shared/interfaces';
 import { Project } from 'src/app/shared/models';
+import { CollaboratorService } from 'src/app/shared/services/collaborator.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
@@ -17,6 +18,7 @@ export class ColaborationComponent implements OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
+  private collaboratorService = inject(CollaboratorService);
   private modalService = inject(ModalService);
   private socketService = inject(SocketService);
 
@@ -27,9 +29,9 @@ export class ColaborationComponent implements OnDestroy {
   public colaboradores: Collaborators[] = [];
   public rols = ['Administrador', 'Colaborador'];
 
+  public modalAlert: ModalAlert | undefined;
+
   @Output() breadcrumbs: Breadcrumbs[] = [];
-  @Output() modalAlert: ModalAlert | undefined;
-  @Output() colaborador!: Collaborators;
 
   constructor() {
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
@@ -59,10 +61,6 @@ export class ColaborationComponent implements OnDestroy {
           this.project = res;
 
           this.colaboradores = this.project.colaboradores;
-          this.colaboradores.unshift({
-            usuario: this.project.usuario,
-            rol: 'Administrador'
-          });
 
           this.breadcrumbs = [
             { link: '../adp/projects', title: 'Proyectos' },
@@ -88,13 +86,13 @@ export class ColaborationComponent implements OnDestroy {
     this.modalService.modalAddCollaboratorStatus = true;
   }
 
-  updateRolCollaborator(rol: HTMLSelectElement, colaborador: Collaborators, project: string) {
+  updateRolCollaborator(rol: HTMLSelectElement, colaborador: Collaborators) {
 
-    if (!colaborador && !project) return;
+    if (!colaborador) return;
 
     colaborador.rol = rol.value;
 
-    this.projectService.updateCollaborator(colaborador, project)
+    this.collaboratorService.updateCollaborator(colaborador)
     .subscribe({
       next: res => {
         this.socketService.editingCollaborators();
@@ -116,22 +114,18 @@ export class ColaborationComponent implements OnDestroy {
   }
 
   viewModalAlert(colaborator: Collaborators, project: Project) {
-    this.setAlertAndColaborator(colaborator, project);
-    this.modalService.id.emit(project._id);
+    this.modalService.setModalAlert(this.setAlertAndColaborator(colaborator, project));
+    this.modalService.id.emit(colaborator._id);
     this.modalService.modalAlertStatus = true;
   }
 
   setAlertAndColaborator(colaborator: Collaborators, project: Project) {
-    this.modalAlert = {
+
+    return this.modalAlert = {
       type: ModalAlertType.colaborator,
       title: `Eliminar a '${colaborator.usuario.nombre}' del proyecto '${project.nombre}'`,
       message: `Al confirmar esta acción esta eliminando al colaborador '${colaborator.usuario.nombre}' del proyecto y de todas las tareas de las que este es responsable. \n ¿Desea eliminar al colaborador?`
     }
-
-    this.colaborador = {
-      usuario: colaborator.usuario,
-      rol: colaborator.rol
-    };
   }
 
 }

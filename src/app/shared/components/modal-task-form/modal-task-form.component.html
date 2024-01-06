@@ -104,8 +104,8 @@
               <option value="" [selected]="!currentTask">Seleccione</option>
 
               <option *ngFor="let colaborador of project?.colaboradores"
-                      value="{{ colaborador.usuario._id }}"
-                      [selected]="currentTask?.responsable?.email === colaborador.usuario.email">
+                      [value]="colaborador._id"
+                      [selected]="currentTask?.responsable?.usuario?.email === colaborador.usuario.email">
                 {{ colaborador.usuario.email }}
               </option>
 
@@ -126,11 +126,13 @@
 
               <option value="" [selected]="!currentTask">Seleccione</option>
 
-              <option *ngFor="let colaborador of project?.colaboradores"
-                      value="{{ colaborador.usuario._id }}"
-                      [selected]="currentTask?.usuario?.email ">
-                {{ colaborador.usuario.email }}
-              </option>
+              <ng-container *ngFor="let colaborador of project?.colaboradores">
+                <option *ngIf="colaborador.rol === 'Administrador'"
+                        [value]="colaborador._id"
+                        [selected]="currentTask?.usuario?.usuario?.email === colaborador.usuario.email">
+                  {{ colaborador.usuario.email }}
+                </option>
+              </ng-container>
 
               <span *ngIf="isValidField('usuario')">
                 {{ getErrorField('usuario') }}
@@ -145,7 +147,8 @@
         <div class="form__submit">
 
           <input type="submit"
-                value="{{ currentTask ? 'Actualizar' : 'Crear' }}">
+                value="{{ currentTask ? 'Actualizar' : 'Crear' }}"
+                [disabled]="taskForm.invalid || isLoading || !isAdmin && !isResponsible">
         </div>
 
       </form>

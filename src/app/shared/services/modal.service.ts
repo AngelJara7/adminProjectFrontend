@@ -1,5 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { StatusToastNotification } from '../interfaces';
+import { EventEmitter, Injectable, computed, signal } from '@angular/core';
+import { ModalAlert, StatusToastNotification } from '../interfaces';
 import { Task } from '../models';
 
 @Injectable({
@@ -17,6 +17,9 @@ export class ModalService {
   private _modalTaskFormStatus: boolean = false;
   private _toastNotificationStatus: boolean = false;
   private _viewNewSharedColumnCard: boolean = false;
+
+  private modalAlert = signal<ModalAlert|null>(null);
+  public alert = computed(() => this.modalAlert());
 
   public id: EventEmitter<string> = new EventEmitter<string>();
 
@@ -86,6 +89,10 @@ export class ModalService {
 
   set viewNewSharedColumnCard(status: boolean) {
     this._viewNewSharedColumnCard = status;
+  }
+
+  setModalAlert(modalAlert: ModalAlert) {
+    this.modalAlert.set(modalAlert);
   }
 
 }

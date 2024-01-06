@@ -10,7 +10,7 @@
 .project__tools {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   margin-top: 1rem;
 }
 
@@ -67,7 +67,7 @@ shared-search-box {
   border-radius: 50%;
 }
 
-.admin img,
+/* .admin img, */
 .img__collaborators img {
   border-radius: 50%;
   object-fit: cover;
@@ -126,6 +126,8 @@ shared-search-box {
 .project__board button {
   min-width: 4rem;
   height: 4rem;
+  position: sticky;
+  top: 0;
   padding: 1rem;
   border: none;
   border-radius: 3px;

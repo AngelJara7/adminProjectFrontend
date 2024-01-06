@@ -25,7 +25,7 @@ export class ProjectListComponent implements OnDestroy {
   public currentUser = computed(() => this.userService.currentUser());
   public initialValue: string = '';
 
-  @Output() modalAlert: ModalAlert | undefined;
+  public modalAlert: ModalAlert | undefined;
 
   constructor() {
     this.getProjects('');
@@ -56,7 +56,7 @@ export class ProjectListComponent implements OnDestroy {
   }
 
   setAlert(project: string) {
-    this.modalAlert = {
+    return this.modalAlert = {
       type: ModalAlertType.project,
       title: 'Eliminar Proyecto',
       message: `Todas la tareas vinculadas a este proyecto serán eliminadas junto con el mismo de forma permanente. ¿Desea eliminar el proyecto '${project}'?`
@@ -68,7 +68,7 @@ export class ProjectListComponent implements OnDestroy {
   }
 
   viewModalAlert(project: Project) {
-    this.setAlert(project.nombre);
+    this.modalService.setModalAlert(this.setAlert(project.nombre));
     this.modalService.id.emit(project._id);
     this.modalService.modalAlertStatus = true;
   }

@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Column, Project, Task } from '../../models';
 import { ModalService } from '../../services/modal.service';
 import { ProjectService } from '../../services/project.service';
-import { AlertStatus } from '../../interfaces';
+import { AlertStatus, ModalAlert, ModalAlertType } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
 import { environment } from 'src/environments/environment';
+import { TaskService } from '../../services/taskService.service';
 
 @Component({
   selector: 'shared-column-card',
@@ -23,6 +24,8 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
   public columnForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]]
   });
+
+  public modalAlert: ModalAlert | undefined;
 
   @Input() public column: Column | undefined;
   @Input() public project!: Project;
@@ -138,6 +141,20 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
   viewModalTaskForm(task: Task) {
     this.modalService.currentTask.emit(task);
     this.modalService.modalTaskFormStatus = true;
+  }
+
+  deleteTask(task: Task) {
+    this.modalService.setModalAlert(this.setModalAlert(task));
+    this.modalService.id.emit(task._id);
+    this.modalService.modalAlertStatus = true;
+  }
+
+  setModalAlert(task: Task) {
+    return this.modalAlert = {
+      type: ModalAlertType.task,
+      title: `¿Eliminar '${task.nombre}'?`,
+      message: `Estas a punto de eliminar de forma permanente está tarea\n\n ¿Desea continuar?`
+    }
   }
 
 }

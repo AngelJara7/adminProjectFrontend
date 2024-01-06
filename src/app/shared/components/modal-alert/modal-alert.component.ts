@@ -1,14 +1,15 @@
-import { Component, Input, inject } from '@angular/core';
-import { Subscription, last } from 'rxjs';
+import { Component, Input, OnInit, computed, inject } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProjectService } from '../../services/project.service';
 import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
-import { ModalAlert } from '../../interfaces/modal-alert.interface';
 import { ModalAlertType } from '../../interfaces';
 import { AlertStatus } from 'src/app/shared/interfaces';
 import { Collaborators } from '../../interfaces/collaborators.interface';
+import { TaskService } from '../../services/taskService.service';
+import { CollaboratorService } from '../../services/collaborator.service';
 
 @Component({
   selector: 'shared-modal-alert',
@@ -19,6 +20,8 @@ export class SharedModalAlertComponent {
 
   private userService = inject(AuthService);
   private projectService = inject(ProjectService);
+  private collaboratorSerice = inject(CollaboratorService);
+  private taskService = inject(TaskService);
   private socket = inject(SocketService);
 
   private _deleteModel: Subscription;
@@ -26,9 +29,10 @@ export class SharedModalAlertComponent {
   public modalService = inject(ModalService);
   public isLoading: boolean = false;
   public id: string = '';
+  public modalAlert = computed(() => this.modalService.alert());
 
-  @Input() modalAlert: ModalAlert | undefined;
-  @Input() colaborador: Collaborators | undefined;
+  // @Input() modalAlert: ModalAlert | undefined;
+  // @Input() colaborador: Collaborators | undefined;
 
   constructor() {
     this._deleteModel = this._deleteModel = this.modalService.id.subscribe(id => this.id = id);
@@ -36,14 +40,14 @@ export class SharedModalAlertComponent {
 
   hideModal() {
     this.isLoading = false;
-    this.modalAlert = undefined;
-    this.colaborador = undefined;
+    // this.modalAlert = undefined;
+    // this.colaborador = undefined;
     this.modalService.modalAlertStatus = false;
   }
 
   typeAlert() {
 
-    switch (this.modalAlert?.type) {
+    switch (this.modalAlert()?.type) {
 
       case ModalAlertType.user:
         this.deleteImgProfile();
@@ -58,7 +62,7 @@ export class SharedModalAlertComponent {
         return;
 
       case ModalAlertType.task:
-        console.log('ALERTA:',this.modalAlert.type);
+        this.deleteTask();
         return;
     }
 
@@ -96,17 +100,32 @@ export class SharedModalAlertComponent {
 
   deleteColaborator() {
 
-    if (!this.colaborador) return;
-
     this.isLoading = true;
 
-    this.projectService.deleteColaborator(this.colaborador, this.id)
+    this.collaboratorSerice.deleteColaborator(this.id)
       .subscribe({
         next: res => {
           this.socket.editingCollaborators();
           this.setToastNotification(AlertStatus.success, res);
         },
         error: error => {
+          this.socket.editingCollaborators();
+          this.setToastNotification(AlertStatus.error, error.error);
+        }
+      });
+  }
+
+  deleteTask() {
+
+    this.taskService.deleteTask(this.id)
+      .subscribe({
+        next: res => {
+          console.log(res);
+          this.socket.editingCollaborators();
+          this.setToastNotification(AlertStatus.success, res);
+        },
+        error: error => {
+          console.log(error);
           this.socket.editingCollaborators();
           this.setToastNotification(AlertStatus.error, error.error);
         }
@@ -136,3 +155,4 @@ export class SharedModalAlertComponent {
   }
 
 }
+

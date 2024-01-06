@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service';
 import { Subject, Subscription, debounceTime } from 'rxjs';
 import { User } from '../../models';
+import { CollaboratorService } from '../../services/collaborator.service';
 
 @Component({
   selector: 'shared-modal-add-collaborator',
@@ -18,6 +19,7 @@ import { User } from '../../models';
 export class SharedModalAddCollaboratorComponent implements OnDestroy {
 
   private projectService = inject(ProjectService);
+  private collaboratorService = inject(CollaboratorService);
   private socketService = inject(SocketService);
   private validatorsService = inject(ValidatorsService);
   private fb = inject(FormBuilder);
@@ -49,7 +51,8 @@ export class SharedModalAddCollaboratorComponent implements OnDestroy {
 
   loadCollaboratorForm() {
     this.collaboratorForm = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+      proyecto: ['', Validators.required],
+      usuario: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
       rol: ['Administrador', Validators.required]
     });
   }
@@ -61,31 +64,31 @@ export class SharedModalAddCollaboratorComponent implements OnDestroy {
   }
 
   searchUser(email: string) {
-    console.log(email);
+
     if (email === '') {
       this.users = [];
       return;
     }
 
-    this.projectService.searchCollaborator(email)
+    this.collaboratorService.searchCollaborator(email)
       .subscribe({
         next: res => this.users = res
       });
   }
 
   userSelected(user: User) {
-    const { email } = user;
-    this.collaboratorForm.controls['email'].setValue(email);
+    this.collaboratorForm.controls['proyecto'].setValue(this.project()?._id);
+    this.collaboratorForm.controls['usuario'].setValue(user.email);
     this.users = [];
   }
 
   addCollaborator() {
 
-    if (this.collaboratorForm.invalid && !this.project) return;
+    if (this.collaboratorForm.invalid && !this.project()) return;
 
     this.isLoading = true;
 
-    this.projectService.addCollaborator(this.collaboratorForm.value, this.project()!._id)
+    this.collaboratorService.addCollaborator(this.collaboratorForm.value)
       .subscribe({
         next: res => {
           this.modalService.toastNotification.emit({

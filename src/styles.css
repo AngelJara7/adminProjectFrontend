@@ -388,10 +388,17 @@ shared-alert {
   background-color: var(--light-primary-color);
 }
 
-.form__submit input:disabled,
-.form__field select:disabled {
-  background-color: var(--light-primary-color);
+.form__submit input:disabled {
   cursor: initial;
+  background-color: var(--light-primary-color);
+}
+
+.form__field input:disabled,
+.form__field textarea:disabled,
+.form__field select:disabled {
+  border: 1px solid var(--light-secondary-color);
+  cursor: initial;
+  pointer-events: none;
 }
 
 .form__field span {

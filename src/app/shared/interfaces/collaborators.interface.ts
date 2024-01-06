@@ -1,4 +1,5 @@
 import { UserProject } from ".";
+import { Project } from "../models";
 
 enum Rol {
   creador = 'creador',
@@ -7,10 +8,8 @@ enum Rol {
 }
 
 export interface Collaborators {
+  _id: string,
+  proyecto: Project,
   usuario: UserProject,
-  // _id: string,
-  // nombre: string,
-  // email: string,
-  // foto: string,
   rol: string
 }

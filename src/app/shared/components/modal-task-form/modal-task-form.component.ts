@@ -1,23 +1,25 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { ModalService } from '../../services/modal.service';
-import { Project, Task } from '../../models';
-import { Subscription, tap } from 'rxjs';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorsService } from '../../services/validators.service';
+import { Subscription } from 'rxjs';
+
+import { ModalService } from '../../services/modal.service';
 import { TaskService } from '../../services/taskService.service';
-import { AuthService } from '../../services/auth.service';
-import { AlertStatus } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
+import { AuthService } from '../../services/auth.service';
+import { ValidatorsService } from '../../services/validators.service';
+import { AlertStatus, Collaborators } from '../../interfaces';
+import { Project, Task } from '../../models';
 
 @Component({
   selector: 'shared-modal-task-form',
   templateUrl: './modal-task-form.component.html',
   styleUrls: ['./modal-task-form.component.css'],
 })
-export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
+export class SharedModalTaskFormComponent implements OnDestroy {
 
   private fb = inject(FormBuilder);
   private validatorsService = inject(ValidatorsService);
+  private userService = inject(AuthService);
   private taskService = inject(TaskService);
   private socketService = inject(SocketService);
 
@@ -25,6 +27,10 @@ export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
 
   public subscription: Subscription | undefined;
   public currentTask: Task | undefined;
+  public isLoading: boolean = false;
+  public currentUser = this.userService.currentUser();
+  public isAdmin: boolean = false;
+  public isResponsible: boolean = false;
 
   public taskForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
@@ -46,14 +52,35 @@ export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  ngOnInit(): void {
-
-  }
-
   loadTaskForm(task: Task) {
     this.currentTask = task;
     this.currentTask.vencimiento = this.formatDate(task.vencimiento);
     this.taskForm.reset(this.currentTask);
+
+    this.project.colaboradores.find(
+      colaborador => {
+        if (colaborador.usuario._id === this.currentUser?._id && colaborador.rol !== 'Administrador') {
+          this.isAdmin = false;
+          this.taskForm.get('vencimiento')?.disable();
+          this.taskForm.get('responsable')?.disable();
+          this.taskForm.get('usuario')?.disable();
+          return;
+        }
+
+        this.isAdmin = true;
+      }
+    );
+
+    if (this.currentTask.responsable.usuario._id !== this.currentUser?._id && !this.isAdmin) {
+      this.isResponsible = false;
+      this.taskForm.get('nombre')?.disable();
+      this.taskForm.get('descripcion')?.disable();
+      this.taskForm.get('columna')?.disable();
+      return;
+    }
+
+    this.isResponsible = true;
+
   }
 
   formatDate(dateFormat: Date | string) {
@@ -80,6 +107,8 @@ export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
   }
 
   saveTask() {
+    this.isLoading = true;
+
     if (this.currentTask) {
       this.updateTask();
       return;
@@ -89,9 +118,9 @@ export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
   }
 
   updateTask() {
-    const task: Task = this.taskForm.value;
+    const task: Task = this.taskForm.getRawValue();
     task.proyecto = this.project;
-
+    
     this.taskService.updateTask(task, this.currentTask!._id)
       .subscribe({
         next: res => this.setToastNotification(res, AlertStatus.success),
@@ -111,6 +140,7 @@ export class SharedModalTaskFormComponent implements OnInit, OnDestroy {
   }
 
   setToastNotification(res: string, status: AlertStatus) {
+    this.isLoading = false;
 
     switch (status) {
 

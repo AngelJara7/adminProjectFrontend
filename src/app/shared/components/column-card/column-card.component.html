@@ -15,8 +15,8 @@
       </form>
 
       <button (click)="deleteColumn(column!)"
-                    *ngIf="project.columnas!.length > 1"
-                    title="Eliminar columna">
+              *ngIf="project.columnas!.length > 1"
+              title="Eliminar columna">
         <i class="fa-solid fa-trash"></i>
       </button>
 
@@ -28,38 +28,43 @@
 
     <ng-container *ngFor="let tarea of project?.tareas">
 
-      <div class="task__container"
-          *ngIf="tarea.columna === column?._id"
-          (click)="viewModalTaskForm(tarea)">
+      <div class="task" *ngIf="tarea.columna === column?._id">
 
-        <div class="task__header">
+        <div class="task__container"
 
-          <h3 title="{{tarea.nombre}}">{{ tarea.nombre }}</h3>
+            (click)="viewModalTaskForm(tarea)">
 
-          <button title="Eliminar {{tarea.nombre}}">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+          <div class="task__header">
 
-        </div>
+            <h3 title="{{tarea.nombre}}">{{ tarea.nombre }}</h3>
 
-        <div class="task__content">
+          </div>
 
-          <p>{{ tarea.descripcion }}</p>
+          <div class="task__content">
 
-        </div>
+            <p>{{ tarea.descripcion }}</p>
 
-        <hr>
+          </div>
 
-        <div class="task__footer">
+          <hr>
 
-          <img [src]="loadPhoto(tarea.responsable.foto)" alt="perfil de usuario" title="Responsable: {{tarea.responsable.nombre}}">
+          <div class="task__footer">
 
-          <div class="task__date" title="Fecha de vencimiento">
-            <p>Expira: </p>
-            <b>{{ formatDate(tarea.vencimiento) | date:'MMM d' }}</b>
+            <img [src]="loadPhoto(tarea.responsable.usuario.foto)" alt="perfil de usuario" title="Responsable: {{tarea.responsable.usuario.nombre}}">
+
+            <div class="task__date" title="Fecha de vencimiento">
+              <p>Expira: </p>
+              <b>{{ formatDate(tarea.vencimiento) | date:'MMM d' }}</b>
+            </div>
+
           </div>
 
         </div>
+
+        <button (click)="deleteTask(tarea)"
+                title="Eliminar {{tarea.nombre}}">
+          <i class="fa-solid fa-trash"></i>
+        </button>
 
       </div>
 
@@ -68,3 +73,7 @@
   </div>
 
 </div>
+
+<!-- <shared-modal-alert
+  [modalAlert]="modalAlert">
+</shared-modal-alert> -->

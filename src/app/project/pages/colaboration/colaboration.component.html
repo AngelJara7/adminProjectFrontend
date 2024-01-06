@@ -49,7 +49,7 @@
 
           <td>
             <select [disabled]="project.usuario._id === colaborador.usuario._id"
-            (change)="updateRolCollaborator(select, colaborador, project._id)"
+            (change)="updateRolCollaborator(select, colaborador)"
             #select>
               <option *ngFor="let rol of rols"
                       value="{{ rol }}"
@@ -74,8 +74,6 @@
 
 </div>
 
-<shared-modal-alert
-  [modalAlert]="modalAlert"
-  [colaborador]="colaborador"/>
+<shared-modal-alert/>
 
 <shared-modal-add-collaborator></shared-modal-add-collaborator>

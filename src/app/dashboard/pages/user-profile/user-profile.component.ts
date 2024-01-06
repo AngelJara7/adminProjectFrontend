@@ -37,7 +37,8 @@ export class UserProfileComponent implements OnDestroy {
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]]
   });
 
-  @Output() modalAlert: ModalAlert | undefined;
+  public modalAlert: ModalAlert | undefined;
+  // @Output() modalAlert: ModalAlert | undefined;
 
   constructor() {
 
@@ -91,7 +92,7 @@ export class UserProfileComponent implements OnDestroy {
   }
 
   setAlert() {
-    this.modalAlert = {
+    return this.modalAlert = {
       type: ModalAlertType.user,
       title: 'Eliminar foto de perfil',
       message: '¿seguro?'
@@ -103,7 +104,7 @@ export class UserProfileComponent implements OnDestroy {
   }
 
   viewModalAlert() {
-    this.setAlert();
+    this.modalService.setModalAlert(this.setAlert());
     this.modalService.modalAlertStatus = true;
   }
 

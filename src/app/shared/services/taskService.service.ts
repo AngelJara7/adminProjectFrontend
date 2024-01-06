@@ -47,4 +47,14 @@ export class TaskService {
       );
   }
 
+  deleteTask(idTask: string): Observable<string> {
+    const url = `${this.baseUrl}/${idTask}`;
+
+    return this.http.delete<string>(url, this.headers)
+      .pipe(
+        map(res => res),
+        catchError(err => throwError(() => err))
+      );
+  }
+
 }

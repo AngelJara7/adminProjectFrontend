@@ -1,4 +1,4 @@
-import { UserProject } from "../interfaces";
+import { Collaborators, UserProject } from "../interfaces";
 import { Column, Project } from ".";
 
 export class Task {
@@ -8,8 +8,8 @@ export class Task {
     public descripcion: string,
     public asignacion: Date,
     public vencimiento: Date | string,
-    public usuario: UserProject,
-    public responsable: UserProject,
+    public usuario: Collaborators,
+    public responsable: Collaborators,
     public proyecto: Project,
     public columna: string,
   ) { }

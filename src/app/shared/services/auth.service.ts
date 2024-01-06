@@ -130,7 +130,6 @@ export class AuthService {
 
   searchUser(id: string): Observable<User> {
     const url = `${this.baseUrl}/user/${id}`;
-    console.log(url)
 
     return this.http.get<User>(url, this.headers)
       .pipe(

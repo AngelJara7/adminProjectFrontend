@@ -81,46 +81,6 @@ export class ProjectService {
       );
   }
 
-  searchCollaborator(email: string):Observable<User[]> {
-    const url = `${this.baseUrl}/collaborators`;
-
-    return this.http.post<User[]>(url, {email}, this.headers)
-      .pipe(
-        map(res => res),
-        catchError(err => throwError(() => err))
-      );
-  }
-
-  addCollaborator(colaborador: Collaborators, idProject: string): Observable<string> {
-    const url = `${this.baseUrl}/collaborators/${idProject}`;
-
-    return this.http.post<string>(url, colaborador, this.headers)
-      .pipe(
-        map(res => res),
-        catchError(err => throwError(() => err))
-      );
-  }
-
-  updateCollaborator(colaborador: Collaborators, idProject: string):Observable<string> {
-    const url = `${this.baseUrl}/collaborators/${idProject}`;
-
-    return this.http.put<string>(url, colaborador, this.headers)
-      .pipe(
-        map(res =>  res),
-        catchError(err => throwError(() => err))
-      );
-  }
-
-  deleteColaborator(colaborador: Collaborators, idProject: string): Observable<string> {
-    const url = `${this.baseUrl}/delete-collaborator/${idProject}`;
-
-    return this.http.post<string>(url, colaborador, this.headers)
-      .pipe(
-        map(res => res),
-        catchError(err => throwError(() => err))
-      );
-  }
-
   addColumn(nombre: string, idProject: string):Observable<string> {
     const url = `${this.baseUrl}/columns/${idProject}`;
 

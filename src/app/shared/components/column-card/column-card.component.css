@@ -15,6 +15,8 @@
   background-color: #F3F3F3;
   border-radius: 3px 3px 0 0;
   padding: .5rem;
+  border-bottom: 2px solid var(--light-secondary-color);
+  z-index: 1;
 }
 
 .column__header {
@@ -25,7 +27,7 @@
 }
 
 .column__header:hover button,
-.task__header:hover button {
+.task:hover button {
   color: var(--secondary-color);
 }
 
@@ -66,8 +68,12 @@
   background-color: var(--white);
 }
 
+.task {
+  position: relative;
+}
+
 .column__header button,
-.task__header button {
+.task button {
   width: 3rem;
   height: 3rem;
   border: none;
@@ -80,8 +86,14 @@
   transition: all .3s;
 }
 
+.task button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+
 .column__header button:hover,
-.task__header button:hover {
+.task button:hover {
   cursor: pointer;
   background-color: var(--light-secondary-color);
 }
