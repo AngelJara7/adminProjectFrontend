@@ -33,6 +33,7 @@ export class ProjectListComponent implements OnDestroy {
     if (this.currentUser()?._id) this.socket.loadProjects(this.currentUser()!._id);
 
     this.socket.io.on('edited projects', () => this.getProjects(''));
+    this.socket.io.on('edited contributors', () => this.getProjects(''));
   }
 
   ngOnDestroy(): void {

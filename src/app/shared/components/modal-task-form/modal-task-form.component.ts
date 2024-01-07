@@ -68,6 +68,9 @@ export class SharedModalTaskFormComponent implements OnDestroy {
         }
 
         this.isAdmin = true;
+        this.taskForm.get('vencimiento')?.enable();
+        this.taskForm.get('responsable')?.enable();
+        this.taskForm.get('usuario')?.enable();
       }
     );
 
@@ -80,6 +83,9 @@ export class SharedModalTaskFormComponent implements OnDestroy {
     }
 
     this.isResponsible = true;
+    this.taskForm.get('nombre')?.enable();
+    this.taskForm.get('descripcion')?.enable();
+    this.taskForm.get('columna')?.enable();
 
   }
 
@@ -120,7 +126,7 @@ export class SharedModalTaskFormComponent implements OnDestroy {
   updateTask() {
     const task: Task = this.taskForm.getRawValue();
     task.proyecto = this.project;
-    
+
     this.taskService.updateTask(task, this.currentTask!._id)
       .subscribe({
         next: res => this.setToastNotification(res, AlertStatus.success),

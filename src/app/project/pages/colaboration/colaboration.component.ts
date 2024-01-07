@@ -63,7 +63,7 @@ export class ColaborationComponent implements OnDestroy {
           this.colaboradores = this.project.colaboradores;
 
           this.breadcrumbs = [
-            { link: '../adp/projects', title: 'Proyectos' },
+            { link: '/dashboard/projects', title: 'Proyectos' },
             { link: '../board', title: this.project!.nombre },
             { link: '../colaboration', title: 'Equipo' }
           ];
