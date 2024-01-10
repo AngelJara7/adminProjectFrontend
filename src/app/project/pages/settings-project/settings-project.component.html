@@ -1,8 +1,113 @@
 
-<!-- <shared-side-bar [project]="project"></shared-side-bar> -->
+<div class="project" *ngIf="project">
 
-<div class="project">
+  <div class="project__header">
 
-  <!-- <pre>{{ loadProject() | json }}</pre> -->
+    <shared-breadcrumbs [crumbs]="breadcrumbs"/>
+
+    <div class="project__title header__title">
+
+      <h1>Detalles</h1>
+
+    </div>
+
+    <div class="form modal__form">
+
+      <form autocomplete="off"
+            [formGroup]="projectForm"
+            (ngSubmit)="updateProject()">
+
+        <div class="form__field"
+            [ngClass]="{ 'error__field' : isValidField('nombre') }">
+
+          <label for="nombre">Nombre</label>
+
+          <input type="text"
+                id="nombre"
+                placeholder="Nombre"
+                formControlName="nombre">
+
+          <span *ngIf="isValidField('nombre')">
+            {{ getErrorField('nombre') }}
+          </span>
+
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error__field' : isValidField('descripcion') }">
+
+          <label for="descripcion">Descripción</label>
+
+          <textarea cols="30" rows="5"
+                    id="descripcion"
+                    placeholder="Descripcion"
+                    formControlName="descripcion">
+          </textarea>
+
+          <span *ngIf="isValidField('descripcion')">
+            {{ getErrorField('descripcion') }}
+          </span>
+
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error__field' : isValidField('clave') }">
+
+          <label for="clave">Clave</label>
+
+          <input type="text"
+                id="clave"
+                placeholder="Clave"
+                formControlName="clave">
+
+          <span *ngIf="isValidField('clave')">
+            {{ getErrorField('clave') }}
+          </span>
+
+        </div>
+
+        <div class="form__field"
+            [ngClass]="{ 'error__field' : isValidField('creacion') }">
+
+          <label for="creacion">Fecha de creación</label>
+
+          <input type="date"
+                id="creacion"
+                formControlName="creacion">
+
+          <span *ngIf="isValidField('creacion')">
+            {{ getErrorField('creacion') }}
+          </span>
+
+        </div>
+
+        <!-- <div class="form__field"
+            [ngClass]="{ 'error__field' : isValidField('usuario') }">
+
+          <label for="creador">Creador del proyecto</label>
+
+          <input type="text"
+                id="creador"
+                placeholder="Creador"
+                [value]="project.usuario.nombre"
+                formControlName="usuario">
+          <span *ngIf="isValidField('usuario')">
+            {{ getErrorField('usuario') }}
+          </span>
+
+        </div> -->
+
+        <div class="form__submit">
+
+          <input type="submit"
+                value="Guardar"
+                [disabled]="projectForm.invalid || isLoading">
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
 
 </div>

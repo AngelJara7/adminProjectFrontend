@@ -7,7 +7,7 @@ import { TaskService } from '../../services/taskService.service';
 import { SocketService } from '../../services/socket.service';
 import { AuthService } from '../../services/auth.service';
 import { ValidatorsService } from '../../services/validators.service';
-import { AlertStatus, Collaborators } from '../../interfaces';
+import { AlertStatus } from '../../interfaces';
 import { Project, Task } from '../../models';
 
 @Component({

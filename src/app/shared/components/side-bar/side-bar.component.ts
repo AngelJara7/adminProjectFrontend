@@ -1,42 +1,37 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
 
 import { ProjectService } from 'src/app/shared/services/project.service';
-import { Subscription } from 'rxjs';
 import { Project } from '../../models';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'shared-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
-export class SharedSideBarComponent implements OnDestroy {
+export class SharedSideBarComponent {
 
-  private projectService = inject(ProjectService);
   private activatedRoute = inject(ActivatedRoute);
-  private router = inject(Router);
+  private projectService = inject(ProjectService);
 
-  public subscription$: Subscription;
+  public subscription$: Subscription | undefined;
   public project: Project | undefined;
-  public nombre: string = '';
 
   constructor() {
-
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
-      params => {
-        this.nombre = params['nombre'];
-
-        this.projectService.getProject(this.nombre)
-          .subscribe({
-            next: res => this.project = res,
-            error: () => this.router.navigateByUrl('/dashboard/projects')
-          });
-      }
+      params => this.loadProject(params['id'])
     );
+
   }
 
-  ngOnDestroy(): void {
-      this.subscription$.unsubscribe();
+  loadProject(id: string) {
+    if (!id) return;
+
+    this.projectService.getProject(id)
+      .subscribe({
+        next: res => this.project = res,
+      });
   }
 
 }

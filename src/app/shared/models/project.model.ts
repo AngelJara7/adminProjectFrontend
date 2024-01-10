@@ -7,7 +7,7 @@ export class Project {
     public _id: string,
     public nombre: string,
     public descripcion: string,
-    public fecha: Date,
+    public creacion: string | Date,
     public colaboradores: Collaborators[],
     public usuario: UserProject,
     public tareas?: Task[],

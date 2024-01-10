@@ -18,15 +18,6 @@
           placeholder="Buscar proyecto">
       </shared-search-box>
 
-    <!-- <div class="search__field">
-
-      <input type="text"
-            placeholder="Buscar proyecto"
-            (keyup)="setProjectBySearch(inputProjectName.value)"
-            #inputProjectName>
-
-    </div> -->
-
   </div>
 
   <div class="table__container projects__table">
@@ -41,7 +32,6 @@
           <th>Descripción</th>
           <th>Administrador</th>
           <th></th>
-          <!-- <th></th> -->
         </tr>
 
       </thead>
@@ -51,7 +41,7 @@
         <tr class="info__row" *ngFor="let project of projects">
 
           <td class="info__row--link">
-            <a routerLink="/dashboard/adp/projects/{{project.nombre}}/board">{{ project.nombre }}</a>
+            <a routerLink="/dashboard/adp/projects/{{project._id}}/board">{{ project.nombre }}</a>
           </td>
 
           <td>{{ project.clave }}</td>
@@ -68,13 +58,8 @@
             </button>
           </td>
 
-          <!-- <td class="info__row--actions">
-            <button>
-              <i class="fa-solid fa-gear fa-lg"></i>
-            </button>
-          </td> -->
-
         </tr>
+
       </tbody>
 
     </table>

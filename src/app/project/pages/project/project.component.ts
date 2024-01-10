@@ -1,6 +1,4 @@
 import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 import { ProjectService } from '../../../shared/services/project.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -9,6 +7,8 @@ import { SocketService } from '../../../shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 import { Breadcrumbs } from 'src/app/shared/interfaces';
 import { Project, User } from 'src/app/shared/models';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project',
@@ -26,7 +26,7 @@ export class ProjectComponent implements OnDestroy {
 
   public subscription$: Subscription;
   public project: Project | undefined;
-  public nombre: string = '';
+  public idProject: string = '';
   public user = signal<User|null>(null);
   public imgUser: string = '';
   public initialValue: string = '';
@@ -34,20 +34,18 @@ export class ProjectComponent implements OnDestroy {
   @Output() breadcrumbs: Breadcrumbs[] = [];
 
   constructor() {
+    this.subscription$ = this.activatedRoute.parent!.params.subscribe(
+      params => {
+        this.idProject = params['id']
+        this.loadProject();
+      }
+    );
 
     this.user.set(this.userService.currentUser());
 
     !this.user()?.foto
     ? this.imgUser = environment.path_no_img
     : this.imgUser = `${environment.base_url}/${this.user()?.foto}`;
-
-    this.subscription$ = this.activatedRoute.parent!.params.subscribe(
-      params => {
-        this.nombre = params['nombre'];
-
-        this.loadProject();
-      }
-    );
 
     this.socketService.io.on('edited contributors', () => {
       this.loadProject();
@@ -62,20 +60,21 @@ export class ProjectComponent implements OnDestroy {
   }
 
   loadProject() {
-    this.projectService.getProject(this.nombre)
+    this.projectService.getProject(this.idProject)
       .subscribe({
         next: res => {
           this.project = res;
-          
+
           this.breadcrumbs = [
             { link: '/dashboard/projects', title: 'Proyectos' },
-            { link: '../board', title: this.project!.nombre }
+            { link: '../board', title: this.project!.nombre },
           ];
-        }
+        },
       });
   }
 
   searchTask(task: string) {
+    // TODO: realizar la busqueda de tareas en el tablero
     console.log(task);
   }
 

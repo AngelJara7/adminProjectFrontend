@@ -24,9 +24,9 @@ export class ColaborationComponent implements OnDestroy {
 
   public subscription$: Subscription;
   public project: Project | undefined;
-  public nombre: string = '';
+  public idProject: string = '';
   public initialValue: string = '';
-  public colaboradores: Collaborators[] = [];
+  public colaboradores: Collaborators[] = []
   public rols = ['Administrador', 'Colaborador'];
 
   public modalAlert: ModalAlert | undefined;
@@ -36,7 +36,7 @@ export class ColaborationComponent implements OnDestroy {
   constructor() {
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
       params => {
-        this.nombre = params['nombre'];
+        this.idProject = params['id']
         this.loadProject();
       }
     );
@@ -55,21 +55,20 @@ export class ColaborationComponent implements OnDestroy {
 
   loadProject() {
 
-    this.projectService.getProject(this.nombre)
-      .subscribe({
-        next: res => {
-          this.project = res;
+    this.projectService.getProject(this.idProject)
+    .subscribe({
+      next: res => {
+        this.project = res;
 
-          this.colaboradores = this.project.colaboradores;
+        this.colaboradores = this.project.colaboradores;
 
-          this.breadcrumbs = [
-            { link: '/dashboard/projects', title: 'Proyectos' },
-            { link: '../board', title: this.project!.nombre },
-            { link: '../colaboration', title: 'Equipo' }
-          ];
-        }
-      });
-
+        this.breadcrumbs = [
+          { link: '/dashboard/projects', title: 'Proyectos' },
+          { link: '../board', title: this.project!.nombre },
+          { link: '../colaboration', title: 'Equipo' }
+        ];
+      }
+    });
   }
 
   searchColaborators(colaborators: string) {

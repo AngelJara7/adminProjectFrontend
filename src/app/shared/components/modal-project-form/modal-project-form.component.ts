@@ -16,7 +16,7 @@ export class SharedModalProjectFormComponent {
 
   private projectService = inject(ProjectService);
   private validatorsServices = inject(ValidatorsService);
-  private socket = inject(SocketService);
+  private socketService = inject(SocketService);
 
   public modalService = inject(ModalService);
 
@@ -52,7 +52,7 @@ export class SharedModalProjectFormComponent {
     this.projectService.addProject(this.projectForm.value)
       .subscribe({
         next: res => {
-          this.socket.editingProjects();
+          this.socketService.editingProjects();
           this.modalService.toastNotification.emit({
             title: res,
             status: AlertStatus.success

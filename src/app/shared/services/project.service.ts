@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal, effect } from '@angular/core';
 import { Observable, catchError, delay, map, throwError } from 'rxjs';
 import { Project } from '../models/project.model';
 import { Collaborators } from '../interfaces';
@@ -45,8 +45,8 @@ export class ProjectService {
       );
   }
 
-  getProject(project: string): Observable<Project> {
-    const url = `${this.baseUrl}/${project}`;
+  getProject(idProject: string): Observable<Project> {
+    const url = `${this.baseUrl}/${idProject}`;
 
     return this.http.get<Project>(url, this.headers)
       .pipe(
@@ -64,6 +64,16 @@ export class ProjectService {
     const url = `${this.baseUrl}`;
 
     return this.http.post<string>(url, project, this.headers)
+      .pipe(
+        map((res) => res),
+        catchError(err => throwError(() => err.error))
+      );
+  }
+
+  updateProject(project: Project, idProject: string): Observable<string> {
+    const url = `${this.baseUrl}/${idProject}`;
+
+    return this.http.put<string>(url, project, this.headers)
       .pipe(
         map((res) => res),
         catchError(err => throwError(() => err.error))

@@ -8,13 +8,15 @@ import { ColaborationComponent } from './pages/colaboration/colaboration.compone
 import { ProjectComponent } from './pages/project/project.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SettingsProjectComponent } from './pages/settings-project/settings-project.component';
 
 
 @NgModule({
   declarations: [
     ProjectLayoutComponent,
     ProjectComponent,
-    ColaborationComponent
+    ColaborationComponent,
+    SettingsProjectComponent
   ],
   imports: [
     CommonModule,

@@ -24,14 +24,6 @@
 
       <div class="project__collaborators">
 
-        <!-- <div class="collaborators__item admin">
-
-          <img [src]="setProfileCollaborator(project.usuario.foto)"
-              alt="perfil de usuario"
-              title="{{project.usuario.nombre}}">
-
-        </div> -->
-
         <div class="collaborators__item img__collaborators"
             *ngFor="let colaborador of project?.colaboradores?.slice(0, 5)"
             routerLink="/dashboard/user/{{ colaborador.usuario._id }}"
@@ -89,7 +81,7 @@
             (click)="newColumn()">
       <i class="fa-solid fa-plus"></i>
     </button>
-    
+
   </div>
 
 </div>

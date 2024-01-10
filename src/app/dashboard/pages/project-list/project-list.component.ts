@@ -6,6 +6,7 @@ import { ModalService } from '../../../shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
 import { Project } from '../../../shared/models/project.model';
 import { ModalAlert, ModalAlertType } from '../../../shared/interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-project-list',
@@ -17,6 +18,7 @@ export class ProjectListComponent implements OnDestroy {
   private projectService = inject(ProjectService);
   private socket = inject(SocketService);
   private userService = inject(AuthService);
+  private router = inject(Router);
 
   public modalService = inject(ModalService);
 
