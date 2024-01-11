@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Output, computed, inject } from '@angular/core';
+import { Component, Input, OnDestroy, Output, computed, inject } from '@angular/core';
 
 import { ModalService } from '../../services/modal.service';
 import { ProjectService } from '../../services/project.service';
@@ -8,8 +8,9 @@ import { SocketService } from '../../services/socket.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service';
 import { Subject, Subscription, debounceTime } from 'rxjs';
-import { User } from '../../models';
+import { Project, User } from '../../models';
 import { CollaboratorService } from '../../services/collaborator.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'shared-modal-add-collaborator',
@@ -18,22 +19,22 @@ import { CollaboratorService } from '../../services/collaborator.service';
 })
 export class SharedModalAddCollaboratorComponent implements OnDestroy {
 
-  private projectService = inject(ProjectService);
+  private fb = inject(FormBuilder);
+  private validatorsService = inject(ValidatorsService);
   private collaboratorService = inject(CollaboratorService);
   private socketService = inject(SocketService);
-  private validatorsService = inject(ValidatorsService);
-  private fb = inject(FormBuilder);
 
   private debouncer: Subject<string> = new Subject<string>();
   private debouncerSuscription?: Subscription;
 
   public modalService = inject(ModalService);
 
-  public project = computed(() => this.projectService._currentProject());
   public users: User[] = [];
   public isLoading: boolean = false;
   public rols = ['Administrador', 'Colaborador'];
   public collaboratorForm!: FormGroup;
+
+  @Input() project: Project | undefined;
 
   constructor() {
     this.loadCollaboratorForm();
@@ -77,14 +78,20 @@ export class SharedModalAddCollaboratorComponent implements OnDestroy {
   }
 
   userSelected(user: User) {
-    this.collaboratorForm.controls['proyecto'].setValue(this.project()?._id);
+    this.collaboratorForm.controls['proyecto'].setValue(this.project?._id);
     this.collaboratorForm.controls['usuario'].setValue(user.email);
     this.users = [];
   }
 
+  setPhotoUser(photo?: string) {
+    return photo
+      ? `${environment.base_url}/${photo}`
+      : environment.path_no_img;
+  }
+
   addCollaborator() {
 
-    if (this.collaboratorForm.invalid && !this.project()) return;
+    if (this.collaboratorForm.invalid && !this.project) return;
 
     this.isLoading = true;
 

@@ -9,7 +9,7 @@
 
         <div class="modal__header">
 
-          <h3>Añadir colaborador a {{ project()?.nombre }}</h3>
+          <h3>Añadir colaborador a {{ project?.nombre }}</h3>
 
           <button class="modal__close" (click)="hideModal()">
             Cerrar
@@ -22,14 +22,6 @@
           <form [formGroup]="collaboratorForm"
                 autocomplete="off"
                 (ngSubmit)="addCollaborator()">
-
-            <!-- <shared-search-box
-              (onDebounce)="searchUser($event)"
-              [initialValue]="initialValue"
-              (onValue)="initialValue"
-              placeholder="Email">
-
-            </shared-search-box> -->
 
             <div class="form__field">
 
@@ -49,7 +41,13 @@
               <div class="result" *ngFor="let user of users"
                   (click)="userSelected(user)">
 
-                <span>{{ user.email }}</span>
+                <div>
+
+                  <img [src]="setPhotoUser(user.foto)" alt="Perfil de usuario">
+
+                  <span>{{ user.email }}</span>
+                  
+                </div>
 
               </div>
 

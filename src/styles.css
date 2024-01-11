@@ -593,7 +593,7 @@ hr {
   padding: 1rem;
   position: relative;
   left: var(--width-side-bar);
-  /* overflow-x: auto; */
+  overflow-x: auto;
 }
 
 .project__header {

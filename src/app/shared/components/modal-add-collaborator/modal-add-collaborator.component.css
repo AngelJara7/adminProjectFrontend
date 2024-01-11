@@ -76,6 +76,18 @@ select:focus {
   background-color: var(--primary-color);
 }
 
-.result span {
+.result div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.result div img {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.result div span {
   align-self: center!important;
 }

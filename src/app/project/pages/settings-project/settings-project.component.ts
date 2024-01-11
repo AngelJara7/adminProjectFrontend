@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings-project',
@@ -24,7 +25,6 @@ export class SettingsProjectComponent implements OnDestroy {
   private modalService = inject(ModalService);
 
   public projectService = inject(ProjectService);
-
 
   public subscription$: Subscription;
   public project: Project | undefined;
@@ -87,6 +87,12 @@ export class SettingsProjectComponent implements OnDestroy {
     return date.getFullYear() + '-' +
       ('0' + (date.getMonth() + 1)).substr(-2) + '-' +
       ('0' + date.getUTCDate()).substr(-2);
+  }
+
+  setPhotoUser(photo?: string) {
+    return photo
+      ? `${environment.base_url}/${photo}`
+      : environment.path_no_img;
   }
 
 
