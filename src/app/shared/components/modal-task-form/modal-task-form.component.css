@@ -1,7 +1,7 @@
 
 .modal__container {
   height: max-content;
-  max-height: 70%;
+  /* max-height: 70%; */
   padding: 2rem 0;
 }
 

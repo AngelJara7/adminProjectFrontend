@@ -3,7 +3,8 @@ import { Component, inject } from '@angular/core';
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { Project } from '../../models';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'shared-side-bar',
@@ -12,25 +13,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SharedSideBarComponent {
 
+  private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
+  private socketService = inject(SocketService);
 
   public subscription$: Subscription | undefined;
   public project: Project | undefined;
+  public id: string = '';
 
   constructor() {
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
-      params => this.loadProject(params['id'])
+      params => {
+        this.id = params['id'];
+        this.loadProject();
+      }
     );
+
+    this.socketService.io.on('edited contributors', () => {
+      this.loadProject();
+    });
 
   }
 
-  loadProject(id: string) {
-    if (!id) return;
+  loadProject() {
+    if (!this.id) return;
 
-    this.projectService.getProject(id)
+    this.projectService.getProject(this.id)
       .subscribe({
         next: res => this.project = res,
+        error: () => this.router.navigateByUrl('/dashboard/projects'),
       });
   }
 

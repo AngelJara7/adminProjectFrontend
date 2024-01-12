@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, Output, inject } from '@angular/core';
-import { ProjectService } from '../../../shared/services/project.service';
-
-import { AlertStatus, Breadcrumbs } from 'src/app/shared/interfaces';
+import { Component, OnDestroy, Output, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Project } from 'src/app/shared/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ProjectService } from '../../../shared/services/project.service';
+import { AlertStatus, Breadcrumbs } from 'src/app/shared/interfaces';
+import { Project } from 'src/app/shared/models';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
@@ -40,7 +40,7 @@ export class SettingsProjectComponent implements OnDestroy {
   });
 
   @Output() breadcrumbs: Breadcrumbs[] = [];
-  // TODO: colocar formulario en contenedor para centrar y agregar scroll
+
   constructor() {
     this.subscription$ = this.activatedRoute.parent!.params.subscribe(
       params => {

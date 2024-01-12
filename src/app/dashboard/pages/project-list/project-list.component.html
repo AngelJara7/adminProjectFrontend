@@ -1,5 +1,5 @@
 
-<div class="projects">
+<div class="projects" *ngIf="projects">
 
   <div class="projects__header header__title">
 
@@ -72,7 +72,7 @@
 
     </div>
 
-    <shared-loading *ngIf="loadingProjects"></shared-loading>
+    <shared-loading *ngIf="loadingProjects && !projects"></shared-loading>
 
   </div>
 

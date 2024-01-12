@@ -145,10 +145,10 @@
         </div>
 
         <div class="form__submit">
-
+          
           <input type="submit"
                 value="{{ currentTask ? 'Actualizar' : 'Crear' }}"
-                [disabled]="taskForm.invalid || isLoading || !isResponsible">
+                [disabled]="taskForm.invalid || isLoading">
         </div>
 
       </form>

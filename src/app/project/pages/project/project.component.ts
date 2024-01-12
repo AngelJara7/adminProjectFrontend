@@ -6,8 +6,8 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 import { Breadcrumbs } from 'src/app/shared/interfaces';
-import { Project, User } from 'src/app/shared/models';
-import { Subscription } from 'rxjs';
+import { Project, Task, User } from 'src/app/shared/models';
+import { Subscription, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -26,6 +26,7 @@ export class ProjectComponent implements OnDestroy {
 
   public subscription$: Subscription;
   public project: Project | undefined;
+  public tasks: Task[] = [];
   public idProject: string = '';
   public user = signal<User|null>(null);
   public imgUser: string = '';
@@ -65,17 +66,31 @@ export class ProjectComponent implements OnDestroy {
         next: res => {
           this.project = res;
 
+
           this.breadcrumbs = [
             { link: '/dashboard/projects', title: 'Proyectos' },
             { link: '../board', title: this.project!.nombre },
           ];
+
+          if(!this.project.tareas) return;
+
+          this.tasks = this.project.tareas;
         },
       });
   }
 
   searchTask(task: string) {
-    // TODO: realizar la busqueda de tareas en el tablero
-    console.log(task);
+
+    if (!this.project?.tareas) return;
+
+    if (task === '') {
+      this.project.tareas = this.tasks;
+      return;
+    };
+
+    this.project.tareas = this.tasks.filter(
+      tarea => tarea.nombre.match(task)
+    );
   }
 
   setProfileCollaborator(photo?: string): string {

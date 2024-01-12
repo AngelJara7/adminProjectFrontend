@@ -46,7 +46,7 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
     this.columnForm?.controls['nombre'].setValue(this.column.nombre);
   }
 
-  changeColumnName(field: string) {
+  changeColumnName() {
 
     if (this.column?._id) {
       this.updateColumn();

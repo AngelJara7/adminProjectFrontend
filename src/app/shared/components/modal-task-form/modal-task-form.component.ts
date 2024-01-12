@@ -27,10 +27,11 @@ export class SharedModalTaskFormComponent implements OnDestroy {
 
   public subscription: Subscription | undefined;
   public currentTask: Task | undefined;
-  public isLoading: boolean = false;
   public currentUser = this.userService.currentUser();
+  public isLoading: boolean = false;
   public isAdmin: boolean = false;
   public isResponsible: boolean = false;
+  public admin: string = 'Administrador';
 
   public taskForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.required]],
@@ -59,7 +60,13 @@ export class SharedModalTaskFormComponent implements OnDestroy {
 
     this.project.colaboradores.find(
       colaborador => {
-        if (colaborador.usuario._id === this.currentUser?._id && colaborador.rol !== 'Administrador') {
+
+        // if (!this.currentTask && colaborador.rol === this.admin) {
+        //   this.isAdmin = true;
+        //   return;
+        // }
+
+        if (colaborador.usuario._id === this.currentUser?._id && colaborador.rol !== this.admin) {
           this.isAdmin = false;
           this.taskForm.get('vencimiento')?.disable();
           this.taskForm.get('responsable')?.disable();

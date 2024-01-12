@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Output, computed, inject } from '@angular/core';
+import { Component, OnDestroy, computed, inject } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ProjectService } from '../../../shared/services/project.service';
@@ -6,7 +6,6 @@ import { ModalService } from '../../../shared/services/modal.service';
 import { SocketService } from '../../../shared/services/socket.service';
 import { Project } from '../../../shared/models/project.model';
 import { ModalAlert, ModalAlertType } from '../../../shared/interfaces';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dashboard-project-list',
@@ -18,7 +17,6 @@ export class ProjectListComponent implements OnDestroy {
   private projectService = inject(ProjectService);
   private socket = inject(SocketService);
   private userService = inject(AuthService);
-  private router = inject(Router);
 
   public modalService = inject(ModalService);
 
@@ -48,9 +46,10 @@ export class ProjectListComponent implements OnDestroy {
 
     this.projectService.getProjects(project)
       .subscribe({
-        next: resp => this.projects = resp,
-        error: () => this.loadingProjects = false,
-        complete: () => this.loadingProjects = false
+        next: resp => {
+          this.projects = resp;
+          this.loadingProjects = false;
+        }
       });
   }
 
