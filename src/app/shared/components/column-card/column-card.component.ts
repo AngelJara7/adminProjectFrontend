@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Column, Project, Task } from '../../models';
@@ -7,14 +7,13 @@ import { ProjectService } from '../../services/project.service';
 import { AlertStatus, ModalAlert, ModalAlertType } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
 import { environment } from 'src/environments/environment';
-import { TaskService } from '../../services/taskService.service';
 
 @Component({
   selector: 'shared-column-card',
   templateUrl: './column-card.component.html',
   styleUrls: ['./column-card.component.css'],
 })
-export class SharedColumnCardComponent implements OnInit, AfterViewInit {
+export class SharedColumnCardComponent implements OnInit {
 
   private modalService = inject(ModalService);
   private projectService = inject(ProjectService);
@@ -29,16 +28,11 @@ export class SharedColumnCardComponent implements OnInit, AfterViewInit {
 
   @Input() public column: Column | undefined;
   @Input() public project!: Project;
-  @ViewChild('nameColumn') nameColumn!: ElementRef<HTMLInputElement>;
 
   constructor() { }
 
   ngOnInit(): void {
     this.loadColumnForm();
-  }
-
-  ngAfterViewInit(): void {
-    if (!this.column) this.nameColumn.nativeElement.focus();
   }
 
   loadColumnForm() {

@@ -6,7 +6,6 @@
 .error {
   border: 2px solid var(--error-color);
   color: var(--error-color);
-  /* color: #E74E47; */
 }
 
 .error span,

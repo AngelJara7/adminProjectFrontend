@@ -53,22 +53,22 @@ export class SharedModalProjectFormComponent {
       .subscribe({
         next: res => {
           this.socketService.editingProjects();
-          this.modalService.toastNotification.emit({
-            title: res,
-            status: AlertStatus.success
-          });
-
+          this.setToastNotificacion(res, AlertStatus.success);
           this.hideModal();
         },
-        error: error => this.addProjectError(error),
-        complete: () => this.isLoading = false
+        error: error => this.setToastNotificacion('Se ha producido un error', AlertStatus.error, error),
       });
   }
 
-  addProjectError(res: string) {
+  setToastNotificacion(title: string, status: AlertStatus, message?: string) {
+
     this.isLoading = false;
-    this.message.set(res);
-    this.statusRes = AlertStatus.error;
+    this.modalService.toastNotification.emit({
+      title,
+      message,
+      status
+    });
+
   }
 
 }

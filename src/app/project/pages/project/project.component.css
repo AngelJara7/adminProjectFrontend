@@ -118,7 +118,6 @@ shared-search-box {
   height: max-content;
   position: relative;
   display: flex;
-  /* padding: 0 2rem; */
   gap: 2rem;
   padding-bottom: 2rem;
 }

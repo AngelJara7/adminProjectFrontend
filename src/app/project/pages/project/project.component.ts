@@ -1,4 +1,6 @@
 import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProjectService } from '../../../shared/services/project.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -7,8 +9,6 @@ import { SocketService } from '../../../shared/services/socket.service';
 import { environment } from 'src/environments/environment';
 import { Breadcrumbs } from 'src/app/shared/interfaces';
 import { Project, Task, User } from 'src/app/shared/models';
-import { Subscription, tap } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project',

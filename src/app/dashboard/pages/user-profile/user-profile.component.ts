@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Output, inject, signal } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -38,7 +38,6 @@ export class UserProfileComponent implements OnDestroy {
   });
 
   public modalAlert: ModalAlert | undefined;
-  // @Output() modalAlert: ModalAlert | undefined;
 
   constructor() {
 

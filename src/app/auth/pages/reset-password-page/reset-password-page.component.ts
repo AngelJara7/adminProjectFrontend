@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 import { AuthService } from '../../../shared/services/auth.service';
 import { ValidatorsService } from '../../../shared/services/validators.service';
-import { switchMap } from 'rxjs';
 import { AlertStatus } from 'src/app/shared/interfaces';
 
 @Component({

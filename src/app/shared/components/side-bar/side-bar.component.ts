@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProjectService } from 'src/app/shared/services/project.service';
 import { Project } from '../../models';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { SocketService } from '../../services/socket.service';
 
 @Component({

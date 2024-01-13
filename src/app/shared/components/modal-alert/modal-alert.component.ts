@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -7,7 +7,6 @@ import { ModalService } from '../../services/modal.service';
 import { SocketService } from '../../services/socket.service';
 import { ModalAlertType } from '../../interfaces';
 import { AlertStatus } from 'src/app/shared/interfaces';
-import { Collaborators } from '../../interfaces/collaborators.interface';
 import { TaskService } from '../../services/taskService.service';
 import { CollaboratorService } from '../../services/collaborator.service';
 
@@ -31,17 +30,12 @@ export class SharedModalAlertComponent {
   public id: string = '';
   public modalAlert = computed(() => this.modalService.alert());
 
-  // @Input() modalAlert: ModalAlert | undefined;
-  // @Input() colaborador: Collaborators | undefined;
-
   constructor() {
     this._deleteModel = this._deleteModel = this.modalService.id.subscribe(id => this.id = id);
   }
 
   hideModal() {
     this.isLoading = false;
-    // this.modalAlert = undefined;
-    // this.colaborador = undefined;
     this.modalService.modalAlertStatus = false;
   }
 

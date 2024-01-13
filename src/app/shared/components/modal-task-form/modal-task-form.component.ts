@@ -61,11 +61,6 @@ export class SharedModalTaskFormComponent implements OnDestroy {
     this.project.colaboradores.find(
       colaborador => {
 
-        // if (!this.currentTask && colaborador.rol === this.admin) {
-        //   this.isAdmin = true;
-        //   return;
-        // }
-
         if (colaborador.usuario._id === this.currentUser?._id && colaborador.rol !== this.admin) {
           this.isAdmin = false;
           this.taskForm.get('vencimiento')?.disable();
@@ -136,8 +131,12 @@ export class SharedModalTaskFormComponent implements OnDestroy {
 
     this.taskService.updateTask(task, this.currentTask!._id)
       .subscribe({
-        next: res => this.setToastNotification(res, AlertStatus.success),
-        error: err => this.setToastNotification(err.error, AlertStatus.error)
+        next: res => {
+          this.socketService.editingCollaborators();
+          this.setToastNotification(res, AlertStatus.success);
+          this.hideModal();
+        },
+        error: err => this.setToastNotification('Se ha producido un error', AlertStatus.error, err.error)
       });
   }
 
@@ -147,37 +146,22 @@ export class SharedModalTaskFormComponent implements OnDestroy {
 
     this.taskService.addTask(task)
       .subscribe({
-        next: res => this.setToastNotification(res, AlertStatus.success),
-        error: err => this.setToastNotification(err.error, AlertStatus.error)
+        next: res => {
+          this.socketService.editingCollaborators();
+          this.setToastNotification(res, AlertStatus.success);
+          this.hideModal();
+        },
+        error: err => this.setToastNotification('Se ha producido un error', AlertStatus.error, err.error)
       });
   }
 
-  setToastNotification(res: string, status: AlertStatus) {
+  setToastNotification(title: string, status: AlertStatus, message?: string) {
     this.isLoading = false;
-
-    switch (status) {
-
-      case AlertStatus.success:
-        this.modalService.toastNotification.emit({
-          title: res,
-          status: status
-        });
-
-        this.socketService.editingCollaborators();
-        this.modalService.viewNewSharedColumnCard = false;
-
-        this.hideModal();
-        break;
-
-      case AlertStatus.error:
-        this.modalService.toastNotification.emit({
-          title: 'Se ha producido un error',
-          message: res,
-          status: status
-        });
-
-        break;
-    }
+    this.modalService.toastNotification.emit({
+      title,
+      message,
+      status
+    });
 
   }
 

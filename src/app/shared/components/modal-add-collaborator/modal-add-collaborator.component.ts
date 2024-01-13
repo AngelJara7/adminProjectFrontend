@@ -1,13 +1,11 @@
-import { Component, Input, OnDestroy, Output, computed, inject } from '@angular/core';
+import { Component, Input, OnDestroy, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 
 import { ModalService } from '../../services/modal.service';
-import { ProjectService } from '../../services/project.service';
-
 import { AlertStatus } from '../../interfaces';
 import { SocketService } from '../../services/socket.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service';
-import { Subject, Subscription, debounceTime } from 'rxjs';
 import { Project, User } from '../../models';
 import { CollaboratorService } from '../../services/collaborator.service';
 import { environment } from 'src/environments/environment';

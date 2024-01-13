@@ -1,6 +1,5 @@
 import { Component, Output, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { AuthService } from '../../../shared/services/auth.service';

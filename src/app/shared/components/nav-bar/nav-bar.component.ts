@@ -21,7 +21,6 @@ export class SharedNavBarComponent {
   public user = signal<User|null>(null);
   public img: string = '';
 
-  // @ViewChild('profileUser') profileUser!: ElementRef;
   @ViewChild('button') button!: ElementRef;
 
   constructor() {
@@ -41,11 +40,6 @@ export class SharedNavBarComponent {
     !this.user()?.foto
     ? this.img = environment.path_no_img
     : this.img = `${environment.base_url}/${this.user()?.foto}`;
-  }
-
-  viewProfile(event: any) {
-    // this.viewOptionsProfile = !this.viewOptionsProfile;
-    // this.close(event);
   }
 
   logout() {

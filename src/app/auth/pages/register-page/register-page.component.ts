@@ -1,5 +1,4 @@
 import { Component, Output, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
@@ -33,7 +32,6 @@ export class RegisterPageComponent {
 
   isValidField(field: string) {
     return this.registerForm.controls[field].errors && this.registerForm.controls[field].touched;
-    // return this.validatorsService.isValidField(this.registerForm, field);
   }
 
   getErrorField(field: string): string | null {
