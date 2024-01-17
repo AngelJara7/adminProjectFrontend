@@ -3,6 +3,6 @@ export enum ModalAlertType {
   none = 'none',
   user = 'user',
   project = 'project',
-  colaborator = 'colaborator',
+  collaborator = 'collaborator',
   task = 'task',
 }

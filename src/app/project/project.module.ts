@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectLayoutComponent } from './layout/project-layout/project-layout.component';
 import { SharedModule } from '../shared/shared.module';
-import { ColaborationComponent } from './pages/colaboration/colaboration.component';
+import { CollaborationComponent } from './pages/collaboration/collaboration.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,7 @@ import { SettingsProjectComponent } from './pages/settings-project/settings-proj
   declarations: [
     ProjectLayoutComponent,
     ProjectComponent,
-    ColaborationComponent,
+    CollaborationComponent,
     SettingsProjectComponent
   ],
   imports: [

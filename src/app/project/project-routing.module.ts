@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProjectLayoutComponent } from './layout/project-layout/project-layout.component';
 import { ProjectComponent } from './pages/project/project.component';
 import { SettingsProjectComponent } from './pages/settings-project/settings-project.component';
-import { ColaborationComponent } from './pages/colaboration/colaboration.component';
+import { CollaborationComponent } from './pages/collaboration/collaboration.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ProjectLayoutComponent,
     children: [
       { path: 'board', component: ProjectComponent },
-      { path: 'colaboration', component: ColaborationComponent },
+      { path: 'collaboration', component: CollaborationComponent },
       { path: 'settings', component: SettingsProjectComponent },
       { path: '**', redirectTo: 'board' }
     ]

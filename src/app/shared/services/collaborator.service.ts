@@ -59,7 +59,7 @@ export class CollaboratorService {
       );
   }
 
-  deleteColaborator(idCollaborator: string): Observable<string> {
+  deleteCollaborator(idCollaborator: string): Observable<string> {
     const url = `${this.baseUrl}/${idCollaborator}`;
 
     return this.http.delete<string>(url, this.headers)

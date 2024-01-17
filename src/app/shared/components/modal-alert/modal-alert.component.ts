@@ -19,7 +19,7 @@ export class SharedModalAlertComponent {
 
   private userService = inject(AuthService);
   private projectService = inject(ProjectService);
-  private collaboratorSerice = inject(CollaboratorService);
+  private collaboratorService = inject(CollaboratorService);
   private taskService = inject(TaskService);
   private socket = inject(SocketService);
 
@@ -51,8 +51,8 @@ export class SharedModalAlertComponent {
         this.deleteProject();
         return;
 
-      case ModalAlertType.colaborator:
-        this.deleteColaborator();
+      case ModalAlertType.collaborator:
+        this.deleteCollaborator();
         return;
 
       case ModalAlertType.task:
@@ -92,11 +92,11 @@ export class SharedModalAlertComponent {
       });
   }
 
-  deleteColaborator() {
+  deleteCollaborator() {
 
     this.isLoading = true;
 
-    this.collaboratorSerice.deleteColaborator(this.id)
+    this.collaboratorService.deleteCollaborator(this.id)
       .subscribe({
         next: res => {
           this.socket.editingCollaborators();

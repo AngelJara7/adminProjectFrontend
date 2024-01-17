@@ -10,11 +10,11 @@ import { ProjectService } from 'src/app/shared/services/project.service';
 import { SocketService } from 'src/app/shared/services/socket.service';
 
 @Component({
-  selector: 'app-colaboration',
-  templateUrl: './colaboration.component.html',
-  styleUrls: ['./colaboration.component.css']
+  selector: 'app-collaboration',
+  templateUrl: './collaboration.component.html',
+  styleUrls: ['./collaboration.component.css']
 })
-export class ColaborationComponent implements OnDestroy {
+export class CollaborationComponent implements OnDestroy {
 
   private activatedRoute = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
@@ -65,20 +65,20 @@ export class ColaborationComponent implements OnDestroy {
         this.breadcrumbs = [
           { link: '/dashboard/projects', title: 'Proyectos' },
           { link: '../board', title: this.project!.nombre },
-          { link: '../colaboration', title: 'Equipo' }
+          { link: '../collaboration', title: 'Equipo' }
         ];
       }
     });
   }
 
-  searchColaborators(colaborators: string) {
+  searchCollaborators(collaborators: string) {
 
-    if (!this.project || colaborators === '') {
+    if (!this.project || collaborators === '') {
       this.colaboradores = this.project!.colaboradores;
       return;
     };
 
-    this.colaboradores = this.colaboradores.filter(colab => colab.usuario.nombre.match(colaborators) || colab.usuario.email.match(colaborators));
+    this.colaboradores = this.colaboradores.filter(collab => collab.usuario.nombre.match(collaborators) || collab.usuario.email.match(collaborators));
   }
 
   viewModalAddCollaborator() {
@@ -112,18 +112,18 @@ export class ColaborationComponent implements OnDestroy {
 
   }
 
-  viewModalAlert(colaborator: Collaborators, project: Project) {
-    this.modalService.setModalAlert(this.setAlertAndColaborator(colaborator, project));
-    this.modalService.id.emit(colaborator._id);
+  viewModalAlert(collaborator: Collaborators, project: Project) {
+    this.modalService.setModalAlert(this.setAlertAndCollaborator(collaborator, project));
+    this.modalService.id.emit(collaborator._id);
     this.modalService.modalAlertStatus = true;
   }
 
-  setAlertAndColaborator(colaborator: Collaborators, project: Project) {
+  setAlertAndCollaborator(collaborator: Collaborators, project: Project) {
 
     return this.modalAlert = {
-      type: ModalAlertType.colaborator,
-      title: `Eliminar a '${colaborator.usuario.nombre}' del proyecto '${project.nombre}'`,
-      message: `Al confirmar esta acción esta eliminando al colaborador '${colaborator.usuario.nombre}' del proyecto y de todas las tareas de las que este es responsable. \n ¿Desea eliminar al colaborador?`
+      type: ModalAlertType.collaborator,
+      title: `Eliminar a '${collaborator.usuario.nombre}' del proyecto '${project.nombre}'`,
+      message: `Al confirmar esta acción esta eliminando al colaborador '${collaborator.usuario.nombre}' del proyecto y de todas las tareas de las que este es responsable. \n ¿Desea eliminar al colaborador?`
     }
   }
 
